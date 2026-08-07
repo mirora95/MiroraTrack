@@ -23,11 +23,19 @@ changed so ledger claims are recorded rather than gating, which means a later
 run may legitimately report `ledgerDataEntry: NOT-VERIFIED` while still passing
 the lifecycle.
 
-The last two verification runs were terminated externally before completion, so
-the reworked recording behaviour has not yet been observed end to end. Both left
-a sandbox environment running, which was stopped by exact ID; a process kill
-bypasses the controller's cleanup, so check `wsb.exe ListRunningSandboxes` after
-any interrupted run.
+**Recording behaviour confirmed.** Run `20260807-145805-b2d9cc14` returned
+`PASS` with `ledgerDataEntry: NOT-VERIFIED`, all three `ledgerVerified` flags
+false, and the recorded reason `No automatic backup appeared ... within 90
+seconds`. All four preservation gates still passed at 215 files with zero
+missing and zero altered. This is the intended separation: the installer
+lifecycle is proven on a run where the user-interface automation delivered
+nothing, so a real installer regression can no longer be confused with an
+undelivered keystroke.
+
+Two earlier verification runs were terminated externally and each left a sandbox
+environment running, which was stopped by exact ID. A process kill bypasses the
+controller's cleanup, so check `wsb.exe ListRunningSandboxes` after any
+interrupted run.
 
 The installers remain **UNACCEPTED** pending the residual items at the end of
 this document.
