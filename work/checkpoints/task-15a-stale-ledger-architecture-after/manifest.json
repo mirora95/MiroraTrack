@@ -1,0 +1,35 @@
+﻿{
+    "CapturedAt":  "2026-08-03T20:15:05.9540580+05:00",
+    "Files":  [
+                  {
+                      "Path":  "C:\\Users\\orasta\\Documents\\Projects\\MiroraTrack\\scripts\\Build-Task15Installers.ps1",
+                      "Length":  34143,
+                      "Sha256":  "38BB9B602043E5F2267E7FEB6607E40B3A8D0A7E1D0D46623AD7310080061D00"
+                  },
+                  {
+                      "Path":  "C:\\Users\\orasta\\Documents\\Projects\\MiroraTrack\\scripts\\task15\\Invoke-Task15FinalIntegrityAudit.ps1",
+                      "Length":  19383,
+                      "Sha256":  "9799EAC992040438D53EB2DDC94AD53E5FD80C690023EAC50B4E423F63CC5904"
+                  },
+                  {
+                      "Path":  "C:\\Users\\orasta\\Documents\\Projects\\MiroraTrack\\scripts\\task15\\Test-Task15BuildIntegration.ps1",
+                      "Length":  4427,
+                      "Sha256":  "4EF034418B11EECC03DF055F4DF6F4D7C84CA14D77E5AFE02CD83F47C53E795E"
+                  },
+                  {
+                      "Path":  "C:\\Users\\orasta\\Documents\\Projects\\MiroraTrack\\scripts\\task15\\Test-Task15ProcessLineage.ps1",
+                      "Length":  16841,
+                      "Sha256":  "8FE38E7AA14F41D24A698F556C35C21DB52BD18899D168F9216A5235A8C589A1"
+                  },
+                  {
+                      "Path":  "C:\\Users\\orasta\\Documents\\Projects\\MiroraTrack\\scripts\\task15\\Task15ProcessLineage.psm1",
+                      "Length":  13171,
+                      "Sha256":  "4C2350D40F833DD6CD513677BB4F398963240C613CF2B779187FA3FC8670FE99"
+                  },
+                  {
+                      "Path":  "C:\\Users\\orasta\\Documents\\Projects\\MiroraTrack\\scripts\\task15\\Task15LineageManifest.psm1",
+                      "Length":  10240,
+                      "Sha256":  "3565D63E9C60562CE031F4F83C27072F133CCB636471EEA7C09FFFAB9D46B0DB"
+                  }
+              ]
+}

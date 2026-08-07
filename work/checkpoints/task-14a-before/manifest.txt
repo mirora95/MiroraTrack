@@ -1,0 +1,11 @@
+Task: 14A browser production hardening
+Created: 2026-07-31 (Asia/Tashkent), before source edits
+Scope: src/app/App.tsx, vite.config.ts, src/styles/index.css, tests only
+
+SHA256  src/app/App.tsx              8825B4068DF90FD228242B496B57BB5D9D57468611044221D654C0965EAC491D
+SHA256  vite.config.ts                4D36DB3522A7B2DD10E0936E1004373C7EE65F10F7CD7920CD76410459C15A45
+SHA256  src/styles/index.css          61D275B4DB834D6A829074CC2AAB3C49A8B60D9F69AE0FBE41F2171FAC08544D
+SHA256  src/styles/tokens.css         469B80743B232982546B69A82DA6F52C7CAB9BD46117A2FA51280B89AE8D667F
+SHA256  src/app/App.test.tsx          815FFE8B9C087D7C45DC37A3C672FDD36504ABA5251F6F1E685A7FF93DE272E8
+
+Constraints: no Git operations; no native files; no package or e2e harness edits.

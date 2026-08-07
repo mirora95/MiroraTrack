@@ -1,0 +1,12 @@
+.worktrees/
+.vs/
+node_modules/
+dist/
+coverage/
+playwright-report/
+test-results/
+src-tauri/target/
+*.log
+work/npm-cache/
+/work/toolchain/
+task-01-vite-scaffold/

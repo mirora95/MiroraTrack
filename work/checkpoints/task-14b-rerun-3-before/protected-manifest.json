@@ -1,0 +1,1062 @@
+[
+    {
+        "Path":  "tests/integration/restoreInterruption.test.ts",
+        "Length":  9117,
+        "Sha256":  "70451F470382917691AE3A187672779D865C05E4091750C6AAD30BA9F4F58FB8"
+    },
+    {
+        "Path":  "tests/integration/repositories.test.ts",
+        "Length":  4702,
+        "Sha256":  "712DC844968D913C6D5974893DF1D10C1BE457AD983A8A5CEE1E4116A087E157"
+    },
+    {
+        "Path":  "tests/integration/migrations.test.ts",
+        "Length":  23309,
+        "Sha256":  "91AD02385982E399C82D4DE0B17F9DAF03C0A9A1BEAF0C79AE8B7ADE11143A99"
+    },
+    {
+        "Path":  "tests/integration/unitOfWork.test.ts",
+        "Length":  16027,
+        "Sha256":  "8740B8E2E626209C58F77DC6168E822812F4789D0806CD7AB1E82CA44D833C7F"
+    },
+    {
+        "Path":  "tests/integration/transactionConcurrency.test.ts",
+        "Length":  6912,
+        "Sha256":  "92A1841D1490EACDB2CF837F9643E04056EA665C9E908F309BC579C6825894AC"
+    },
+    {
+        "Path":  "tests/integration/settingsUnitOfWork.test.ts",
+        "Length":  2778,
+        "Sha256":  "7487E467371EAA40E42EF2B0FD1228590DF9D321133F14E3F2679E5CAC0D4DC4"
+    },
+    {
+        "Path":  "tests/integration/budgetUnitOfWork.test.ts",
+        "Length":  10648,
+        "Sha256":  "C7F291E7BF24C3B7C170B1167B56963C0D70E3B7E3FAD95B28ECB5090A9C79F6"
+    },
+    {
+        "Path":  "tests/e2e/support/nativeMocks.ts",
+        "Length":  2011,
+        "Sha256":  "C579520D4A240716B2D911A1C6D3AEAC58CD1F399E1EF7577CD80952C6ED1950"
+    },
+    {
+        "Path":  "tests/e2e/support/harness.ts",
+        "Length":  270,
+        "Sha256":  "33203867A30B6FD774D23D1D454D2D44A6C595870F1AE1CE5E9C0EDA2742FFD3"
+    },
+    {
+        "Path":  "tests/e2e/support/flows.ts",
+        "Length":  1782,
+        "Sha256":  "57C276AA21EF95233C4F511A95751B7D8482E502D5BCD9400D33860A2414E53B"
+    },
+    {
+        "Path":  "tests/integration/accountUnitOfWork.test.ts",
+        "Length":  9850,
+        "Sha256":  "17D66011EDE4F9BA6BEC4380F8CE66B4DD7C11F5F1AE5D6B33B068865D10333D"
+    },
+    {
+        "Path":  "tests/fixtures/ten-thousand-transactions.ts",
+        "Length":  974,
+        "Sha256":  "9B399A0F27F15C45781360B8183A849731D174900C01FB55C7C3842CC6A0F477"
+    },
+    {
+        "Path":  "tests/e2e/support/quality.ts",
+        "Length":  2046,
+        "Sha256":  "D4E2A74F90556F72B56FF463A245B33822FF9094F2F6343E293B781FDC206080"
+    },
+    {
+        "Path":  "src-tauri/gen/schemas/windows-schema.json",
+        "Length":  120083,
+        "Sha256":  "2A16F62C90A059A1B67E4501216BB3476F402087E99BA659DD38C9D0521F3B07"
+    },
+    {
+        "Path":  "src-tauri/gen/schemas/desktop-schema.json",
+        "Length":  120083,
+        "Sha256":  "2A16F62C90A059A1B67E4501216BB3476F402087E99BA659DD38C9D0521F3B07"
+    },
+    {
+        "Path":  "src-tauri/gen/schemas/capabilities.json",
+        "Length":  147,
+        "Sha256":  "56619D4C624669FF23AD356D4C5198BA0288FE8C22BA45B639C953850A014C77"
+    },
+    {
+        "Path":  "src-tauri/icons/32x32.png",
+        "Length":  2123,
+        "Sha256":  "EABF3530A583EFF1AE3FEB2F3A9C3B36E525E95EB6F524E2D4FC64E7121F37A0"
+    },
+    {
+        "Path":  "src-tauri/icons/128x128@2x.png",
+        "Length":  60021,
+        "Sha256":  "72AB766DF9C532930EBA861A43CC6CAA141150F5A0FFB481BF1A003D226DA49B"
+    },
+    {
+        "Path":  "src-tauri/icons/128x128.png",
+        "Length":  18693,
+        "Sha256":  "9FBBAC7E74D4BB4231B70707CB2B2150039515AD06297438388FFA6C544642E1"
+    },
+    {
+        "Path":  "src-tauri/gen/schemas/acl-manifests.json",
+        "Length":  68210,
+        "Sha256":  "D3EACE193B1E453756736EAF27BB156DF62C7A41B2FE101403EE92EF93E69699"
+    },
+    {
+        "Path":  "tests/unit/backupPort.test.ts",
+        "Length":  9985,
+        "Sha256":  "CEE5CD7E74F1EFCA9B6255FEAAF6D273F69ECE8F01341168DE3B4747836CE3FC"
+    },
+    {
+        "Path":  "tests/unit/backup.test.ts",
+        "Length":  11044,
+        "Sha256":  "634F6C82870A7CBFF2A1D153E56E0DC06A7958E2D760232671FCC2DC5E374A45"
+    },
+    {
+        "Path":  "tests/performance/tenThousandTransactions.test.ts",
+        "Length":  3358,
+        "Sha256":  "7E31D0A9B06E5AEC4CBB3D3851E20ECC28B034405B4B0A2B80A557295B8F43D9"
+    },
+    {
+        "Path":  "src-tauri/capabilities/default.json",
+        "Length":  206,
+        "Sha256":  "A724332ADDCF450FA77699366882DF7D368E2E84D4BB06652C22A9B6808D1512"
+    },
+    {
+        "Path":  "tests/unit/preferences.test.ts",
+        "Length":  2129,
+        "Sha256":  "DAA85B5FA5DAFDB56CC8A09BF73E89C500DE73B533812B13D4804A71A10FC1B8"
+    },
+    {
+        "Path":  "tests/unit/csv.test.ts",
+        "Length":  1808,
+        "Sha256":  "9EC44861DCA142EDE4B3C158BD041B8C7F3E271D3F6F2B24D65C22FC053F0949"
+    },
+    {
+        "Path":  "tests/e2e/persistence.spec.ts",
+        "Length":  3792,
+        "Sha256":  "B3CB2A6BDADD6F9D50DEE0F3AA85E4FFDC2356643F2DA7123AC3E9A5904CA8EC"
+    },
+    {
+        "Path":  "src/finance/ledger.ts",
+        "Length":  7871,
+        "Sha256":  "FDA2BC03DF2E18B5D6989F9646CC41ECD89102981F312E6F5C6AC765CE6FC03C"
+    },
+    {
+        "Path":  "src/finance/ledger.test.ts",
+        "Length":  10041,
+        "Sha256":  "2D5F266E1113F5E6D004869D6C65A0AD69EE300434C012CB57ABB5FEBA934B92"
+    },
+    {
+        "Path":  "src/finance/budgets.ts",
+        "Length":  1841,
+        "Sha256":  "E99AB8EBE43D651C51199E5004232805FB26E321465CC4B70637CC846954B7A7"
+    },
+    {
+        "Path":  "src/finance/types.test-d.ts",
+        "Length":  993,
+        "Sha256":  "D32C8F89844084F160101A10120102FBA1D2D3ADE86F8A62B292104CE4CAD51D"
+    },
+    {
+        "Path":  "src/finance/money.ts",
+        "Length":  3894,
+        "Sha256":  "F2E6BD4B168C5667A9D54859DAB22C79FA49CA8A71AE720D485BD08707E8D6AD"
+    },
+    {
+        "Path":  "src/finance/money.test.ts",
+        "Length":  4054,
+        "Sha256":  "3B36FAC7305951DF1BC8B2B3305698316642D44FC8B864622F8166F9EAFB2FA0"
+    },
+    {
+        "Path":  "src/finance/budgets.test.ts",
+        "Length":  4274,
+        "Sha256":  "78EBD6460B1A28E1CFE4A61A38A8959346874D35C17609D0092C2DE6FD583B07"
+    },
+    {
+        "Path":  "src/features/transactions/TransactionForm.tsx",
+        "Length":  13215,
+        "Sha256":  "5EABCF7702D61E167C0FE79C20B65F2DF0B2AFD39D7851644593B86ADC78F184"
+    },
+    {
+        "Path":  "src/features/transactions/TransactionDialogProvider.tsx",
+        "Length":  2656,
+        "Sha256":  "92359F874D095EC03142C57090E222BF59665C1021C1E80A6B3333DEBA6CF09A"
+    },
+    {
+        "Path":  "src/features/settings/SettingsPage.tsx",
+        "Length":  12119,
+        "Sha256":  "3315665F93879CC8926BE558BDDDFB36ABDF9D152C6A3CF44122510C3A7A81A7"
+    },
+    {
+        "Path":  "src/features/transactions/TransactionTable.tsx",
+        "Length":  4157,
+        "Sha256":  "8E2C2CF6174250FB99EDAA60A9FCC605290D849069A4E17E7F0168D67BCC4399"
+    },
+    {
+        "Path":  "src/features/transactions/TransactionsPage.tsx",
+        "Length":  15663,
+        "Sha256":  "12533A00998514C7F2F1A6896EFF47D563592E1E7728EBC040C531C7C6D7C60E"
+    },
+    {
+        "Path":  "src/features/transactions/TransactionsPage.test.tsx",
+        "Length":  9850,
+        "Sha256":  "1A86EEC7FA6E1E6B16CAB8B309CFD54F956F78C5BCC147C38A934E30826A6953"
+    },
+    {
+        "Path":  "tests/architecture/featureArchitecture.test.ts",
+        "Length":  3189,
+        "Sha256":  "0B5A53F0C0CAD49478AE923A22CC1765C2E2A833B2955B1995D2750024552F26"
+    },
+    {
+        "Path":  "src/test/setup.ts",
+        "Length":  71,
+        "Sha256":  "B07C4FAA9885C2611D72CE2585843FBE57754E60485525CEE70D170D1AA1EDF0"
+    },
+    {
+        "Path":  "src/styles/tokens.css",
+        "Length":  3620,
+        "Sha256":  "06DDCA0CAA9F6B5C175F81FC55E9DF840B28F06A32232583FAFEE505E79CBE17"
+    },
+    {
+        "Path":  "tests/e2e/coreFlows.spec.ts",
+        "Length":  6597,
+        "Sha256":  "40B62751264C4D1964BE55E48B2665F79390BC0CA85784516E8F30A60DC9FF49"
+    },
+    {
+        "Path":  "tests/e2e/accessibilityOffline.spec.ts",
+        "Length":  4305,
+        "Sha256":  "A193A44FDC4C550C0B943BFC8413F6D73D4B2E976EB867F05D7D768523279E83"
+    },
+    {
+        "Path":  "tests/config/packagingConfig.test.ts",
+        "Length":  3612,
+        "Sha256":  "6AC4848D1A7DDF96F89436B1B6843982E123DC86C356A8B8E88C7CBB7F7F5773"
+    },
+    {
+        "Path":  "src/styles/index.css",
+        "Length":  49694,
+        "Sha256":  "FF5BC8A34FF072CED52728AFA5FC47392D46A5FB17B9686CF223280C52BB924D"
+    },
+    {
+        "Path":  "src/platform/backupPort.ts",
+        "Length":  8200,
+        "Sha256":  "C0657BF3716A412F3F0E27C046F61477B04F7E0BB606D148ABBEADAC6204F4C0"
+    },
+    {
+        "Path":  "src/i18n/en.ts",
+        "Length":  4152,
+        "Sha256":  "80C2877E6A1D5A24F2BC3976846AB92C71E76BD9F000EE598277DBFF6E9D7D3D"
+    },
+    {
+        "Path":  "src/finance/types.ts",
+        "Length":  6456,
+        "Sha256":  "78C6BB1F8163F8F3A141D0FA0E374FE088425ACD768F82967F0CD80212476026"
+    },
+    {
+        "Path":  "src/stores/preferences.ts",
+        "Length":  7540,
+        "Sha256":  "6E377A3281DE50664E01E8742EC8B5588C2507E866927B1A74010F82C4B4E1A9"
+    },
+    {
+        "Path":  "src/platform/windowPort.ts",
+        "Length":  2729,
+        "Sha256":  "03E845CC657430461BDE1DE2087F6DE2DAD1FD5F9982729F15AD5ECFC83A714B"
+    },
+    {
+        "Path":  "src/platform/windowPort.test.ts",
+        "Length":  1707,
+        "Sha256":  "CC36C64965C532EB65FCA0F29F97F6094C6E5D963543337D4D47FA4B11ABD59E"
+    },
+    {
+        "Path":  "src-tauri/icons/ios/AppIcon-29x29@2x-1.png",
+        "Length":  5283,
+        "Sha256":  "9BBCD59337E6BFA29253FAA0FEB1B8A8CBE3E9243BAC31894D95990337EA688B"
+    },
+    {
+        "Path":  "src-tauri/icons/ios/AppIcon-29x29@1x.png",
+        "Length":  1818,
+        "Sha256":  "903FFA89345457E53A90DC65F14F389AE2EC5C9F1792B1272AE0F15BAF401FEE"
+    },
+    {
+        "Path":  "src-tauri/icons/ios/AppIcon-20x20@3x.png",
+        "Length":  5597,
+        "Sha256":  "CDA4533017F517E482F89DFDBCFFE053E66ACDD6F5863247EB39AA511B6220D1"
+    },
+    {
+        "Path":  "src-tauri/icons/ios/AppIcon-40x40@1x.png",
+        "Length":  2952,
+        "Sha256":  "28B9EB03503BF9D3B7574CE3DDEEEB5DCABF5179BD9AC74DD2CFCFB39DDE2CDD"
+    },
+    {
+        "Path":  "src-tauri/icons/ios/AppIcon-29x29@3x.png",
+        "Length":  10148,
+        "Sha256":  "5638C17A8EE88A9A2E006A6C9F01B5940FE5C02A5AA08B1802B15246D9DAFFE3"
+    },
+    {
+        "Path":  "src-tauri/icons/ios/AppIcon-29x29@2x.png",
+        "Length":  5283,
+        "Sha256":  "9BBCD59337E6BFA29253FAA0FEB1B8A8CBE3E9243BAC31894D95990337EA688B"
+    },
+    {
+        "Path":  "src-tauri/icons/ios/AppIcon-20x20@2x.png",
+        "Length":  2952,
+        "Sha256":  "28B9EB03503BF9D3B7574CE3DDEEEB5DCABF5179BD9AC74DD2CFCFB39DDE2CDD"
+    },
+    {
+        "Path":  "src-tauri/icons/android/mipmap-xxxhdpi/ic_launcher_round.png",
+        "Length":  28655,
+        "Sha256":  "233A4758BD5565889EB33FC68284CA667D565DBAE62B7EA45D265D61FF544885"
+    },
+    {
+        "Path":  "src-tauri/icons/android/mipmap-xxxhdpi/ic_launcher_foreground.png",
+        "Length":  172559,
+        "Sha256":  "7DD174CAA6E27F842DCAACE2A0D3CE1166BE843F0E0A218CF9165F2E2CF16B96"
+    },
+    {
+        "Path":  "src-tauri/icons/android/mipmap-xxxhdpi/ic_launcher.png",
+        "Length":  29289,
+        "Sha256":  "0E52EE6440242969999C02BCFEAB90F2E35EC3117F6A2224255F1BD750BE0FD7"
+    },
+    {
+        "Path":  "src-tauri/icons/ios/AppIcon-20x20@2x-1.png",
+        "Length":  2952,
+        "Sha256":  "28B9EB03503BF9D3B7574CE3DDEEEB5DCABF5179BD9AC74DD2CFCFB39DDE2CDD"
+    },
+    {
+        "Path":  "src-tauri/icons/ios/AppIcon-20x20@1x.png",
+        "Length":  1071,
+        "Sha256":  "0705C0F24B820F63A84A48DBEE6BF93AF70A3881242FE845E8E5C419B255BE3B"
+    },
+    {
+        "Path":  "src-tauri/icons/android/values/ic_launcher_background.xml",
+        "Length":  115,
+        "Sha256":  "0687336F0CCC6F7EE09C7C95110667C63B75931238DF779A21AF401FB864CD34"
+    },
+    {
+        "Path":  "src-tauri/src/backup.rs",
+        "Length":  21450,
+        "Sha256":  "BA88C1B5C1780C223D5AB8075E51BAD31D1C7DF54BFA2889409CD252D7884675"
+    },
+    {
+        "Path":  "src-tauri/icons/ios/AppIcon-83.5x83.5@2x.png",
+        "Length":  28610,
+        "Sha256":  "200614AF8A220A066F65D89A4F34CCAB4662175FA68022EDB6DB30AA8237CEA3"
+    },
+    {
+        "Path":  "src-tauri/icons/ios/AppIcon-76x76@2x.png",
+        "Length":  24537,
+        "Sha256":  "9ABF1866154D70134E3A0FDF8526215208552050097AB05678882923FDB058D7"
+    },
+    {
+        "Path":  "work/toolchain/Invoke-Task13bNative.ps1",
+        "Length":  1693,
+        "Sha256":  "92F9591956493A291CCF645E975EE2D90ED1E29A909EABB7147CC62CF771841E"
+    },
+    {
+        "Path":  "src-tauri/src/main.rs",
+        "Length":  187,
+        "Sha256":  "2AA9EAB6B8F5F939B73E7ED39A864EFCB88DE6AFDC663DDB6700398266B4723C"
+    },
+    {
+        "Path":  "src-tauri/src/lib.rs",
+        "Length":  490,
+        "Sha256":  "D0EC8079432AC9F1ED25FB2E17F51A70CDF6A416B4774F3644528E34942006BC"
+    },
+    {
+        "Path":  "src-tauri/icons/ios/AppIcon-76x76@1x.png",
+        "Length":  8158,
+        "Sha256":  "5304760AF99A9A6CC5D3C263F5962DAAA54A7FB41FEA01D8C689FF58C29CF456"
+    },
+    {
+        "Path":  "src-tauri/icons/ios/AppIcon-40x40@3x.png",
+        "Length":  16933,
+        "Sha256":  "1EB83EAFD2C72906D37A37150F227002EAA50F6D3D1E9CC8462CF741AC9CFB1F"
+    },
+    {
+        "Path":  "src-tauri/icons/ios/AppIcon-40x40@2x.png",
+        "Length":  8872,
+        "Sha256":  "13A986955DC0F75E6AEE870F7E63A195ED565DA42A915E8D4C0407058C661012"
+    },
+    {
+        "Path":  "src-tauri/icons/ios/AppIcon-40x40@2x-1.png",
+        "Length":  8872,
+        "Sha256":  "13A986955DC0F75E6AEE870F7E63A195ED565DA42A915E8D4C0407058C661012"
+    },
+    {
+        "Path":  "src-tauri/icons/ios/AppIcon-60x60@3x.png",
+        "Length":  32339,
+        "Sha256":  "C40291938BEBCE6E51FBFB36CD40D22D0AA76AEBCE5106B66B3A4950CEBE4A3F"
+    },
+    {
+        "Path":  "src-tauri/icons/ios/AppIcon-60x60@2x.png",
+        "Length":  16933,
+        "Sha256":  "1EB83EAFD2C72906D37A37150F227002EAA50F6D3D1E9CC8462CF741AC9CFB1F"
+    },
+    {
+        "Path":  "src-tauri/icons/ios/AppIcon-512@2x.png",
+        "Length":  975321,
+        "Sha256":  "3EA7E0E460B4A587045FF52B23FA33B39015C32EBC3DAF638DA68F554136748A"
+    },
+    {
+        "Path":  "src-tauri/icons/android/mipmap-xxhdpi/ic_launcher_round.png",
+        "Length":  18069,
+        "Sha256":  "80AA6DAB5F625B897B82E0FAD2CE47C5D6168FFFABFB8E2C1E4899612AEB72A4"
+    },
+    {
+        "Path":  "src-tauri/icons/Square310x310Logo.png",
+        "Length":  87111,
+        "Sha256":  "4912FE18E65E129720059B3FB3C69C9F3FF5F5B0924CBA82CD8050DBDD3315D0"
+    },
+    {
+        "Path":  "src-tauri/icons/Square30x30Logo.png",
+        "Length":  1919,
+        "Sha256":  "E0D212D6129E315FCA25B945E2A1AEEB136F4987B79EE94E3D08EEA577F15F3B"
+    },
+    {
+        "Path":  "src-tauri/icons/Square284x284Logo.png",
+        "Length":  73169,
+        "Sha256":  "6C4A58FE00B9C4A90183C4C910FE222B5EE6466B9BC5D68789AAA923D590C400"
+    },
+    {
+        "Path":  "src-tauri/icons/Square89x89Logo.png",
+        "Length":  10553,
+        "Sha256":  "5E15DF037AE9394B1C89ECBD0AADFD973563ABDCFFFAA4F21FEE8158895153DF"
+    },
+    {
+        "Path":  "src-tauri/icons/Square71x71Logo.png",
+        "Length":  7346,
+        "Sha256":  "934D49FEDF1FBF0C3726AB3BB4659EC69320A69FAA67E1A197F7B5EB8B368439"
+    },
+    {
+        "Path":  "src-tauri/icons/Square44x44Logo.png",
+        "Length":  3484,
+        "Sha256":  "187FCCD9DF99E35E316E44F42C9B34BB691445643E296222BBF8D07D90FC03D0"
+    },
+    {
+        "Path":  "src-tauri/icons/Square150x150Logo.png",
+        "Length":  23995,
+        "Sha256":  "7316327EFFB8780F57FB85C9ACFD6470FF38A53D8FF75EAD40B6411E4789ED14"
+    },
+    {
+        "Path":  "src-tauri/icons/icon.ico",
+        "Length":  74588,
+        "Sha256":  "C998B62D67EEF775A248BF752930501F376B4AB97F81E68086BBB4EDD38ED7D8"
+    },
+    {
+        "Path":  "src-tauri/icons/icon.icns",
+        "Length":  1615825,
+        "Sha256":  "D7085DE71BEDE033338BE2F94338E69B156C853720AFF8EAEC7927E7147E3B8B"
+    },
+    {
+        "Path":  "src-tauri/icons/64x64.png",
+        "Length":  6220,
+        "Sha256":  "B5EAC993A5803FFC2FEFF1DD119A8F2DFBD0E5A3BE9D635D5F0F4018F3480FC3"
+    },
+    {
+        "Path":  "src-tauri/icons/Square142x142Logo.png",
+        "Length":  21898,
+        "Sha256":  "0ED46B208A0BA86D70C99DDF9E44E8879F100B3A3B069F868BB1330DAE9A7210"
+    },
+    {
+        "Path":  "src-tauri/icons/Square107x107Logo.png",
+        "Length":  14045,
+        "Sha256":  "BE98AE5D813F6807CC4177400038004BA500E26823C5DB639BECC22CBC213EE1"
+    },
+    {
+        "Path":  "src-tauri/icons/icon.png",
+        "Length":  246009,
+        "Sha256":  "458344BEE7033A3E167F3289D60BEF5BFCC35DAAA4B4D17E1D12CDCEA00F2E03"
+    },
+    {
+        "Path":  "src-tauri/icons/android/mipmap-xhdpi/ic_launcher_foreground.png",
+        "Length":  44154,
+        "Sha256":  "86554BB6551FB972E209EF6B3335684AB0DE46E27DD6A157D367AE06B6D2A7D7"
+    },
+    {
+        "Path":  "src-tauri/icons/android/mipmap-xhdpi/ic_launcher.png",
+        "Length":  9674,
+        "Sha256":  "FB3233DF08646A6C93FC52716DB1400C95711E9316F55571B42770014414B11C"
+    },
+    {
+        "Path":  "src-tauri/icons/android/mipmap-mdpi/ic_launcher_round.png",
+        "Length":  3284,
+        "Sha256":  "A1CD92DA0725FEF3288E59A07B12EB5B929E52654759F25A79518389F3229451"
+    },
+    {
+        "Path":  "src-tauri/icons/android/mipmap-xxhdpi/ic_launcher_foreground.png",
+        "Length":  94762,
+        "Sha256":  "48447B2DA9BBD72480A098108657841955AF66EE028A688554B4512BE732C157"
+    },
+    {
+        "Path":  "src-tauri/icons/android/mipmap-xxhdpi/ic_launcher.png",
+        "Length":  18293,
+        "Sha256":  "14FA84BDF9AB08383380A1063968FECC6D37036AE7AA0C5AC34F9C0542DC4DDC"
+    },
+    {
+        "Path":  "src-tauri/icons/android/mipmap-xhdpi/ic_launcher_round.png",
+        "Length":  9656,
+        "Sha256":  "7CD89043F20383B4055706B2B38F62D23304434D1CB88F2D0C4A17881E88E1CC"
+    },
+    {
+        "Path":  "src-tauri/icons/android/mipmap-mdpi/ic_launcher_foreground.png",
+        "Length":  14288,
+        "Sha256":  "D0286DB78AFB9D1513D2A3DC86FA3BB94873A7A5EC9617BF2D046B7D34BE9965"
+    },
+    {
+        "Path":  "src-tauri/icons/android/mipmap-hdpi/ic_launcher.png",
+        "Length":  3322,
+        "Sha256":  "3695677DD6038814C8BF9A11550015190031EF6AF603AE4F58DB4580603241EC"
+    },
+    {
+        "Path":  "src-tauri/icons/android/mipmap-anydpi-v26/ic_launcher.xml",
+        "Length":  261,
+        "Sha256":  "760D4B8A06BF7163DD010C33AD2CAC9E4A75FA0177AFABA042F83E311EEF0C3E"
+    },
+    {
+        "Path":  "src-tauri/icons/StoreLogo.png",
+        "Length":  4222,
+        "Sha256":  "91DAB296A710468F640E834F72A4316FBD510E96C7F0A5832D057E96C27E4233"
+    },
+    {
+        "Path":  "src-tauri/icons/android/mipmap-mdpi/ic_launcher.png",
+        "Length":  3236,
+        "Sha256":  "8AAC91D289B170641FD2938C171ED8931FE910628AC24F090D9122B819AA82E7"
+    },
+    {
+        "Path":  "src-tauri/icons/android/mipmap-hdpi/ic_launcher_round.png",
+        "Length":  3399,
+        "Sha256":  "DEE401FF83453F0A72FEBA163061B8C50D6563AC1C10BED06E6C3F352F0161D5"
+    },
+    {
+        "Path":  "src-tauri/icons/android/mipmap-hdpi/ic_launcher_foreground.png",
+        "Length":  27145,
+        "Sha256":  "AA7D64811087FB859925CFFD78CBDFB33BA6ADEF83937CC703F5FEDE0A1AABD5"
+    },
+    {
+        "Path":  "src/application/accountService.ts",
+        "Length":  4925,
+        "Sha256":  "AB6C65D8DE03DB6EF3F8AEE950E7F7E4CF39C6C92C132BFD65F67E2D8EC0EBCA"
+    },
+    {
+        "Path":  "src/application/accountService.test.ts",
+        "Length":  4888,
+        "Sha256":  "2806CBCFCEA56DEC93B872BA7A646DF03F544B1469EA4F016B96C33F21E7E84E"
+    },
+    {
+        "Path":  "src/application/accountRecords.ts",
+        "Length":  4194,
+        "Sha256":  "BC954BEE71DAD9CC48651E0ED86288DD094A2D2C905A561CE5A9BF606F5E0D00"
+    },
+    {
+        "Path":  "src/application/budgetService.test.ts",
+        "Length":  11237,
+        "Sha256":  "CC1A6428031A63C7E240787C996C2F919165D97290B0EDE1DCF977830136EB07"
+    },
+    {
+        "Path":  "src/application/activityService.ts",
+        "Length":  2995,
+        "Sha256":  "0875FF981CD5E61385A210A6D2FB12A17E1C7B3715A4FA780117767C1FE074F0"
+    },
+    {
+        "Path":  "src/application/activityService.test.ts",
+        "Length":  2992,
+        "Sha256":  "B643A0A9703C22F859860495BE34B6FD989F92815D8C68960EA6DCB6BC642F79"
+    },
+    {
+        "Path":  "src/app/startup.ts",
+        "Length":  5035,
+        "Sha256":  "8C7FD90CB5DD48C04670D0DBA8E3737052209CB819FE0E99C5618943A2EAE19B"
+    },
+    {
+        "Path":  "src/app/productionRuntime.ts",
+        "Length":  9632,
+        "Sha256":  "0CEA8DFF97B5216B9DCBA470CCF1D616A586C6EC3D070CC7C6ADE5384E978F9F"
+    },
+    {
+        "Path":  "src/app/productionRuntime.test.ts",
+        "Length":  3516,
+        "Sha256":  "61C21A185FDF830C6800C24C2E43C4ABEA126A10B64F638619A21BA5F7A3883A"
+    },
+    {
+        "Path":  "src/app/Header.tsx",
+        "Length":  1817,
+        "Sha256":  "C41ABAD1FD9861769E027FA29AA5DDA00FAFBD6A4D33215DF94FCADADA730659"
+    },
+    {
+        "Path":  "src/app/startup.test.ts",
+        "Length":  5761,
+        "Sha256":  "63A6847E3E6154440EDE9312BF5D887A81122CFEBEFADA4C78436B61808F9679"
+    },
+    {
+        "Path":  "src/app/Sidebar.tsx",
+        "Length":  2918,
+        "Sha256":  "8AB3960112890C8BB3758EBFA2E4B553F9C861C90260D09EE21A499EA376716A"
+    },
+    {
+        "Path":  "src/app/runtime.tsx",
+        "Length":  4849,
+        "Sha256":  "1FCBCA48CDE0A72E3C31F56D30B71C81423BF63E0DA52D14D59426671E0BA163"
+    },
+    {
+        "Path":  "src/application/initializationService.ts",
+        "Length":  5278,
+        "Sha256":  "744149A4959657E156365D0AB7BC60FE6100E9A6115A0EB86AA90E3EE81D13C0"
+    },
+    {
+        "Path":  "src/application/initializationService.test.ts",
+        "Length":  5647,
+        "Sha256":  "EEF6FD15268DE70CB6130A4B8216C0D33EDA6DD320C6D17861666854F40ED958"
+    },
+    {
+        "Path":  "src/application/financeService.ts",
+        "Length":  10116,
+        "Sha256":  "EEC44E8F48183951B34E563975C3A6DDE88A5920D8002915902B2FB66A2B912E"
+    },
+    {
+        "Path":  "src/application/settingsService.ts",
+        "Length":  4434,
+        "Sha256":  "BDA77FAAB70566B816CBB194F6128B9F2E5E8E03EB800E99DBA0DAAB38957074"
+    },
+    {
+        "Path":  "src/application/settingsService.test.ts",
+        "Length":  4308,
+        "Sha256":  "157C945358C6C7FBF6AF8107C08FBF3ACBCC0E4DF2E06EC824C7A2AE3CCFB2D8"
+    },
+    {
+        "Path":  "src/application/ports.ts",
+        "Length":  4933,
+        "Sha256":  "3ED490B4D7634F8585297817A5C37A224538658A66EA25933DF513D9B1EC7E98"
+    },
+    {
+        "Path":  "src/application/financeService.test.ts",
+        "Length":  13868,
+        "Sha256":  "7937A56D0D85176A0B3D32DAAB6295EC93E7152D1E89FC8BA2BAB0E4DF3787A9"
+    },
+    {
+        "Path":  "src/application/dashboardService.test.ts",
+        "Length":  15512,
+        "Sha256":  "27FF0621490FD4FC8892A96EF6CE96C767A847724C73EA5F0A625A5CE85A6A7E"
+    },
+    {
+        "Path":  "src/application/dashboardService.task10b.test.ts",
+        "Length":  22026,
+        "Sha256":  "10BC8108448FE4051BBD18FC1A94E594E71EA356BE6884F9815E7CE8E264563E"
+    },
+    {
+        "Path":  "src/application/budgetService.ts",
+        "Length":  11619,
+        "Sha256":  "E8CEBC039F3B3962A26A46516CC18BC6292DDDE6CBD819D7E09F9D773842050E"
+    },
+    {
+        "Path":  "src/application/dataManagementService.ts",
+        "Length":  8165,
+        "Sha256":  "43ECE004134D4E540501DD211E0CF818FE5989419597A5606727FA8AF1024CB5"
+    },
+    {
+        "Path":  "src/application/dataManagementService.test.ts",
+        "Length":  7200,
+        "Sha256":  "088DA76071BF3FC3026AA6FB0B9B493F00A6EE61795D2E1DFA1A694B52303A67"
+    },
+    {
+        "Path":  "src/application/dashboardService.ts",
+        "Length":  33265,
+        "Sha256":  "66A90CF04F41C51B02D6E12CA241ED9598BD9BB74042EF8C0B2F8FD714177C23"
+    },
+    {
+        "Path":  "src/app/ErrorBoundary.tsx",
+        "Length":  2025,
+        "Sha256":  "28341504425B57790BE2E359998BA0F25E810D3D6E3ABEC8051E2570AA239F54"
+    },
+    {
+        "Path":  "vite.config.ts",
+        "Length":  510,
+        "Sha256":  "306E4DF7ECF73C199C27E28F1F0CDA94B271D1BC88B8C49A960B479BCBA5A0C6"
+    },
+    {
+        "Path":  "tsconfig.node.json",
+        "Length":  558,
+        "Sha256":  "D366CC0827139DB39C61815F22491BBFDA56C654354A42AD7795143D314E45E8"
+    },
+    {
+        "Path":  "tsconfig.json",
+        "Length":  119,
+        "Sha256":  "770B4140BBB581E2DFD9EA9946FFC9C75A1D86BA7D2DB5F77C83E37CBDF9D808"
+    },
+    {
+        "Path":  "src-tauri/build.rs",
+        "Length":  39,
+        "Sha256":  "487059EAF8A947B80F20A9AACAC038A5047B2AD69D2401B827376C67D6FE847F"
+    },
+    {
+        "Path":  "src-tauri/.gitignore",
+        "Length":  90,
+        "Sha256":  "8A460714D8A02659573400DE0C2F2DCC756E63CA511497C3B8F068B63657BB01"
+    },
+    {
+        "Path":  "vitest.config.ts",
+        "Length":  296,
+        "Sha256":  "8A9416F1C4006C51BB586BB8CE4ADAFF8BA77D5E172FCF3CDE4728D25F815127"
+    },
+    {
+        "Path":  "tsconfig.app.json",
+        "Length":  713,
+        "Sha256":  "F73B2D64337528D92878DAEF040FA6D17242CF1861B3381855C69F7290EE8417"
+    },
+    {
+        "Path":  "index.html",
+        "Length":  1578,
+        "Sha256":  "89C67C4F06F8573EB300316FBB6A3077590B0063686F99FC22B85E6836AE0BEE"
+    },
+    {
+        "Path":  "e2e.html",
+        "Length":  392,
+        "Sha256":  "A90198ADD852F40DFA5A8CE86EBFCDCEF99EB022DA8C050FE618D1178736B684"
+    },
+    {
+        "Path":  ".gitignore",
+        "Length":  160,
+        "Sha256":  "0B71E720E741F69CC5B98BDAB1C4A63440892615BFE12A727F0F830AE856808A"
+    },
+    {
+        "Path":  "playwright.config.ts",
+        "Length":  752,
+        "Sha256":  "DFF2DF9A20C45FB243D4669145485FEB851A7EA18A3137E08147523717458D38"
+    },
+    {
+        "Path":  "package.json",
+        "Length":  1744,
+        "Sha256":  "863BE12B24F1A7AB086C79CAFD0E1E44921608521102818BED900BF6BE2BAFAF"
+    },
+    {
+        "Path":  "package-lock.json",
+        "Length":  120664,
+        "Sha256":  "50C7258A8456103A5955847E29B665ADEAF449F208F7523AD418F78FEC34ABB9"
+    },
+    {
+        "Path":  "src/app/AppShell.test.tsx",
+        "Length":  15148,
+        "Sha256":  "AD5C5520AF99AFC7F59F504B99759E05649E8B6EEECB3C03D9C784084F7F9C30"
+    },
+    {
+        "Path":  "src/app/App.tsx",
+        "Length":  7581,
+        "Sha256":  "22B063E01FB80D080C0149F3093649F7053F4FC92C5689B97313137AC6507F7B"
+    },
+    {
+        "Path":  "src/app/App.test.tsx",
+        "Length":  4113,
+        "Sha256":  "815FFE8B9C087D7C45DC37A3C672FDD36504ABA5251F6F1E685A7FF93DE272E8"
+    },
+    {
+        "Path":  "src/app/ErrorBoundary.test.tsx",
+        "Length":  1552,
+        "Sha256":  "1FDC66237A5075D09C4550B157EA1F3FA328E327F48924508E65CC464EAB0952"
+    },
+    {
+        "Path":  "src/app/automaticBackupRuntime.test.ts",
+        "Length":  7195,
+        "Sha256":  "16C0DAFBE731B9961CDA17745D111E459701C8EF6D6DD018B1FEB7BC69DD0697"
+    },
+    {
+        "Path":  "src/app/AppShell.tsx",
+        "Length":  1631,
+        "Sha256":  "71DEDBC2E2474E7AF7F5D4280680FEA70322B21AFAD52FFCEE0DB6303A7F6E63"
+    },
+    {
+        "Path":  "src/main.tsx",
+        "Length":  585,
+        "Sha256":  "9515B2C5E843AE564341FF66403BC76B1BE75DFB2E57AF057B7BE29A1366B6DB"
+    },
+    {
+        "Path":  "src-tauri/tauri.conf.json",
+        "Length":  1661,
+        "Sha256":  "C66500792D4050FDB59DFFE4225798CF9ADEE44AB94D643F7505078EEE15C58E"
+    },
+    {
+        "Path":  "src-tauri/Cargo.toml",
+        "Length":  789,
+        "Sha256":  "AF32C75A4603114D85391F06B383C8FC7548EAD5677D2E8A8DFF367A94D91D26"
+    },
+    {
+        "Path":  "src-tauri/Cargo.lock",
+        "Length":  111243,
+        "Sha256":  "1B121E655446320FE7FBDF3D1908B317B1BA2A3A37C1B457DDF9268FF0EE12E7"
+    },
+    {
+        "Path":  "public/icons.svg",
+        "Length":  5031,
+        "Sha256":  "B45FA506195CFCDEF406BA9F0C77B36DDC1A7C224040926EC70ABC2FDEA7B93A"
+    },
+    {
+        "Path":  "public/favicon.svg",
+        "Length":  523,
+        "Sha256":  "F06E0563AA7055FC49D5562638557C757B0178D4431D56F4BA442377203F27EF"
+    },
+    {
+        "Path":  "assets/branding/miroratrack-icon-1024.png",
+        "Length":  1257533,
+        "Sha256":  "C882ABF3A8006C83FB342125812D8EFA855A10910D6C5AB0AD9CE4017173FFD0"
+    },
+    {
+        "Path":  "src/features/activity/ActivityPage.test.tsx",
+        "Length":  1566,
+        "Sha256":  "A6E91A0C28821DF7BDF60E1790A780082F04620733D1BD2C53BBCA43E8CCC80B"
+    },
+    {
+        "Path":  "src/features/accounts/AccountsPage.tsx",
+        "Length":  11117,
+        "Sha256":  "48022A05DED31A6823C88E5EB71C212639AFB00D4FC21916FF04E6BABD0A6EAC"
+    },
+    {
+        "Path":  "src/features/accounts/AccountsPage.test.tsx",
+        "Length":  10496,
+        "Sha256":  "4D262EBA321D3ADC0CFD6467B5B5EA4C45F2CC2D1DA419BF699C5533A8CCA2C5"
+    },
+    {
+        "Path":  "src/features/budgets/BudgetsPage.test.tsx",
+        "Length":  5648,
+        "Sha256":  "9C50B774A93C6DE3DC34445881A49E158B010450B584582CCC914C2E0A990A1A"
+    },
+    {
+        "Path":  "src/features/budgets/BudgetForm.tsx",
+        "Length":  3824,
+        "Sha256":  "CF3805CF8F0849D4008FB690E7C2D35779ABEEEA0C78BE8714050748BE28ED0E"
+    },
+    {
+        "Path":  "src/features/activity/ActivityPage.tsx",
+        "Length":  3869,
+        "Sha256":  "F2B093A61365D99EBB9831169597FF01868FF71D9E9794EE71C8E7DABD7F6144"
+    },
+    {
+        "Path":  "src/features/accounts/AccountForm.tsx",
+        "Length":  7385,
+        "Sha256":  "5077195AD1E03D6713BE972B353E03D049A1947F3F9C86151E6C81373113C9D4"
+    },
+    {
+        "Path":  "src/database/settingsUnitOfWork.ts",
+        "Length":  3394,
+        "Sha256":  "39135AEDCA9899A8FC0D6D7556A6B6331BB3548250F153E3A7EBF02A2315BB7A"
+    },
+    {
+        "Path":  "src/database/schema.ts",
+        "Length":  999,
+        "Sha256":  "F6743EE5D9F2A4DF13CF40A5C1612A8664FD8CEEAFCBB8BC321FC7FDD60D0C1D"
+    },
+    {
+        "Path":  "src/database/repositories.ts",
+        "Length":  2192,
+        "Sha256":  "35D39500C63F9012EFC3F93C58940D9A017EE15A8013E1A515BB68F7E0C1BAF4"
+    },
+    {
+        "Path":  "src/export/csv.ts",
+        "Length":  2546,
+        "Sha256":  "2F383432BEC2C1BEBC229D45DC1134F3031FF31F24893B2B7AF84016F8631534"
+    },
+    {
+        "Path":  "src/database/unitOfWork.ts",
+        "Length":  7529,
+        "Sha256":  "12AA7E70E890D42DA4B21D4F44031E15298E7D362568D132BD6CEA077EA06A2D"
+    },
+    {
+        "Path":  "src/database/transactionReadRepository.ts",
+        "Length":  853,
+        "Sha256":  "DF96B413AD23A0445FF1382C932755327603C070FF0416B8DF3F8385E5BA274A"
+    },
+    {
+        "Path":  "src/features/settings/BackupPanel.tsx",
+        "Length":  9731,
+        "Sha256":  "4D117661593D41341B957D40774A193A1CF5E5D67571BE278AF6D072E1BAE399"
+    },
+    {
+        "Path":  "src/features/settings/BackupPanel.test.tsx",
+        "Length":  4107,
+        "Sha256":  "E2FCD823B07FFF6B0F989C59B7E020E339104F9A5427CD683AADCD32B809A695"
+    },
+    {
+        "Path":  "src/features/onboarding/OnboardingPage.tsx",
+        "Length":  10320,
+        "Sha256":  "791E8A0BA09EEC4B87999020ADA3577C86FFB273E2C978B186754BFE3C74BD44"
+    },
+    {
+        "Path":  "src/features/settings/SettingsPage.test.tsx",
+        "Length":  8563,
+        "Sha256":  "9AC9E6D340F4D5EBE820B36AD3A8024C20DAEF71A8F36CB24849F5BFC1B1D0E6"
+    },
+    {
+        "Path":  "src/features/settings/RestoreDialog.tsx",
+        "Length":  7216,
+        "Sha256":  "500AC4CF50FAEE407533279D8612DFDCFECBA584D7BCC1F1A2BDEF315F4D66D3"
+    },
+    {
+        "Path":  "src/features/settings/RestoreDialog.test.tsx",
+        "Length":  5733,
+        "Sha256":  "68377F8178D04D70673656261F31BDE37E348D772C017010B58E7D44728DC196"
+    },
+    {
+        "Path":  "src/features/onboarding/OnboardingPage.test.tsx",
+        "Length":  8875,
+        "Sha256":  "672613D2399C7AB90E49CD372E951B67815B7B6A5312A8D58F7F4AA6C6196F44"
+    },
+    {
+        "Path":  "src/features/dashboard/CategoryBreakdownChart.tsx",
+        "Length":  2263,
+        "Sha256":  "70F5B93D9B3FB5DED6DBD47881888856F3F032F739F9C970714BDCCAA59077E2"
+    },
+    {
+        "Path":  "src/features/dashboard/CashFlowChart.tsx",
+        "Length":  3514,
+        "Sha256":  "DA06FFF671C29BE5F201281E751B6FC9542C29F691F050CBD35AFAC3F6735914"
+    },
+    {
+        "Path":  "src/features/budgets/BudgetsPage.tsx",
+        "Length":  10779,
+        "Sha256":  "4DFCD842939CEF149892D38A65EC8902C90ABEC0BC3D4952B3B14FE9ACC1A00D"
+    },
+    {
+        "Path":  "src/features/dashboard/drilldown.ts",
+        "Length":  1302,
+        "Sha256":  "4B92C71D14E292F191D641729BDDB7B9725CEB297F236344528E1F39C55E089E"
+    },
+    {
+        "Path":  "src/features/dashboard/DashboardPage.tsx",
+        "Length":  10191,
+        "Sha256":  "B7C57288104D18606A533425B650F258ACBFACB70B51CB6F0A3DCD303989B374"
+    },
+    {
+        "Path":  "src/features/dashboard/DashboardPage.test.tsx",
+        "Length":  5849,
+        "Sha256":  "49A4ECA7CDC5CFF435C697AD643A3FEA85BEA2F6FDE359D89636A22FC7430277"
+    },
+    {
+        "Path":  "src/database/migrations.ts",
+        "Length":  11173,
+        "Sha256":  "2E78841991FB38BBE0ED0E3D320476C902C20FDF6074AB604B4E12C7F0238DE8"
+    },
+    {
+        "Path":  "src/backup/restoreService.ts",
+        "Length":  1493,
+        "Sha256":  "57A8D9157898B247852FC7F9D18D5C193C6568C4C2F5B3333E7901A643BB8C02"
+    },
+    {
+        "Path":  "src/backup/automaticBackup.ts",
+        "Length":  11077,
+        "Sha256":  "34825D61B1BF26351D2AE55663DF92970A959244A1F205AAC43F93308ACA0694"
+    },
+    {
+        "Path":  "src/backup/automaticBackup.test.ts",
+        "Length":  13732,
+        "Sha256":  "F70091E6FF1B91955189AEF29CE7BBD52567BB5282BD5080673F42E0428C2F4A"
+    },
+    {
+        "Path":  "src/components/Button.tsx",
+        "Length":  1052,
+        "Sha256":  "EABAA1EFDE591C663397F9DC60D6F1F6DE6A55704DB267FE4E2D0F89AC6F736A"
+    },
+    {
+        "Path":  "src/backup/serialize.ts",
+        "Length":  1341,
+        "Sha256":  "F13BD64CC67682AE9AD1019D70B4360AFD992559133ABFCD64B9415C57F276F3"
+    },
+    {
+        "Path":  "src/backup/schema.ts",
+        "Length":  24001,
+        "Sha256":  "CBE6B8C7F621A8DC5690180AF15911A1CB5E0EC2C993AB1420218282705133F7"
+    },
+    {
+        "Path":  "src/assets/vite.svg",
+        "Length":  8709,
+        "Sha256":  "5BE21ACD42EB7B896E517F4E0F0F11EB5C5D9E54FBBCEBE9453F033008FCCA6F"
+    },
+    {
+        "Path":  "src/application/transactionService.ts",
+        "Length":  12524,
+        "Sha256":  "F17E6AC5D8EC8288B8C792816A4153AAF38FFB4999B22A296823776803730BB3"
+    },
+    {
+        "Path":  "src/application/transactionService.test.ts",
+        "Length":  8840,
+        "Sha256":  "2E990EE58F79C0B0C20DE56098A683B25997A07013561ACC37F347D9856B22E4"
+    },
+    {
+        "Path":  "src/application/transactionCategories.ts",
+        "Length":  1611,
+        "Sha256":  "06B45D83A9428A9B9839F7EF6F3B28DDFBC46C3E45E1A29E094F14E62990BAAD"
+    },
+    {
+        "Path":  "src/assets/react.svg",
+        "Length":  4126,
+        "Sha256":  "35EF61ED53B323AE94A16A8EC659B3D0AF3880698791133F23B084085AB1C2E5"
+    },
+    {
+        "Path":  "src/assets/hero.png",
+        "Length":  13057,
+        "Sha256":  "881FFBCAAFC212E49ADDAD08846A5B82761355FA20624253AF3477BA33262C5C"
+    },
+    {
+        "Path":  "src/application/validation.ts",
+        "Length":  1458,
+        "Sha256":  "F074D303193E9B435DF9C2C66ADC7B56841DB4B96AC887338EE712A1F6A5ED44"
+    },
+    {
+        "Path":  "src/database/budgetReadRepository.ts",
+        "Length":  971,
+        "Sha256":  "42AB64A1E618BB867904A4CBC97A57B62A7D371783FF8F77C2512A6F558F1A5A"
+    },
+    {
+        "Path":  "src/database/backupRepository.ts",
+        "Length":  3351,
+        "Sha256":  "F0857AF9D338E9D90FAF46A5C23051D79F1945BBF0EB62D73B4D8755A38CAF83"
+    },
+    {
+        "Path":  "src/database/accountUnitOfWork.ts",
+        "Length":  8472,
+        "Sha256":  "49E9683FB6F8CC1AE50C158709AC565220E469A3C8BC43427D6618BB5F3AB174"
+    },
+    {
+        "Path":  "src/database/db.ts",
+        "Length":  6095,
+        "Sha256":  "409AE0AA18685C425DC9B9BDC1A080AAB026B420A131167548F06CD40E60D340"
+    },
+    {
+        "Path":  "src/database/dashboardReadRepository.ts",
+        "Length":  1174,
+        "Sha256":  "3317E729FE1CEBBDB4B694D2DD8FE19CD79189EE896DEDC8F448918652532EEA"
+    },
+    {
+        "Path":  "src/database/budgetUnitOfWork.ts",
+        "Length":  9086,
+        "Sha256":  "C88819041766CA32E20D85DBA12BC49B8132B6427E1395536B78C5F8C5494D05"
+    },
+    {
+        "Path":  "src/database/accountReadRepository.ts",
+        "Length":  691,
+        "Sha256":  "62BD28D82EA736EEAA93DD0812A3F2FAE96AD01AD0D1E1FB36C8F428D2D293D2"
+    },
+    {
+        "Path":  "src/components/EmptyState.tsx",
+        "Length":  558,
+        "Sha256":  "275938A87919094CBB581748A6A8B92C7E384A33E17CE73EC2F678061A993DF5"
+    },
+    {
+        "Path":  "src/components/Dialog.tsx",
+        "Length":  3676,
+        "Sha256":  "DE8473B199070A39180D9B980C8F4C63BDC7BE5627B6C8C064F1595D6625DB1D"
+    },
+    {
+        "Path":  "src/components/Card.tsx",
+        "Length":  541,
+        "Sha256":  "0BA925EE45172E97A5F4B6F1814B26B8DA2A46A0F3B6A6490787702CD15857AE"
+    },
+    {
+        "Path":  "src/components/StatusState.tsx",
+        "Length":  932,
+        "Sha256":  "7E8D6121F333B8E3A2F966CD75BD5D17F116C5F151EA64EBAE756CD84689B53F"
+    },
+    {
+        "Path":  "src/components/LogoMark.tsx",
+        "Length":  1260,
+        "Sha256":  "EB9A5E0616B5FD063E6CFF3E01A7B9F67A60F3016F6A60CDFA1D9EA1EFEE58DD"
+    },
+    {
+        "Path":  "src/components/LogoMark.test.tsx",
+        "Length":  740,
+        "Sha256":  "023235ED502A353B1A30E52D17F5A77115BD47CCADC3D5D3EDA8FF31AEC757C0"
+    }
+]

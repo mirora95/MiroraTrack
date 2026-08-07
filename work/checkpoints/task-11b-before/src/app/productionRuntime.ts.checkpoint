@@ -1,0 +1,80 @@
+import { AccountService } from '../application/accountService'
+import { InitializationService } from '../application/initializationService'
+import { FinanceService } from '../application/financeService'
+import { TransactionService } from '../application/transactionService'
+import { ActivityService } from '../application/activityService'
+import { BudgetService } from '../application/budgetService'
+import { DashboardService } from '../application/dashboardService'
+import { DexieAccountReadRepository } from '../database/accountReadRepository'
+import { DexieAccountUnitOfWork } from '../database/accountUnitOfWork'
+import { openMiroraTrackDatabase } from '../database/db'
+import { DexieFinanceUnitOfWork } from '../database/unitOfWork'
+import {
+  DexieActivityReadRepository,
+  DexieTransactionReadRepository,
+} from '../database/transactionReadRepository'
+import { TauriBackupPort } from '../platform/backupPort'
+import { DexieBudgetReadRepository } from '../database/budgetReadRepository'
+import { DexieBudgetUnitOfWork } from '../database/budgetUnitOfWork'
+import { DexieDashboardReadRepository } from '../database/dashboardReadRepository'
+import type { AppRuntime } from './runtime'
+
+export type RuntimeBootResult =
+  | { readonly status: 'ready'; readonly runtime: AppRuntime }
+  | { readonly status: 'recovery-required'; readonly reason: string }
+
+let productionRuntimePromise: Promise<RuntimeBootResult> | undefined
+
+export function createProductionRuntime(): Promise<RuntimeBootResult> {
+  if (!productionRuntimePromise) {
+    const attempt = buildProductionRuntime()
+    productionRuntimePromise = attempt
+    void attempt.catch(() => {
+      if (productionRuntimePromise === attempt) {
+        productionRuntimePromise = undefined
+      }
+    })
+  }
+  return productionRuntimePromise
+}
+
+async function buildProductionRuntime(): Promise<RuntimeBootResult> {
+  const opened = await openMiroraTrackDatabase()
+  if (opened.status !== 'ready') {
+    return { status: 'recovery-required', reason: opened.reason }
+  }
+  const reads = new DexieAccountReadRepository(opened.db)
+  const uow = new DexieAccountUnitOfWork(opened.db)
+  const transactionReads = new DexieTransactionReadRepository(opened.db)
+  const nativeBackups = new TauriBackupPort()
+  const finance = new FinanceService({
+    reads: {
+      getAccount: (id) => opened.db.accounts.get(id),
+      getTransaction: (id) => opened.db.transactions.get(id),
+    },
+    uow: new DexieFinanceUnitOfWork(opened.db),
+  })
+  const transactionQueries = new TransactionService(transactionReads, nativeBackups)
+  const budgets = new BudgetService({
+    reads: new DexieBudgetReadRepository(opened.db),
+    uow: new DexieBudgetUnitOfWork(opened.db),
+  })
+  const dashboard = new DashboardService(new DexieDashboardReadRepository(opened.db))
+  return {
+    status: 'ready',
+    runtime: {
+      initialization: new InitializationService({ reads, uow }),
+      accounts: new AccountService({ reads, uow }),
+      transactions: {
+        list: (filters) => transactionQueries.list(filters),
+        exportFiltered: (filters) => transactionQueries.exportFiltered(filters),
+        create: (command) => finance.create(command),
+        edit: (id, command) => finance.edit(id, command),
+        delete: (id) => finance.delete(id),
+      },
+      activity: new ActivityService(new DexieActivityReadRepository(opened.db)),
+      budgets,
+      dashboard,
+    },
+  }
+}

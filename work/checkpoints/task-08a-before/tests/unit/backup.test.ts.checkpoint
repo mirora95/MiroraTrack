@@ -1,0 +1,51 @@
+import { describe, expect, it } from "vitest";
+import { BackupValidationError, migrateBackupEnvelope, parseBackupEnvelope, type BackupEnvelopeV1 } from "../../src/backup/schema";
+import { serializeBackupEnvelope } from "../../src/backup/serialize";
+
+const iso = "2026-07-28T10:20:30.000Z";
+function validEnvelope(): BackupEnvelopeV1 {
+  return { app: "MiroraTrack", schemaVersion: 1, exportedAt: iso, data: {
+    metadata: [{ key: "app", schemaVersion: 2, calculationVersion: 1, ledgerRevision: 0, createdAt: iso, updatedAt: iso }],
+    settings: [{ key: "primary", baseCurrency: "USD", locale: "en-US", dateFormat: "yyyy-MM-dd", defaultAccountId: "checking", automaticBackupsEnabled: true }],
+    accounts: [{ id: "checking", name: "Checking", type: "checking", status: "active", currency: "USD", openingBalance: 1000, createdAt: iso, updatedAt: iso }],
+    transactions: [{ id: "income-1", type: "income", status: "completed", amount: 250, currency: "USD", effectiveAt: iso, destinationAccountId: "checking", categoryId: "salary", createdAt: iso, updatedAt: iso }],
+    budgets: [{ id: "budget-1", name: "Food", categoryId: "food", currency: "USD", amount: 5000, month: "2026-07", rollover: false, createdAt: iso, updatedAt: iso }],
+    auditEntries: [{ id: "audit-1", timestamp: iso, action: "transaction.deleted", entityType: "transaction", entityId: "already-deleted", description: "Deleted transaction" }],
+    backupMetadata: [{ id: "automatic", status: "idle", schemaVersion: 2 }],
+    calculationCaches: [{ key: "dashboard", calculationVersion: 1, sourceRevision: 0, value: { total: 1250, labels: ["a", null] }, updatedAt: iso }],
+  } };
+}
+
+describe("backup envelope", () => {
+  it("parses a complete strict version 1 envelope", () => expect(parseBackupEnvelope(validEnvelope())).toEqual(validEnvelope()));
+  it.each([
+    ["unknown root property", (v: any) => { v.attachments = []; }],
+    ["unknown collection", (v: any) => { v.data.attachments = []; }],
+    ["invalid timestamp", (v: any) => { v.exportedAt = "2026-02-30T00:00:00Z"; }],
+    ["duplicate id", (v: any) => { v.data.accounts.push({ ...v.data.accounts[0] }); }],
+    ["missing account", (v: any) => { v.data.transactions[0].destinationAccountId = "missing"; }],
+    ["unsafe amount", (v: any) => { v.data.accounts[0].openingBalance = Number.MAX_SAFE_INTEGER + 1; }],
+    ["zero transaction", (v: any) => { v.data.transactions[0].amount = 0; }],
+    ["negative budget", (v: any) => { v.data.budgets[0].amount = -1; }],
+    ["non-JSON cache", (v: any) => { v.data.calculationCaches[0].value = undefined; }],
+  ])("rejects %s", (_name, mutate) => {
+    const value: any = structuredClone(validEnvelope()); mutate(value);
+    expect(() => parseBackupEnvelope(value)).toThrow(BackupValidationError);
+  });
+  it("reports discriminator errors with stable codes", () => {
+    expectCode({ ...validEnvelope(), app: "Other" }, "BACKUP_APP_UNSUPPORTED");
+    expectCode({ ...validEnvelope(), schemaVersion: 2 }, "BACKUP_VERSION_NEWER");
+    expectCode({ ...validEnvelope(), schemaVersion: 0 }, "BACKUP_VERSION_OLDER");
+  });
+  it("migrates version 1 by identity", () => { const e = validEnvelope(); expect(migrateBackupEnvelope(e)).toBe(e); });
+  it("serializes canonically", () => {
+    const e = validEnvelope();
+    const reordered = { data: Object.fromEntries(Object.entries(e.data).reverse()), exportedAt: e.exportedAt, schemaVersion: 1, app: "MiroraTrack" };
+    expect(serializeBackupEnvelope(reordered)).toBe(serializeBackupEnvelope(e));
+    expect(serializeBackupEnvelope(e)).toMatch(/^\{"app":"MiroraTrack","schemaVersion":1,"exportedAt":/);
+  });
+});
+function expectCode(value: unknown, code: string): void {
+  try { parseBackupEnvelope(value); throw new Error("Expected failure"); }
+  catch (error) { expect(error).toBeInstanceOf(BackupValidationError); expect((error as BackupValidationError).code).toBe(code); }
+}

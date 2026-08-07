@@ -1,0 +1,62 @@
+[
+    {
+        "Path":  "scripts/task15/Task15ProcessLineage.psm1",
+        "Length":  9597,
+        "Sha256":  "A89315057EF3D87E6D3CA3BC1009F4EF3CB9581E9EEA67755F5689C26603BD66",
+        "Backup":  "scripts__task15__Task15ProcessLineage.psm1"
+    },
+    {
+        "Path":  "scripts/task15/Test-Task15ProcessLineage.ps1",
+        "Length":  6632,
+        "Sha256":  "78A35C7AC523BFACBE5E7F303DF80FAB97068566CBA0278BB0D4F76DC81A8C88",
+        "Backup":  "scripts__task15__Test-Task15ProcessLineage.ps1"
+    },
+    {
+        "Path":  "scripts/Build-Task15Installers.ps1",
+        "Length":  31224,
+        "Sha256":  "323FF6AB393F1A553068B81EE400DDF5AE317D221051AFF38334302D3F509BF4",
+        "Backup":  "scripts__Build-Task15Installers.ps1"
+    },
+    {
+        "Path":  "scripts/task15/Invoke-Task15FinalIntegrityAudit.ps1",
+        "Length":  14940,
+        "Sha256":  "7E0CD6AA0F0253820867E867C40443326059DFA397A6DC2D45F5FA4A07FE35B9",
+        "Backup":  "scripts__task15__Invoke-Task15FinalIntegrityAudit.ps1"
+    },
+    {
+        "Path":  "scripts/task15/Test-Task15BuildIntegration.ps1",
+        "Length":  3538,
+        "Sha256":  "2863C3048644F17BFDB97DB906DAF946A34E079F2029F5E012F6569214C7E668",
+        "Backup":  "scripts__task15__Test-Task15BuildIntegration.ps1"
+    },
+    {
+        "Path":  "README.md",
+        "Length":  2164,
+        "Sha256":  "25845F7226DFA0A275B8C5841585D949C48D406F293E16C764A69554A22C808C",
+        "Backup":  "README.md"
+    },
+    {
+        "Path":  "docs/BUILDING-WINDOWS.md",
+        "Length":  7605,
+        "Sha256":  "EC9B36D298AEF93639983550096D135E1DA58DF9C9E3168461DA3BE372F0C22A",
+        "Backup":  "docs__BUILDING-WINDOWS.md"
+    },
+    {
+        "Path":  "docs/INSTALLER-VERIFICATION.md",
+        "Length":  4518,
+        "Sha256":  "99B55B97A877F6FB6E99FF33DEAA0D76DE156B0288943549CEFDC762D9F4CCF4",
+        "Backup":  "docs__INSTALLER-VERIFICATION.md"
+    },
+    {
+        "Path":  "docs/checkpoints/task-15a.md",
+        "Length":  37646,
+        "Sha256":  "8C0537312F6BE2C9F4A412D77E753A3754F4906625B712E27DC92CDC4EAC0F14",
+        "Backup":  "docs__checkpoints__task-15a.md"
+    },
+    {
+        "Path":  "work/logs/task15a/quality-rereview/changed-file-inventory.json",
+        "Length":  6000,
+        "Sha256":  "2C5C1054B9D34F6C937064A427DB5D7A9F924958C8165DA5B1665BB8B1F1022B",
+        "Backup":  "work__logs__task15a__quality-rereview__changed-file-inventory.json"
+    }
+]

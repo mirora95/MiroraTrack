@@ -1,0 +1,294 @@
+import { useCallback, useEffect, useRef, useState } from 'react'
+import { Palette, Settings2, ShieldCheck } from 'lucide-react'
+import type {
+  DataManagementApplication,
+  SettingsApplication,
+} from '../../app/runtime'
+import type { BackupMetadata, CurrencyCode, Settings } from '../../finance/types'
+import { SUPPORTED_CURRENCY_CODES } from '../../finance/money'
+import { Button } from '../../components/Button'
+import { Card } from '../../components/Card'
+import {
+  usePreferences,
+  type ThemePreference,
+} from '../../stores/preferences'
+import { BACKUP_INTERVALS, DATE_FORMATS } from '../../application/settingsService'
+import { BackupPanel } from './BackupPanel'
+import { RestoreDialog } from './RestoreDialog'
+import type { RestoreCounts } from '../../application/ports'
+
+interface SettingsPageProps {
+  settings: SettingsApplication
+  dataManagement: DataManagementApplication
+  onRestoreComplete(counts: RestoreCounts): void
+}
+
+const LOCALES = ['en-US', 'en-GB', 'de-DE', 'fr-FR'] as const
+
+export function SettingsPage({
+  settings: settingsService,
+  dataManagement,
+  onRestoreComplete,
+}: SettingsPageProps) {
+  const theme = usePreferences((state) => state.theme)
+  const density = usePreferences((state) => state.density)
+  const selectedDisplayCurrency = usePreferences(
+    (state) => state.selectedDisplayCurrency,
+  )
+  const setTheme = usePreferences((state) => state.setTheme)
+  const setDensity = usePreferences((state) => state.setDensity)
+  const setSelectedDisplayCurrency = usePreferences(
+    (state) => state.setSelectedDisplayCurrency,
+  )
+  const [settings, setSettings] = useState<Settings>()
+  const [metadata, setMetadata] = useState<BackupMetadata>()
+  const [draft, setDraft] = useState<Settings>()
+  const [acknowledged, setAcknowledged] = useState(false)
+  const [loading, setLoading] = useState(true)
+  const [saving, setSaving] = useState(false)
+  const [error, setError] = useState<string>()
+  const [notice, setNotice] = useState<string>()
+  const [restoreOpen, setRestoreOpen] = useState(false)
+  const hasLoaded = useRef(false)
+  const loadGeneration = useRef(0)
+  const savingRef = useRef(false)
+
+  const load = useCallback(async () => {
+    const token = ++loadGeneration.current
+    if (!hasLoaded.current) setLoading(true)
+    try {
+      const [nextSettings, nextMetadata] = await Promise.all([
+        settingsService.get(),
+        dataManagement.getBackupStatus(),
+      ])
+      if (token === loadGeneration.current) {
+        setSettings(nextSettings)
+        setDraft(nextSettings)
+        setMetadata(nextMetadata)
+        setError(undefined)
+      }
+    } catch {
+      if (token === loadGeneration.current) {
+        setError('Settings could not be loaded. Your finance data was not changed.')
+      }
+    } finally {
+      if (token === loadGeneration.current) {
+        hasLoaded.current = true
+        setLoading(false)
+      }
+    }
+  }, [dataManagement, settingsService])
+
+  useEffect(() => {
+    void load()
+    return () => { loadGeneration.current += 1 }
+  }, [load])
+
+  const save = async () => {
+    if (!settings || !draft || savingRef.current) return
+    const currencyChanged = draft.baseCurrency !== settings.baseCurrency
+    if (currencyChanged && !acknowledged) {
+      setError('Confirm that existing amounts will not be converted.')
+      return
+    }
+    savingRef.current = true
+    setSaving(true)
+    setError(undefined)
+    setNotice(undefined)
+    try {
+      const updated = await settingsService.update(draft, {
+        acknowledgeNoConversion: currencyChanged && acknowledged,
+      })
+      setSettings(updated)
+      setDraft(updated)
+      setAcknowledged(false)
+      setNotice('Preferences saved.')
+    } catch {
+      setError('Preferences could not be saved. Please review the selections and try again.')
+    } finally {
+      savingRef.current = false
+      setSaving(false)
+    }
+  }
+
+  if (loading) {
+    return <div className="workspace-state" role="status">Loading settings…</div>
+  }
+  if (!settings || !draft) {
+    return (
+      <div className="workspace-state">
+        <h1 id="page-title">Settings</h1>
+        <p>{error}</p>
+        <Button onClick={() => void load()}>Try again</Button>
+      </div>
+    )
+  }
+
+  const currencyChanged = draft.baseCurrency !== settings.baseCurrency
+
+  return (
+    <div className="settings-page">
+      <section className="page-hero">
+        <div>
+          <p className="eyebrow">Your private workspace</p>
+          <h1 id="page-title">Settings</h1>
+          <p className="page-hero__description">
+            Personalize the desktop experience and keep your local records resilient.
+          </p>
+        </div>
+        <div className="page-hero__trust">
+          <ShieldCheck size={18} aria-hidden="true" />
+          <span>Local settings, no cloud account</span>
+        </div>
+      </section>
+
+      <section className="settings-section" aria-labelledby="display-settings-heading">
+        <div className="settings-section__heading">
+          <div>
+            <p className="eyebrow">Personalization</p>
+            <h2 id="display-settings-heading">Appearance and display</h2>
+          </div>
+          <Palette aria-hidden="true" />
+        </div>
+        <Card className="settings-form-card">
+          <div className="settings-form-grid">
+            <label className="field">
+              <span>Appearance</span>
+              <select value={theme} onChange={(event) =>
+                setTheme(event.target.value as ThemePreference)}>
+                <option value="system">Follow Windows</option>
+                <option value="light">Light</option>
+                <option value="dark">Dark</option>
+              </select>
+            </label>
+            <label className="field">
+              <span>Density</span>
+              <select value={density} onChange={(event) =>
+                setDensity(event.target.value as 'compact' | 'comfortable')}>
+                <option value="comfortable">Comfortable</option>
+                <option value="compact">Compact</option>
+              </select>
+            </label>
+            <label className="field">
+              <span>Locale</span>
+              <select value={draft.locale} onChange={(event) =>
+                setDraft({ ...draft, locale: event.target.value })}>
+                {LOCALES.map((locale) => <option key={locale}>{locale}</option>)}
+              </select>
+            </label>
+            <label className="field">
+              <span>Date format</span>
+              <select value={draft.dateFormat} onChange={(event) =>
+                setDraft({ ...draft, dateFormat: event.target.value })}>
+                {DATE_FORMATS.map((format) => <option key={format}>{format}</option>)}
+              </select>
+            </label>
+            <div className="field">
+              <label htmlFor="settings-base-currency">Base currency</label>
+              <select id="settings-base-currency" value={draft.baseCurrency} onChange={(event) => {
+                setDraft({ ...draft, baseCurrency: event.target.value as CurrencyCode })
+                setAcknowledged(false)
+              }}>
+                {SUPPORTED_CURRENCY_CODES.map((currency) => (
+                  <option key={currency}>{currency}</option>
+                ))}
+              </select>
+              <small className="field__hint">
+                This controls summaries only. Changing it does not convert existing records.
+              </small>
+            </div>
+            <div className="field">
+              <label htmlFor="settings-display-currency">Display currency</label>
+              <select
+                id="settings-display-currency"
+                value={selectedDisplayCurrency}
+                onChange={(event) =>
+                  setSelectedDisplayCurrency(event.target.value as CurrencyCode)}
+              >
+                {SUPPORTED_CURRENCY_CODES.map((currency) => (
+                  <option key={currency}>{currency}</option>
+                ))}
+              </select>
+              <small className="field__hint">
+                Stored only on this device for display preferences.
+              </small>
+            </div>
+            <label className="field">
+              <span>Automatic backup frequency</span>
+              <select
+                value={draft.automaticBackupIntervalHours}
+                disabled={!draft.automaticBackupsEnabled}
+                onChange={(event) => setDraft({
+                  ...draft,
+                  automaticBackupIntervalHours: Number(event.target.value) as Settings['automaticBackupIntervalHours'],
+                })}
+              >
+                {BACKUP_INTERVALS.map((hours) => (
+                  <option key={hours} value={hours}>{intervalLabel(hours)}</option>
+                ))}
+              </select>
+            </label>
+          </div>
+          <label className="toggle-row">
+            <input
+              type="checkbox"
+              checked={draft.automaticBackupsEnabled}
+              onChange={(event) => setDraft({
+                ...draft,
+                automaticBackupsEnabled: event.target.checked,
+              })}
+            />
+            <span>
+              <strong>Automatic local backups</strong>
+              <small>Keep rotating JSON snapshots in the configured folder.</small>
+            </span>
+          </label>
+          {currencyChanged ? (
+            <label className="acknowledgement">
+              <input
+                type="checkbox"
+                checked={acknowledged}
+                onChange={(event) => setAcknowledged(event.target.checked)}
+              />
+              <span>I understand existing amounts will not be converted.</span>
+            </label>
+          ) : null}
+          <div className="settings-save-row">
+            <div aria-live="polite">
+              {error ? <p className="form-error" role="alert">{error}</p> : null}
+              {notice ? <p className="operation-notice" role="status">{notice}</p> : null}
+            </div>
+            <Button
+              icon={<Settings2 size={17} aria-hidden="true" />}
+              loading={saving}
+              loadingLabel="Saving preferences"
+              onClick={() => void save()}
+            >
+              Save preferences
+            </Button>
+          </div>
+        </Card>
+      </section>
+
+      <BackupPanel
+        settings={settings}
+        metadata={metadata}
+        dataManagement={dataManagement}
+        onSettingsChanged={load}
+        onOpenRestore={() => setRestoreOpen(true)}
+      />
+      <RestoreDialog
+        open={restoreOpen}
+        dataManagement={dataManagement}
+        onClose={() => setRestoreOpen(false)}
+        onRestoreComplete={onRestoreComplete}
+      />
+    </div>
+  )
+}
+
+function intervalLabel(hours: number): string {
+  if (hours === 168) return 'Every week'
+  if (hours === 24) return 'Every day'
+  return `Every ${hours} hours`
+}

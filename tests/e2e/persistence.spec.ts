@@ -1,0 +1,62 @@
+import { test, expect } from '@playwright/test'
+import { addTransaction, blockExternalNetwork, initializeWorkspace } from './support/flows'
+import { collectRuntimeErrors, expectNoRuntimeErrors } from './support/quality'
+
+test.beforeEach(async ({ page }) => { collectRuntimeErrors(page); await blockExternalNetwork(page) })
+test.afterEach(async ({ page }, testInfo) => expectNoRuntimeErrors(page, testInfo))
+
+test('preserves accounts, ledger-derived balances, preferences, and theme across reload', async ({ page }) => {
+  await initializeWorkspace(page)
+  await addTransaction(page, 'expense', '12.34', 'Food')
+  await page.getByLabel('Theme').selectOption('dark')
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark')
+  await page.getByRole('link', { name: 'Settings' }).click()
+  await page.getByLabel('Display currency').selectOption('UZS')
+
+  await page.reload()
+  await expect(page.getByRole('heading', { name: 'Settings' })).toBeVisible()
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark')
+  await page.getByRole('link', { name: 'Accounts' }).click()
+  await expect(page.locator('.account-card').filter({ hasText: 'Everyday' })).toContainText('$987.66')
+  await page.getByRole('link', { name: 'Transactions', exact: true }).click()
+  await expect(page.getByRole('table').getByRole('row').filter({ hasText: 'Food' })).toContainText('−$12.34')
+  await page.getByRole('link', { name: 'Settings' }).click()
+  await expect(page.getByLabel('Display currency')).toHaveValue('UZS')
+})
+
+test('restores the exact exported dataset after destructive local mutations and reload', async ({ page }) => {
+  await initializeWorkspace(page)
+  await addTransaction(page, 'income', '250', 'Salary')
+  await addTransaction(page, 'expense', '25', 'Food')
+  await page.getByRole('link', { name: 'Settings' }).click()
+  await page.getByRole('button', { name: 'Export JSON' }).click()
+  await expect(page.getByRole('status')).toContainText('JSON backup exported')
+
+  await page.getByRole('link', { name: 'Transactions', exact: true }).click()
+  const foodRow = page.getByRole('table').getByRole('row').filter({ hasText: 'Food' })
+  await foodRow.getByRole('button', { name: 'Delete Food' }).click()
+  const deleteDialog = page.getByRole('dialog', { name: 'Delete transaction?' })
+  await deleteDialog.getByRole('button', { name: 'Delete transaction' }).click()
+  await expect(deleteDialog).toBeHidden()
+  await addTransaction(page, 'income', '100', 'Salary')
+
+  await page.getByRole('link', { name: 'Settings' }).click()
+  await page.getByRole('button', { name: 'Restore from JSON' }).click()
+  const dialog = page.getByRole('dialog', { name: 'Restore a local backup' })
+  await dialog.getByRole('button', { name: 'Choose JSON backup' }).click()
+  await expect(dialog.getByText('Validated backup')).toBeVisible()
+  const replace = dialog.getByRole('button', { name: 'Replace local data' })
+  await expect(replace).toBeDisabled()
+  await dialog.getByLabel('Type REPLACE MY DATA to continue').fill('REPLACE MY DATA')
+  await replace.click()
+  await expect(page.getByRole('heading', { name: 'Your local workspace was restored' })).toBeVisible()
+  await page.reload()
+  await expect(page.getByRole('heading', { name: 'Settings' })).toBeVisible()
+  await page.getByRole('link', { name: 'Transactions', exact: true }).click()
+  const rows = page.getByRole('table').getByRole('row')
+  await expect(rows.filter({ hasText: 'Salary' })).toHaveCount(1)
+  await expect(rows.filter({ hasText: 'Salary' })).toContainText('+$250.00')
+  await expect(rows.filter({ hasText: 'Food' })).toContainText('−$25.00')
+  await page.getByRole('link', { name: 'Accounts' }).click()
+  await expect(page.locator('.account-card').filter({ hasText: 'Everyday' })).toContainText('$1,225.00')
+})

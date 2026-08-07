@@ -1,0 +1,1662 @@
+{
+    "Recorded":  "2026-08-03T10:58:29.2662390+05:00",
+    "RepositoryRoot":  "C:\\Users\\orasta\\Documents\\Projects\\MiroraTrack",
+    "Configuration":  {
+                          "Path":  "C:\\Users\\orasta\\Documents\\Projects\\MiroraTrack\\src-tauri\\tauri.conf.json",
+                          "Exists":  true,
+                          "SizeBytes":  1661,
+                          "LastWriteUtc":  "2026-07-31T07:45:57.1442413Z",
+                          "Sha256":  "C66500792D4050FDB59DFFE4225798CF9ADEE44AB94D643F7505078EEE15C58E"
+                      },
+    "DebugExecutable":  {
+                            "Path":  "C:\\Users\\orasta\\Documents\\Projects\\MiroraTrack\\src-tauri\\target\\x86_64-pc-windows-msvc\\debug\\miroratrack.exe",
+                            "Exists":  true,
+                            "SizeBytes":  14027264,
+                            "LastWriteUtc":  "2026-08-03T05:40:17.3199529Z",
+                            "Sha256":  "059535A060FFBF785CB56CA0890E88D2F13D1BFDA261B28DAF1C77DFD3492E59"
+                        },
+    "WebView2":  {
+                     "Version":  "150.0.4078.105",
+                     "Executable":  {
+                                        "Path":  "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\150.0.4078.105\\msedgewebview2.exe",
+                                        "Exists":  true,
+                                        "SizeBytes":  4429640,
+                                        "LastWriteUtc":  "2026-07-26T19:17:49.1409013Z",
+                                        "Sha256":  "D0D22DF2B5DFA96AB82965FCFC2A9E42DF91AB0AAC3E1C5988D8B0016ADFF237"
+                                    }
+                 },
+    "UserDataFolder":  {
+                           "Path":  "C:\\Users\\orasta\\AppData\\Local\\com.miroratrack.desktop\\EBWebView",
+                           "Exists":  true,
+                           "FileCount":  226,
+                           "TotalBytes":  16245201,
+                           "Files":  [
+                                         {
+                                             "RelativePath":  "Breadcrumbs",
+                                             "SizeBytes":  1177,
+                                             "LastWriteUtc":  "2026-08-03T05:40:23.1252802Z",
+                                             "Sha256":  "9729E7D70C44CA702B5230627915F9A8353B2E328949C7723EEBFDB26688D24C",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "CrashpadMetrics-active.pma",
+                                             "SizeBytes":  16384,
+                                             "LastWriteUtc":  "2026-08-03T05:42:01.7090022Z",
+                                             "Sha256":  "C82D72062886B640799E58407912FA943A8AA0FD25F398225E2316DC414D6527",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "CrashpadMetrics.pma",
+                                             "SizeBytes":  16384,
+                                             "LastWriteUtc":  "2026-08-03T05:40:56.4604145Z",
+                                             "Sha256":  "C82D72062886B640799E58407912FA943A8AA0FD25F398225E2316DC414D6527",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Last Version",
+                                             "SizeBytes":  14,
+                                             "LastWriteUtc":  "2026-08-03T05:42:01.7890866Z",
+                                             "Sha256":  "D585D437012A54D870FB2071EA28323E3B6B3BA1477AD7908B8CF81C61DBD7D9",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Local State",
+                                             "SizeBytes":  17769,
+                                             "LastWriteUtc":  "2026-08-03T05:42:03.7138063Z",
+                                             "Sha256":  "F066DBE273B23227CBD5D8E0BE5CD0609A3EB2674855D1B88A1C7E3713B52D97",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Variations",
+                                             "SizeBytes":  85,
+                                             "LastWriteUtc":  "2026-08-03T05:42:03.7128012Z",
+                                             "Sha256":  "40395D9CA4B65D48DEAC792844A77D4F8051F1CEF30DF561DACFEEED3C3BAE13",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "BrowserMetrics\\BrowserMetrics-6A6C5CF5-9EC8.pma",
+                                             "SizeBytes":  1310720,
+                                             "LastWriteUtc":  "2026-07-31T08:29:41.6516298Z",
+                                             "Sha256":  "8914A5F44CCC88418BDF52D3E41CBF0517EC3606903C34747412CAF358A8ABC3",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "BrowserMetrics\\BrowserMetrics-6A6C5D9D-8FCC.pma",
+                                             "SizeBytes":  1310720,
+                                             "LastWriteUtc":  "2026-07-31T08:32:29.9846703Z",
+                                             "Sha256":  "A4F1C89D5ECE3874EB212F964B7C8B31DA77E9C11A44B298468FA5ABCF369481",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "BrowserMetrics\\BrowserMetrics-6A6C79EB-A9C8.pma",
+                                             "SizeBytes":  1310720,
+                                             "LastWriteUtc":  "2026-07-31T10:33:15.3755106Z",
+                                             "Sha256":  "51E99E669EE41C3714C1F9DEA616D9B07897EFCC063FE23A583AEFC1ED76AB49",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "BrowserMetrics\\BrowserMetrics-6A7029C4-9EDC.pma",
+                                             "SizeBytes":  1310720,
+                                             "LastWriteUtc":  "2026-08-03T05:40:20.7841315Z",
+                                             "Sha256":  "EF974BCA5A307CF6787BE7C4036196CDA1A49D2288F41DEA74CBD08D5849AF07",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Crashpad\\metadata",
+                                             "SizeBytes":  0,
+                                             "LastWriteUtc":  "2026-07-31T08:29:41.6273421Z",
+                                             "Sha256":  "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Crashpad\\settings.dat",
+                                             "SizeBytes":  288,
+                                             "LastWriteUtc":  "2026-08-03T05:42:03.7128012Z",
+                                             "Sha256":  "697656B0AECF35EFDBB73D9F93593274D28C55D0B6BAE24759D2270E919B56C6",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Crashpad\\throttle_store.dat",
+                                             "SizeBytes":  20,
+                                             "LastWriteUtc":  "2026-07-31T08:29:41.6088847Z",
+                                             "Sha256":  "41C91A9C93D76295746A149DCE7EBB3B9EE2CB551D84365FFF108E59A61CC304",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\BookmarkMergedSurfaceOrdering",
+                                             "SizeBytes":  6,
+                                             "LastWriteUtc":  "2026-08-03T05:42:03.7584171Z",
+                                             "Sha256":  "4489F9E3E454748B3521EB214E0A5694D562CFF3D9FF511CB456953C8F534C00",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\BrowsingTopicsSiteData",
+                                             "SizeBytes":  28672,
+                                             "LastWriteUtc":  "2026-07-31T10:33:17.7139886Z",
+                                             "Sha256":  "71A956CF71030A295CC2E0EE4694BE069DE8739D39150DEE5CE685EFF32F75B7",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\BrowsingTopicsSiteData-journal",
+                                             "SizeBytes":  0,
+                                             "LastWriteUtc":  "2026-07-31T10:33:17.7143208Z",
+                                             "Sha256":  "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\BrowsingTopicsState",
+                                             "SizeBytes":  414,
+                                             "LastWriteUtc":  "2026-07-31T10:33:20.1389852Z",
+                                             "Sha256":  "03B308E18F90690C8D098AD2C09D556C0BFF2F7C9E7BA9D2AB829492B265D206",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\DIPS",
+                                             "SizeBytes":  36864,
+                                             "LastWriteUtc":  "2026-07-31T10:33:22.3449112Z",
+                                             "Sha256":  "C88293C6A128C6416A4AA7D6FD04343BA3DE20B552DBB9B554DEDA3C21B4AE5D",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\DIPS-wal",
+                                             "SizeBytes":  0,
+                                             "LastWriteUtc":  "2026-08-03T05:40:23.1172790Z",
+                                             "Sha256":  "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\ExtensionActivityComp",
+                                             "SizeBytes":  0,
+                                             "LastWriteUtc":  "2026-07-31T10:33:17.6325074Z",
+                                             "Sha256":  "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\ExtensionActivityEdge",
+                                             "SizeBytes":  32768,
+                                             "LastWriteUtc":  "2026-07-31T10:33:17.6310002Z",
+                                             "Sha256":  "AA8FA397C122E3C52A4CF9EF1078973E85DDE76729EBE9A2BE3CF061DC5D6E42",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\ExtensionActivityEdge-journal",
+                                             "SizeBytes":  0,
+                                             "LastWriteUtc":  "2026-07-31T10:33:17.6310002Z",
+                                             "Sha256":  "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Favicons",
+                                             "SizeBytes":  20480,
+                                             "LastWriteUtc":  "2026-07-31T08:29:42.6849328Z",
+                                             "Sha256":  "EBE0E3C6AED13E1246BEC677235073A98AA3C1AE7B8CCFBBE1686592DA72D277",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Favicons-journal",
+                                             "SizeBytes":  0,
+                                             "LastWriteUtc":  "2026-07-31T08:29:42.6859438Z",
+                                             "Sha256":  "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\favorites_diagnostic.log",
+                                             "SizeBytes":  62,
+                                             "LastWriteUtc":  "2026-07-31T10:33:17.7156717Z",
+                                             "Sha256":  "D366C820B997AF1B4340DD520316655605E57917249A1707FDE01A23D50815F3",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\History",
+                                             "SizeBytes":  212992,
+                                             "LastWriteUtc":  "2026-08-03T05:42:03.7039506Z",
+                                             "Sha256":  "772A18BD22776CC182E9BE7AB54C37F48AE7917192BA58FECE31A7372207B7FB",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\History-journal",
+                                             "SizeBytes":  0,
+                                             "LastWriteUtc":  "2026-08-03T05:42:03.7052475Z",
+                                             "Sha256":  "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\LOCK",
+                                             "SizeBytes":  0,
+                                             "LastWriteUtc":  "2026-07-31T08:29:41.7764782Z",
+                                             "Sha256":  "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\LOG",
+                                             "SizeBytes":  0,
+                                             "LastWriteUtc":  "2026-08-03T05:42:01.8277638Z",
+                                             "Sha256":  "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\LOG.old",
+                                             "SizeBytes":  0,
+                                             "LastWriteUtc":  "2026-08-03T05:40:56.5806969Z",
+                                             "Sha256":  "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Login Data",
+                                             "SizeBytes":  43008,
+                                             "LastWriteUtc":  "2026-07-31T08:29:41.7704760Z",
+                                             "Sha256":  "8CC791561CB03AB43E11EFDB930E3E74F22ECF51B8AD9782F13785334515822B",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Login Data For Account",
+                                             "SizeBytes":  43008,
+                                             "LastWriteUtc":  "2026-07-31T08:29:41.7694731Z",
+                                             "Sha256":  "8CC791561CB03AB43E11EFDB930E3E74F22ECF51B8AD9782F13785334515822B",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Login Data For Account-journal",
+                                             "SizeBytes":  0,
+                                             "LastWriteUtc":  "2026-07-31T08:29:41.7704760Z",
+                                             "Sha256":  "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Login Data-journal",
+                                             "SizeBytes":  0,
+                                             "LastWriteUtc":  "2026-07-31T08:29:41.7714732Z",
+                                             "Sha256":  "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Network Action Predictor",
+                                             "SizeBytes":  53248,
+                                             "LastWriteUtc":  "2026-07-31T10:33:17.6935654Z",
+                                             "Sha256":  "E229F1676F9123961E814197FBEA469176DEFEC9780BC1D089FFEA10D187E6D7",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Network Action Predictor-journal",
+                                             "SizeBytes":  0,
+                                             "LastWriteUtc":  "2026-07-31T10:33:17.6945387Z",
+                                             "Sha256":  "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Preferences",
+                                             "SizeBytes":  9063,
+                                             "LastWriteUtc":  "2026-08-03T05:42:03.7100941Z",
+                                             "Sha256":  "52C93AAF10EBA6FC35C14EE0F1783787C4B16C6E489F62FBC5070C61E6430B28",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\README",
+                                             "SizeBytes":  182,
+                                             "LastWriteUtc":  "2026-07-31T08:29:41.7268248Z",
+                                             "Sha256":  "A0C9ABAE18599F0A65FC654AD36251F6330794BEA66B718A09D8B297F3E38E87",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Secure Preferences",
+                                             "SizeBytes":  9766,
+                                             "LastWriteUtc":  "2026-08-03T05:42:03.7052475Z",
+                                             "Sha256":  "768D4B4373DB0265BB63DD9896CADB2140E6C51D9F77F2D073C870E473CE3C50",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\ServerCertificate",
+                                             "SizeBytes":  20480,
+                                             "LastWriteUtc":  "2026-07-31T08:29:41.7614743Z",
+                                             "Sha256":  "4D2411474FD0BD7237BAE798A21959C422DCCC3275D742B8DE4440CC244B22CE",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\ServerCertificate-journal",
+                                             "SizeBytes":  0,
+                                             "LastWriteUtc":  "2026-07-31T08:29:41.7634738Z",
+                                             "Sha256":  "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Top Sites",
+                                             "SizeBytes":  20480,
+                                             "LastWriteUtc":  "2026-07-31T10:33:17.6205653Z",
+                                             "Sha256":  "89EE604DE30002EF14C912D3CC7797A0828FE4A89821BC87743B80E377085E67",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Top Sites-journal",
+                                             "SizeBytes":  0,
+                                             "LastWriteUtc":  "2026-07-31T10:33:17.6215934Z",
+                                             "Sha256":  "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Vpn Tokens",
+                                             "SizeBytes":  28672,
+                                             "LastWriteUtc":  "2026-07-31T08:29:41.7704760Z",
+                                             "Sha256":  "621C0B0003EF5568AB968AA855FAC40B4870947445DD78D060ACFEC7D3CDEAF5",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Vpn Tokens-journal",
+                                             "SizeBytes":  0,
+                                             "LastWriteUtc":  "2026-07-31T08:29:41.7714732Z",
+                                             "Sha256":  "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Web Data",
+                                             "SizeBytes":  221184,
+                                             "LastWriteUtc":  "2026-07-31T08:29:41.7764782Z",
+                                             "Sha256":  "8A1A9F00C47926175D8F8C4A3A0268884F46EA1B84CDA247979267ADA8F7C800",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Web Data-journal",
+                                             "SizeBytes":  0,
+                                             "LastWriteUtc":  "2026-07-31T08:29:41.7774741Z",
+                                             "Sha256":  "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\AutofillAiModelCache\\LOCK",
+                                             "SizeBytes":  0,
+                                             "LastWriteUtc":  "2026-07-31T10:33:17.7095815Z",
+                                             "Sha256":  "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\AutofillAiModelCache\\LOG",
+                                             "SizeBytes":  0,
+                                             "LastWriteUtc":  "2026-08-03T05:40:23.1434658Z",
+                                             "Sha256":  "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\AutofillAiModelCache\\LOG.old",
+                                             "SizeBytes":  0,
+                                             "LastWriteUtc":  "2026-07-31T10:33:17.7085633Z",
+                                             "Sha256":  "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\AutofillStrikeDatabase\\LOCK",
+                                             "SizeBytes":  0,
+                                             "LastWriteUtc":  "2026-07-31T10:33:17.7106090Z",
+                                             "Sha256":  "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\AutofillStrikeDatabase\\LOG",
+                                             "SizeBytes":  0,
+                                             "LastWriteUtc":  "2026-07-31T10:33:17.7095815Z",
+                                             "Sha256":  "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\BudgetDatabase\\LOCK",
+                                             "SizeBytes":  0,
+                                             "LastWriteUtc":  "2026-07-31T10:33:17.7115258Z",
+                                             "Sha256":  "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\BudgetDatabase\\LOG",
+                                             "SizeBytes":  0,
+                                             "LastWriteUtc":  "2026-07-31T10:33:17.7115258Z",
+                                             "Sha256":  "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Cache\\Cache_Data\\data_0",
+                                             "SizeBytes":  8192,
+                                             "LastWriteUtc":  "2026-07-31T08:29:41.8757123Z",
+                                             "Sha256":  "D6A5FE39CD672781B256E0E3102F7022635F1D4BB7CFCC90A80FFFE4D0F3877E",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Cache\\Cache_Data\\data_1",
+                                             "SizeBytes":  270336,
+                                             "LastWriteUtc":  "2026-08-03T05:42:03.7019483Z",
+                                             "Sha256":  "D89EC508FEB4E2CDE6ED7454BA4FCE8CE4FD914813C5F6811A8281BF91B9F742",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Cache\\Cache_Data\\data_2",
+                                             "SizeBytes":  8192,
+                                             "LastWriteUtc":  "2026-07-31T08:29:41.8767067Z",
+                                             "Sha256":  "EC1702806F4CC7C42A82FC2B38E89835FDE7C64BB32060E0823C9077CA92EFB7",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Cache\\Cache_Data\\data_3",
+                                             "SizeBytes":  8192,
+                                             "LastWriteUtc":  "2026-07-31T08:29:41.8777082Z",
+                                             "Sha256":  "E09F42C398D688DCE168570291F1F92D079987DEDA3099A34ADB9E8C0522B30C",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Cache\\Cache_Data\\index",
+                                             "SizeBytes":  524656,
+                                             "LastWriteUtc":  "2026-07-31T08:29:41.8745552Z",
+                                             "Sha256":  "E853E5AA6E953348402DD9C7952758DCC96A1A9F2590AF9DC5DA783063F09EA4",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Cache\\No_Vary_Search\\journal.baj",
+                                             "SizeBytes":  4,
+                                             "LastWriteUtc":  "2026-08-03T05:42:01.9114734Z",
+                                             "Sha256":  "9C169428D852E25BD59B27652ED533D2A1F09F96E4C329FA5E06F47E16731543",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Cache\\No_Vary_Search\\snapshot.baf",
+                                             "SizeBytes":  20,
+                                             "LastWriteUtc":  "2026-07-31T08:29:41.8787083Z",
+                                             "Sha256":  "0C2DD377ED0CC66161E9DB8F89F7D8BCB3AD8C06C4A054BDCBA214AB05F58C9A",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\ClientCertificates\\LOCK",
+                                             "SizeBytes":  0,
+                                             "LastWriteUtc":  "2026-07-31T08:29:41.7594741Z",
+                                             "Sha256":  "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\ClientCertificates\\LOG",
+                                             "SizeBytes":  0,
+                                             "LastWriteUtc":  "2026-08-03T05:42:01.8184632Z",
+                                             "Sha256":  "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\ClientCertificates\\LOG.old",
+                                             "SizeBytes":  0,
+                                             "LastWriteUtc":  "2026-08-03T05:40:56.5720125Z",
+                                             "Sha256":  "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Code Cache\\js\\0b60e80dbe70a504_0",
+                                             "SizeBytes":  262,
+                                             "LastWriteUtc":  "2026-07-31T10:33:15.7301732Z",
+                                             "Sha256":  "BF095D2E15CBD4F19642FA7438DDE7B61CAEE88E89F3F2847B3391BAB41FE4A3",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Code Cache\\js\\192ec29e711522d3_0",
+                                             "SizeBytes":  68608,
+                                             "LastWriteUtc":  "2026-08-03T05:40:56.7974826Z",
+                                             "Sha256":  "5B488D44DE2142635EE1A2F113E32E42EE283AA694F8C26AD772CE6D4288DE00",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Code Cache\\js\\27c45a5e22a3a8eb_0",
+                                             "SizeBytes":  403744,
+                                             "LastWriteUtc":  "2026-07-31T08:32:30.3726121Z",
+                                             "Sha256":  "A0F98B65A6E0B0EF61E4F25615E9AF803B0A6E387F95C5687A51CE5237B83D0A",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Code Cache\\js\\2888df04f740fb0c_0",
+                                             "SizeBytes":  3229,
+                                             "LastWriteUtc":  "2026-08-03T05:40:21.2355304Z",
+                                             "Sha256":  "1A9053700A4CE25D2E6C98059C6CA7E88BD5FDE11D22C488F3CE843B629D6872",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Code Cache\\js\\2e1c97cc49d89a89_0",
+                                             "SizeBytes":  265,
+                                             "LastWriteUtc":  "2026-07-31T10:33:15.7986586Z",
+                                             "Sha256":  "431CFB9F808C002758784D17DDB1CDF30C061840A4C25E7C886D08BA0D4A551C",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Code Cache\\js\\2f4cf2e846a4c4fc_0",
+                                             "SizeBytes":  873,
+                                             "LastWriteUtc":  "2026-08-03T05:40:56.7986015Z",
+                                             "Sha256":  "CFEC268F0F69520D4493B2DEB14B684730E37782AE8DBCA919448AD0663E736A",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Code Cache\\js\\3a07b7efbb13b8f8_0",
+                                             "SizeBytes":  256,
+                                             "LastWriteUtc":  "2026-07-31T08:32:30.3726121Z",
+                                             "Sha256":  "18B2CEAF3B3C22C34A8CDD67E1FD8BEACF5C048A1EB9FDD68703DDFA04E5A0E1",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Code Cache\\js\\3a4112b7e50636c6_0",
+                                             "SizeBytes":  101264,
+                                             "LastWriteUtc":  "2026-08-03T05:40:56.7986015Z",
+                                             "Sha256":  "AA32F33F54E9EC830ACAD9078A86A2A10064F771471879F1189237B087B6C08D",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Code Cache\\js\\47479640e50e427d_0",
+                                             "SizeBytes":  3857,
+                                             "LastWriteUtc":  "2026-08-03T05:40:56.8505846Z",
+                                             "Sha256":  "6ED59EBB686289F0D885252944A930D070B0CE329E4F65AA92B9DE080B33ACF7",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Code Cache\\js\\54b5511aa4c01c77_0",
+                                             "SizeBytes":  89832,
+                                             "LastWriteUtc":  "2026-08-03T05:40:56.7996014Z",
+                                             "Sha256":  "8FEBE06210D07DED7CF2E7F9EC22FE274D3373CAA8C7396121C745F2EB87DA21",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Code Cache\\js\\606f52eae0d1cc13_0",
+                                             "SizeBytes":  256,
+                                             "LastWriteUtc":  "2026-07-31T10:33:15.7301732Z",
+                                             "Sha256":  "38A18EA84C4D960F286594CD75006C859B643632E5A50425382BD7F20EEB3FE6",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Code Cache\\js\\80385f3b33b12e1f_0",
+                                             "SizeBytes":  62936,
+                                             "LastWriteUtc":  "2026-08-03T05:40:56.8006026Z",
+                                             "Sha256":  "7FB4840DEEB9C9503A76EAB6E37BE673D36C66604405D00C917788D3788129A9",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Code Cache\\js\\829ccb55d290e427_0",
+                                             "SizeBytes":  11121,
+                                             "LastWriteUtc":  "2026-08-03T05:40:56.7974826Z",
+                                             "Sha256":  "6BFA0FEE2526DB788AAE9B9D53D5A9DB545A620B026F05B9681779B8470BEB93",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Code Cache\\js\\9789a3b51b7ba5fb_0",
+                                             "SizeBytes":  8977,
+                                             "LastWriteUtc":  "2026-08-03T05:40:56.7996014Z",
+                                             "Sha256":  "967D7DF2692D3DD0EB795D970D60802B7CD572E3C014E24AADA17455C27F3FB3",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Code Cache\\js\\9952b80b4153f8c5_0",
+                                             "SizeBytes":  17064,
+                                             "LastWriteUtc":  "2026-08-03T05:40:56.7996014Z",
+                                             "Sha256":  "53615D12A90CA206EA4728E895C14EC422ADDF6A33A10279164389CD2B207DE8",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Code Cache\\js\\aafc64a5356b6263_0",
+                                             "SizeBytes":  5761,
+                                             "LastWriteUtc":  "2026-08-03T05:40:56.7974826Z",
+                                             "Sha256":  "8EA18806D0325586F81CBC618E7A642EEBEB2DC1EEC02F20919D2B9001A5403C",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Code Cache\\js\\c40ef8b6f24e7f2a_0",
+                                             "SizeBytes":  265,
+                                             "LastWriteUtc":  "2026-08-03T05:40:56.7986015Z",
+                                             "Sha256":  "13512FDA7B4448EC10B62DB3CCA91A3632B85DA4A975B6853E4A3750A1157E7C",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Code Cache\\js\\cddc94d39b8b8abf_0",
+                                             "SizeBytes":  256,
+                                             "LastWriteUtc":  "2026-08-03T05:40:56.7964342Z",
+                                             "Sha256":  "A3A9EABAC411B34F9B42B81E67EFA64991B0A322DDBEFE9AE407022857A8B2F8",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Code Cache\\js\\ce8caab710c8a1cd_0",
+                                             "SizeBytes":  20688,
+                                             "LastWriteUtc":  "2026-08-03T05:40:56.8016027Z",
+                                             "Sha256":  "A22006B63CD81A8EAD0F38D21D921A6016752BEE8F8EDEF7A89B8F639EAD07B0",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Code Cache\\js\\d5a181c389234b81_0",
+                                             "SizeBytes":  3345,
+                                             "LastWriteUtc":  "2026-08-03T05:40:56.7974826Z",
+                                             "Sha256":  "6A86E6BAD4E4529B6312F2E410FA77DF882BABBAEFABB648DA99DDD8E132DDFE",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Code Cache\\js\\da9f97fab9e482b1_0",
+                                             "SizeBytes":  265,
+                                             "LastWriteUtc":  "2026-08-03T05:40:56.7974826Z",
+                                             "Sha256":  "4CE82E837C758304B3D78763E262C067C9BA8D84355D6A66DA7568E97DBE9F11",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Code Cache\\js\\e1fa81885abbff5f_0",
+                                             "SizeBytes":  7537,
+                                             "LastWriteUtc":  "2026-08-03T05:40:56.7986015Z",
+                                             "Sha256":  "9C0907056AD159525C2B61F479831EF42EAAEA477FE0298F43B92D20FD9BE13C",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Code Cache\\js\\e45fe9fb13256677_0",
+                                             "SizeBytes":  265,
+                                             "LastWriteUtc":  "2026-08-03T05:40:56.7996014Z",
+                                             "Sha256":  "871026EDBC07F412999D4812079F6108454399C7CB6AC4353C821D33ED308DE8",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Code Cache\\js\\e4d8b645624b9bf4_0",
+                                             "SizeBytes":  265,
+                                             "LastWriteUtc":  "2026-08-03T05:40:56.8006026Z",
+                                             "Sha256":  "910C39435DB88C623361505885B50481DD66E154CA6B16F60EEA2192B86E0F65",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Code Cache\\js\\f08860f40c157070_0",
+                                             "SizeBytes":  265,
+                                             "LastWriteUtc":  "2026-08-03T05:40:56.8006026Z",
+                                             "Sha256":  "B4605F95FD083F4A1A49F413DD2B2B3B5AD6FB9CF815E89A5CF5F8163614477D",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Code Cache\\js\\index",
+                                             "SizeBytes":  24,
+                                             "LastWriteUtc":  "2026-07-31T08:29:41.7614743Z",
+                                             "Sha256":  "FBCFE23A2ECB82B7100C50811691DDE0A33AA3DA8D176BE9882A9DB485DC0F2D",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Code Cache\\js\\index-dir\\the-real-index",
+                                             "SizeBytes":  648,
+                                             "LastWriteUtc":  "2026-08-03T05:42:03.7019483Z",
+                                             "Sha256":  "4AF710A3E4EB5E154E567B02165E08646D35667969B7638DD8238CE79A668D01",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Code Cache\\wasm\\index",
+                                             "SizeBytes":  24,
+                                             "LastWriteUtc":  "2026-07-31T08:29:41.7614743Z",
+                                             "Sha256":  "FBCFE23A2ECB82B7100C50811691DDE0A33AA3DA8D176BE9882A9DB485DC0F2D",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Code Cache\\wasm\\index-dir\\the-real-index",
+                                             "SizeBytes":  48,
+                                             "LastWriteUtc":  "2026-07-31T08:29:41.7644744Z",
+                                             "Sha256":  "7BE665572C1281A2D2D9F89B1B5D421DC12D6B46D6A253441A26895E7E4109B8",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\commerce_subscription_db\\LOCK",
+                                             "SizeBytes":  0,
+                                             "LastWriteUtc":  "2026-07-31T08:29:41.7694731Z",
+                                             "Sha256":  "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\commerce_subscription_db\\LOG",
+                                             "SizeBytes":  0,
+                                             "LastWriteUtc":  "2026-08-03T05:42:01.8256210Z",
+                                             "Sha256":  "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\commerce_subscription_db\\LOG.old",
+                                             "SizeBytes":  0,
+                                             "LastWriteUtc":  "2026-08-03T05:40:56.5796969Z",
+                                             "Sha256":  "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\DawnGraphiteCache\\data_0",
+                                             "SizeBytes":  8192,
+                                             "LastWriteUtc":  "2026-07-31T08:29:41.8484700Z",
+                                             "Sha256":  "D6A5FE39CD672781B256E0E3102F7022635F1D4BB7CFCC90A80FFFE4D0F3877E",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\DawnGraphiteCache\\data_1",
+                                             "SizeBytes":  270336,
+                                             "LastWriteUtc":  "2026-08-03T05:42:03.6899251Z",
+                                             "Sha256":  "B1E963D702392FB7224786E7D56D43973E9B9EFD1B89C17814D7C558FFC0CDEC",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\DawnGraphiteCache\\data_2",
+                                             "SizeBytes":  8192,
+                                             "LastWriteUtc":  "2026-07-31T08:29:41.8504699Z",
+                                             "Sha256":  "EC1702806F4CC7C42A82FC2B38E89835FDE7C64BB32060E0823C9077CA92EFB7",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\DawnGraphiteCache\\data_3",
+                                             "SizeBytes":  8192,
+                                             "LastWriteUtc":  "2026-07-31T08:29:41.8504699Z",
+                                             "Sha256":  "E09F42C398D688DCE168570291F1F92D079987DEDA3099A34ADB9E8C0522B30C",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\DawnGraphiteCache\\index",
+                                             "SizeBytes":  262512,
+                                             "LastWriteUtc":  "2026-07-31T08:29:41.8484700Z",
+                                             "Sha256":  "884DBAF26FD562D23D95544169553056C3D93165043745BCA1463A72AC73BD24",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\DawnWebGPUCache\\data_0",
+                                             "SizeBytes":  8192,
+                                             "LastWriteUtc":  "2026-07-31T08:29:41.8434696Z",
+                                             "Sha256":  "D6A5FE39CD672781B256E0E3102F7022635F1D4BB7CFCC90A80FFFE4D0F3877E",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\DawnWebGPUCache\\data_1",
+                                             "SizeBytes":  270336,
+                                             "LastWriteUtc":  "2026-08-03T05:42:03.6899251Z",
+                                             "Sha256":  "B1E963D702392FB7224786E7D56D43973E9B9EFD1B89C17814D7C558FFC0CDEC",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\DawnWebGPUCache\\data_2",
+                                             "SizeBytes":  8192,
+                                             "LastWriteUtc":  "2026-07-31T08:29:41.8444701Z",
+                                             "Sha256":  "EC1702806F4CC7C42A82FC2B38E89835FDE7C64BB32060E0823C9077CA92EFB7",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\DawnWebGPUCache\\data_3",
+                                             "SizeBytes":  8192,
+                                             "LastWriteUtc":  "2026-07-31T08:29:41.8454700Z",
+                                             "Sha256":  "E09F42C398D688DCE168570291F1F92D079987DEDA3099A34ADB9E8C0522B30C",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\DawnWebGPUCache\\index",
+                                             "SizeBytes":  262512,
+                                             "LastWriteUtc":  "2026-07-31T08:29:41.8434696Z",
+                                             "Sha256":  "82ABCFBC03FCE1C77766BB4D7BBB3D77BB81E6B58D774502BF889E46CE00EE62",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\discounts_db\\LOCK",
+                                             "SizeBytes":  0,
+                                             "LastWriteUtc":  "2026-07-31T08:29:41.7674737Z",
+                                             "Sha256":  "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\discounts_db\\LOG",
+                                             "SizeBytes":  0,
+                                             "LastWriteUtc":  "2026-08-03T05:42:01.8266211Z",
+                                             "Sha256":  "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\discounts_db\\LOG.old",
+                                             "SizeBytes":  0,
+                                             "LastWriteUtc":  "2026-08-03T05:40:56.5785713Z",
+                                             "Sha256":  "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\discount_infos_db\\LOCK",
+                                             "SizeBytes":  0,
+                                             "LastWriteUtc":  "2026-07-31T08:29:41.7704760Z",
+                                             "Sha256":  "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\discount_infos_db\\LOG",
+                                             "SizeBytes":  0,
+                                             "LastWriteUtc":  "2026-08-03T05:42:01.8256210Z",
+                                             "Sha256":  "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\discount_infos_db\\LOG.old",
+                                             "SizeBytes":  0,
+                                             "LastWriteUtc":  "2026-08-03T05:40:56.5796969Z",
+                                             "Sha256":  "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\EdgeJourneys\\EdgeJourneys.db",
+                                             "SizeBytes":  114688,
+                                             "LastWriteUtc":  "2026-07-31T08:29:42.7721394Z",
+                                             "Sha256":  "9C6C6D6830BEFAB2BDEED27047E15CAAF49FEDF429776B5904586C5E707C27D8",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\EdgeSessions\\SessionRestoreLog",
+                                             "SizeBytes":  92,
+                                             "LastWriteUtc":  "2026-07-31T10:33:22.3110128Z",
+                                             "Sha256":  "48E8CE5DD61870157D148A76622714A66DE204C1300D13BD8210305CD7370E56",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Extension Rules\\000003.log",
+                                             "SizeBytes":  38,
+                                             "LastWriteUtc":  "2026-07-31T08:29:41.7914751Z",
+                                             "Sha256":  "1C43A1BDA1E458863C46DFAE7FB43BFB3E27802169F37320399B1DD799A819AC",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Extension Rules\\CURRENT",
+                                             "SizeBytes":  16,
+                                             "LastWriteUtc":  "2026-07-31T08:29:41.7774741Z",
+                                             "Sha256":  "0F1BAD70C7BD1E0A69562853EC529355462FCD0423263A3D39D6D0D70B780443",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Extension Rules\\LOCK",
+                                             "SizeBytes":  0,
+                                             "LastWriteUtc":  "2026-07-31T08:29:41.7744743Z",
+                                             "Sha256":  "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Extension Rules\\LOG",
+                                             "SizeBytes":  301,
+                                             "LastWriteUtc":  "2026-07-31T08:29:41.7824821Z",
+                                             "Sha256":  "B76CBF41100EF0A094BB6C0BA8C40B32D095390DE6DB775D5837F2CEC2D827DB",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Extension Rules\\MANIFEST-000001",
+                                             "SizeBytes":  41,
+                                             "LastWriteUtc":  "2026-07-31T08:29:41.7754747Z",
+                                             "Sha256":  "F9D31B278E215EB0D0E9CD709EDFA037E828F36214AB7906F612160FEAD4B2B4",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Extension Scripts\\000003.log",
+                                             "SizeBytes":  38,
+                                             "LastWriteUtc":  "2026-07-31T08:29:41.7924735Z",
+                                             "Sha256":  "1C43A1BDA1E458863C46DFAE7FB43BFB3E27802169F37320399B1DD799A819AC",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Extension Scripts\\CURRENT",
+                                             "SizeBytes":  16,
+                                             "LastWriteUtc":  "2026-07-31T08:29:41.7874780Z",
+                                             "Sha256":  "0F1BAD70C7BD1E0A69562853EC529355462FCD0423263A3D39D6D0D70B780443",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Extension Scripts\\LOCK",
+                                             "SizeBytes":  0,
+                                             "LastWriteUtc":  "2026-07-31T08:29:41.7844749Z",
+                                             "Sha256":  "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Extension Scripts\\LOG",
+                                             "SizeBytes":  305,
+                                             "LastWriteUtc":  "2026-07-31T08:29:41.7904739Z",
+                                             "Sha256":  "253D225DB21DB415D156BC24D55DAFCFC733A3BCEB7E8189B20DFB6D742965F6",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Extension Scripts\\MANIFEST-000001",
+                                             "SizeBytes":  41,
+                                             "LastWriteUtc":  "2026-07-31T08:29:41.7854744Z",
+                                             "Sha256":  "F9D31B278E215EB0D0E9CD709EDFA037E828F36214AB7906F612160FEAD4B2B4",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Extension State\\000003.log",
+                                             "SizeBytes":  114,
+                                             "LastWriteUtc":  "2026-07-31T08:29:41.8624740Z",
+                                             "Sha256":  "E2610960C3757D1757F206C7B84378EFA22D86DCF161A98096A5F0E56E1A367E",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Extension State\\CURRENT",
+                                             "SizeBytes":  16,
+                                             "LastWriteUtc":  "2026-07-31T08:29:41.8574693Z",
+                                             "Sha256":  "0F1BAD70C7BD1E0A69562853EC529355462FCD0423263A3D39D6D0D70B780443",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Extension State\\LOCK",
+                                             "SizeBytes":  0,
+                                             "LastWriteUtc":  "2026-07-31T08:29:41.8534740Z",
+                                             "Sha256":  "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Extension State\\LOG",
+                                             "SizeBytes":  342,
+                                             "LastWriteUtc":  "2026-08-03T05:42:01.9124742Z",
+                                             "Sha256":  "EB448FCE6B6713285B023B049C91C12FFBB32D49715FAC6D87F76751212500F6",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Extension State\\LOG.old",
+                                             "SizeBytes":  342,
+                                             "LastWriteUtc":  "2026-08-03T05:40:56.6626710Z",
+                                             "Sha256":  "6915B0E41501F43CEAD7B5CAB3915DA8584ECADBD31ACB756D1C03F1532AEE4B",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Extension State\\MANIFEST-000001",
+                                             "SizeBytes":  41,
+                                             "LastWriteUtc":  "2026-07-31T08:29:41.8554690Z",
+                                             "Sha256":  "F9D31B278E215EB0D0E9CD709EDFA037E828F36214AB7906F612160FEAD4B2B4",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Feature Engagement Tracker\\AvailabilityDB\\LOCK",
+                                             "SizeBytes":  0,
+                                             "LastWriteUtc":  "2026-07-31T10:33:17.7166885Z",
+                                             "Sha256":  "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Feature Engagement Tracker\\AvailabilityDB\\LOG",
+                                             "SizeBytes":  0,
+                                             "LastWriteUtc":  "2026-07-31T10:33:17.7166885Z",
+                                             "Sha256":  "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Feature Engagement Tracker\\EventDB\\LOCK",
+                                             "SizeBytes":  0,
+                                             "LastWriteUtc":  "2026-07-31T10:33:17.7175162Z",
+                                             "Sha256":  "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Feature Engagement Tracker\\EventDB\\LOG",
+                                             "SizeBytes":  0,
+                                             "LastWriteUtc":  "2026-07-31T10:33:17.7175162Z",
+                                             "Sha256":  "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\GPUCache\\data_0",
+                                             "SizeBytes":  45056,
+                                             "LastWriteUtc":  "2026-08-03T05:42:01.9094714Z",
+                                             "Sha256":  "C67E5DB41F49CA6503B8E8E1F3DAE184F8F6056FC39609682EAED9BB4615C16D",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\GPUCache\\data_1",
+                                             "SizeBytes":  270336,
+                                             "LastWriteUtc":  "2026-08-03T05:42:03.6899251Z",
+                                             "Sha256":  "064A491B64AE434581C9EAABC2D821CF47E6EBC6BA1CE353F4D3753C9BC0E78D",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\GPUCache\\data_2",
+                                             "SizeBytes":  1056768,
+                                             "LastWriteUtc":  "2026-07-31T08:29:42.2479054Z",
+                                             "Sha256":  "249F1BC455AE63265AAA8E13A1DA224DC9416A3EA92DCC670A5BDBFD50D1E869",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\GPUCache\\data_3",
+                                             "SizeBytes":  8192,
+                                             "LastWriteUtc":  "2026-07-31T08:29:41.8405989Z",
+                                             "Sha256":  "E09F42C398D688DCE168570291F1F92D079987DEDA3099A34ADB9E8C0522B30C",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\GPUCache\\index",
+                                             "SizeBytes":  262512,
+                                             "LastWriteUtc":  "2026-07-31T08:29:41.8375980Z",
+                                             "Sha256":  "B2CED727C4513AB20CE238DF9A48FE3B6687085C6A98605891CA1BBA74F5FF53",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\IndexedDB\\http_tauri.localhost_0.indexeddb.leveldb\\000003.log",
+                                             "SizeBytes":  16904,
+                                             "LastWriteUtc":  "2026-08-03T05:42:02.0699237Z",
+                                             "Sha256":  "7986AC544D7666DB675FF8D0784F2B7CB4769D78CF6B854F534FC81FFCE06963",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\IndexedDB\\http_tauri.localhost_0.indexeddb.leveldb\\CURRENT",
+                                             "SizeBytes":  16,
+                                             "LastWriteUtc":  "2026-07-31T08:29:42.1351293Z",
+                                             "Sha256":  "0F1BAD70C7BD1E0A69562853EC529355462FCD0423263A3D39D6D0D70B780443",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\IndexedDB\\http_tauri.localhost_0.indexeddb.leveldb\\LOCK",
+                                             "SizeBytes":  0,
+                                             "LastWriteUtc":  "2026-07-31T08:29:42.1321286Z",
+                                             "Sha256":  "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\IndexedDB\\http_tauri.localhost_0.indexeddb.leveldb\\LOG",
+                                             "SizeBytes":  412,
+                                             "LastWriteUtc":  "2026-08-03T05:42:02.0689232Z",
+                                             "Sha256":  "23D75CF175DA08B71D9FCFB7C669352F12894349ECE462E4F5F1E5E38BF2E9B7",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\IndexedDB\\http_tauri.localhost_0.indexeddb.leveldb\\LOG.old",
+                                             "SizeBytes":  412,
+                                             "LastWriteUtc":  "2026-08-03T05:40:56.8233225Z",
+                                             "Sha256":  "D4388E3274186A84294B058961C395126E682E192EF87224E448D78C1AADDCA1",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\IndexedDB\\http_tauri.localhost_0.indexeddb.leveldb\\MANIFEST-000001",
+                                             "SizeBytes":  23,
+                                             "LastWriteUtc":  "2026-07-31T08:29:42.1331284Z",
+                                             "Sha256":  "720A78803B84CBCC8EB204D5CF8EA6EE2F693BE0AB2124DDF2B81455DE02A3ED",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Local Storage\\leveldb\\000003.log",
+                                             "SizeBytes":  30,
+                                             "LastWriteUtc":  "2026-07-31T08:29:41.8424698Z",
+                                             "Sha256":  "8BD2EA70A0B70C91DE138A5B87C7936C6A6FA7C4275C54B97F4EF0CCC5B79BB4",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Local Storage\\leveldb\\CURRENT",
+                                             "SizeBytes":  16,
+                                             "LastWriteUtc":  "2026-07-31T08:29:41.8315971Z",
+                                             "Sha256":  "0F1BAD70C7BD1E0A69562853EC529355462FCD0423263A3D39D6D0D70B780443",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Local Storage\\leveldb\\LOCK",
+                                             "SizeBytes":  0,
+                                             "LastWriteUtc":  "2026-07-31T08:29:41.8186055Z",
+                                             "Sha256":  "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Local Storage\\leveldb\\LOG",
+                                             "SizeBytes":  354,
+                                             "LastWriteUtc":  "2026-08-03T05:42:01.8968003Z",
+                                             "Sha256":  "A4DE1719FDCE1475E5D958E087FB53F03B11F2189A388E621EB1ED05DF86A467",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Local Storage\\leveldb\\LOG.old",
+                                             "SizeBytes":  354,
+                                             "LastWriteUtc":  "2026-08-03T05:40:56.6478782Z",
+                                             "Sha256":  "8766ACB58349AE95B40D859D1A9D79381E5DC77B89C02CC6027ED3DA38AFA7F7",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Local Storage\\leveldb\\MANIFEST-000001",
+                                             "SizeBytes":  41,
+                                             "LastWriteUtc":  "2026-07-31T08:29:41.8286027Z",
+                                             "Sha256":  "F9D31B278E215EB0D0E9CD709EDFA037E828F36214AB7906F612160FEAD4B2B4",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Network\\Cookies",
+                                             "SizeBytes":  20480,
+                                             "LastWriteUtc":  "2026-07-31T08:29:41.8714683Z",
+                                             "Sha256":  "C8E5017B318BCC84B0F02BDFE8B7C8FFDF2982E3B7EB6C54BEE7DE6C27D16C2F",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Network\\Cookies-journal",
+                                             "SizeBytes":  0,
+                                             "LastWriteUtc":  "2026-07-31T08:29:41.8724685Z",
+                                             "Sha256":  "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Network\\Device Bound Sessions",
+                                             "SizeBytes":  20480,
+                                             "LastWriteUtc":  "2026-07-31T08:29:41.8165992Z",
+                                             "Sha256":  "ED90C803DBAC3E3D245FE75145506230F1B47DFC7F16274C79DD1565ADE4E014",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Network\\Device Bound Sessions-journal",
+                                             "SizeBytes":  0,
+                                             "LastWriteUtc":  "2026-07-31T08:29:41.8165992Z",
+                                             "Sha256":  "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Network\\Network Persistent State",
+                                             "SizeBytes":  111,
+                                             "LastWriteUtc":  "2026-07-31T08:29:42.6836847Z",
+                                             "Sha256":  "5DFC321417FC31359F23320EA68014EBFD793C5BBED55F77DAB4180BBD4A2026",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Network\\NetworkDataMigrated",
+                                             "SizeBytes":  0,
+                                             "LastWriteUtc":  "2026-07-31T08:29:41.7784772Z",
+                                             "Sha256":  "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Network\\Reporting and NEL",
+                                             "SizeBytes":  36864,
+                                             "LastWriteUtc":  "2026-07-31T08:29:41.9363693Z",
+                                             "Sha256":  "8B86BBE225327A60BB03ABCAE3E4F927367240F7DF368C8BF1D9DBE309686506",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Network\\Reporting and NEL-journal",
+                                             "SizeBytes":  0,
+                                             "LastWriteUtc":  "2026-07-31T08:29:41.9373731Z",
+                                             "Sha256":  "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Network\\SCT Auditing Pending Reports",
+                                             "SizeBytes":  2,
+                                             "LastWriteUtc":  "2026-08-03T05:42:01.8779335Z",
+                                             "Sha256":  "4F53CDA18C2BAA0C0354BB5F9A3ECBE5ED12AB4D8E11BA873C2F11161202B945",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Network\\Sdch Dictionaries",
+                                             "SizeBytes":  40,
+                                             "LastWriteUtc":  "2026-08-03T05:42:03.7019483Z",
+                                             "Sha256":  "6028BD681DBF11A0A58DDE8A0CD884115C04CAA59D080BA51BDE1B086CE0079D",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Network\\Trust Tokens",
+                                             "SizeBytes":  36864,
+                                             "LastWriteUtc":  "2026-07-31T08:29:41.8135992Z",
+                                             "Sha256":  "8B5A62A399E316009E0C0EE1727EDE327893D7F82F38A136E795422B3F9C333C",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Network\\Trust Tokens-journal",
+                                             "SizeBytes":  0,
+                                             "LastWriteUtc":  "2026-07-31T08:29:41.8156013Z",
+                                             "Sha256":  "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\optimization_guide_hint_cache_store\\LOCK",
+                                             "SizeBytes":  0,
+                                             "LastWriteUtc":  "2026-07-31T10:33:17.7085633Z",
+                                             "Sha256":  "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\optimization_guide_hint_cache_store\\LOG",
+                                             "SizeBytes":  0,
+                                             "LastWriteUtc":  "2026-08-03T05:40:23.1284344Z",
+                                             "Sha256":  "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\optimization_guide_hint_cache_store\\LOG.old",
+                                             "SizeBytes":  0,
+                                             "LastWriteUtc":  "2026-07-31T10:33:17.7075337Z",
+                                             "Sha256":  "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\parcel_tracking_db\\LOCK",
+                                             "SizeBytes":  0,
+                                             "LastWriteUtc":  "2026-07-31T08:29:41.7684736Z",
+                                             "Sha256":  "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\parcel_tracking_db\\LOG",
+                                             "SizeBytes":  0,
+                                             "LastWriteUtc":  "2026-08-03T05:42:01.8256210Z",
+                                             "Sha256":  "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\parcel_tracking_db\\LOG.old",
+                                             "SizeBytes":  0,
+                                             "LastWriteUtc":  "2026-08-03T05:40:56.5785713Z",
+                                             "Sha256":  "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\PersistentOriginTrials\\LOCK",
+                                             "SizeBytes":  0,
+                                             "LastWriteUtc":  "2026-07-31T08:29:41.7744743Z",
+                                             "Sha256":  "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\PersistentOriginTrials\\LOG",
+                                             "SizeBytes":  0,
+                                             "LastWriteUtc":  "2026-08-03T05:42:01.8277638Z",
+                                             "Sha256":  "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\PersistentOriginTrials\\LOG.old",
+                                             "SizeBytes":  0,
+                                             "LastWriteUtc":  "2026-08-03T05:40:56.5806969Z",
+                                             "Sha256":  "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Safe Browsing Network\\NetworkDataMigrated",
+                                             "SizeBytes":  0,
+                                             "LastWriteUtc":  "2026-07-31T08:29:41.7774741Z",
+                                             "Sha256":  "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Safe Browsing Network\\Safe Browsing Cookies",
+                                             "SizeBytes":  20480,
+                                             "LastWriteUtc":  "2026-07-31T08:29:41.8266007Z",
+                                             "Sha256":  "C8E5017B318BCC84B0F02BDFE8B7C8FFDF2982E3B7EB6C54BEE7DE6C27D16C2F",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Safe Browsing Network\\Safe Browsing Cookies-journal",
+                                             "SizeBytes":  0,
+                                             "LastWriteUtc":  "2026-07-31T08:29:41.8276005Z",
+                                             "Sha256":  "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Session Storage\\000003.log",
+                                             "SizeBytes":  229,
+                                             "LastWriteUtc":  "2026-08-03T05:42:03.6867651Z",
+                                             "Sha256":  "F7B7B44CC3127201A19005455356A3AFD20522E357C8576256D9CAF854FE98FE",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Session Storage\\CURRENT",
+                                             "SizeBytes":  16,
+                                             "LastWriteUtc":  "2026-08-03T05:42:02.0088517Z",
+                                             "Sha256":  "0F1BAD70C7BD1E0A69562853EC529355462FCD0423263A3D39D6D0D70B780443",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Session Storage\\LOCK",
+                                             "SizeBytes":  0,
+                                             "LastWriteUtc":  "2026-08-03T05:42:02.0045618Z",
+                                             "Sha256":  "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Session Storage\\LOG",
+                                             "SizeBytes":  301,
+                                             "LastWriteUtc":  "2026-08-03T05:42:02.0148508Z",
+                                             "Sha256":  "A4C1819B7D6C74917632B82A90A3E9032260DEE3041580A0DD42778E2379EFDF",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Session Storage\\MANIFEST-000001",
+                                             "SizeBytes":  41,
+                                             "LastWriteUtc":  "2026-08-03T05:42:02.0065585Z",
+                                             "Sha256":  "F9D31B278E215EB0D0E9CD709EDFA037E828F36214AB7906F612160FEAD4B2B4",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Shared Dictionary\\db",
+                                             "SizeBytes":  45056,
+                                             "LastWriteUtc":  "2026-07-31T08:29:41.8135992Z",
+                                             "Sha256":  "FBB86C665B2FED35C372CE8996EB1C4E31082AEDD6AD5FC6086CFAC889C3471B",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Shared Dictionary\\db-journal",
+                                             "SizeBytes":  0,
+                                             "LastWriteUtc":  "2026-07-31T08:29:41.8145997Z",
+                                             "Sha256":  "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Shared Dictionary\\cache\\index",
+                                             "SizeBytes":  24,
+                                             "LastWriteUtc":  "2026-07-31T08:29:41.8034804Z",
+                                             "Sha256":  "FBCFE23A2ECB82B7100C50811691DDE0A33AA3DA8D176BE9882A9DB485DC0F2D",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Shared Dictionary\\cache\\index-dir\\the-real-index",
+                                             "SizeBytes":  48,
+                                             "LastWriteUtc":  "2026-07-31T08:29:41.8071960Z",
+                                             "Sha256":  "D0B0E9F4D8AC9417E867F7AC3116D4C4377D3C3DA5688F3E6679E93ECF4B1DC0",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\shared_proto_db\\000003.log",
+                                             "SizeBytes":  4957,
+                                             "LastWriteUtc":  "2026-08-03T05:42:01.9068082Z",
+                                             "Sha256":  "654E400647B0382AB37FCD8E43BDB2EB37486AA3ACB5FAB0C7630874C91C07B5",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\shared_proto_db\\CURRENT",
+                                             "SizeBytes":  16,
+                                             "LastWriteUtc":  "2026-07-31T08:29:41.7934739Z",
+                                             "Sha256":  "0F1BAD70C7BD1E0A69562853EC529355462FCD0423263A3D39D6D0D70B780443",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\shared_proto_db\\LOCK",
+                                             "SizeBytes":  0,
+                                             "LastWriteUtc":  "2026-07-31T08:29:41.7904739Z",
+                                             "Sha256":  "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\shared_proto_db\\LOG",
+                                             "SizeBytes":  342,
+                                             "LastWriteUtc":  "2026-08-03T05:42:01.8446564Z",
+                                             "Sha256":  "D720E7559BB97BD3E403DD9DBFAA2D55FCB1B03139A2601F564A283860EF1032",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\shared_proto_db\\LOG.old",
+                                             "SizeBytes":  342,
+                                             "LastWriteUtc":  "2026-08-03T05:40:56.5975503Z",
+                                             "Sha256":  "2BBB60B43AD78E6CC4E341C8A4573F30DFCD90F5398E589A89AFDD74D771F9A6",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\shared_proto_db\\MANIFEST-000001",
+                                             "SizeBytes":  41,
+                                             "LastWriteUtc":  "2026-07-31T08:29:41.7914751Z",
+                                             "Sha256":  "F9D31B278E215EB0D0E9CD709EDFA037E828F36214AB7906F612160FEAD4B2B4",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\shared_proto_db\\metadata\\000003.log",
+                                             "SizeBytes":  988,
+                                             "LastWriteUtc":  "2026-08-03T05:42:01.8446564Z",
+                                             "Sha256":  "F508852F4EA1C0169C668258CACC9E25814E18C16340BD391F736435B0F7A184",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\shared_proto_db\\metadata\\CURRENT",
+                                             "SizeBytes":  16,
+                                             "LastWriteUtc":  "2026-07-31T08:29:41.7844749Z",
+                                             "Sha256":  "0F1BAD70C7BD1E0A69562853EC529355462FCD0423263A3D39D6D0D70B780443",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\shared_proto_db\\metadata\\LOCK",
+                                             "SizeBytes":  0,
+                                             "LastWriteUtc":  "2026-07-31T08:29:41.7814767Z",
+                                             "Sha256":  "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\shared_proto_db\\metadata\\LOG",
+                                             "SizeBytes":  360,
+                                             "LastWriteUtc":  "2026-08-03T05:42:01.8396597Z",
+                                             "Sha256":  "37C4B25DB87B1A07E220B22744FB2468FBC876571EC50747EDA5DCA5D29BFA16",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\shared_proto_db\\metadata\\LOG.old",
+                                             "SizeBytes":  360,
+                                             "LastWriteUtc":  "2026-08-03T05:40:56.5920359Z",
+                                             "Sha256":  "1A2EEB53AC88B5668B2559764C4A2C8D8D684E05E8950247EF957D4A087D72D7",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\shared_proto_db\\metadata\\MANIFEST-000001",
+                                             "SizeBytes":  41,
+                                             "LastWriteUtc":  "2026-07-31T08:29:41.7824821Z",
+                                             "Sha256":  "F9D31B278E215EB0D0E9CD709EDFA037E828F36214AB7906F612160FEAD4B2B4",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Site Characteristics Database\\000003.log",
+                                             "SizeBytes":  112,
+                                             "LastWriteUtc":  "2026-07-31T10:33:22.2738846Z",
+                                             "Sha256":  "1B706DC39EC4D2BAF40A34C9F54A51C6B654D144CD2B4C9E12B640EDDB85574D",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Site Characteristics Database\\CURRENT",
+                                             "SizeBytes":  16,
+                                             "LastWriteUtc":  "2026-07-31T08:29:41.7684736Z",
+                                             "Sha256":  "0F1BAD70C7BD1E0A69562853EC529355462FCD0423263A3D39D6D0D70B780443",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Site Characteristics Database\\LOCK",
+                                             "SizeBytes":  0,
+                                             "LastWriteUtc":  "2026-07-31T08:29:41.7604735Z",
+                                             "Sha256":  "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Site Characteristics Database\\LOG",
+                                             "SizeBytes":  370,
+                                             "LastWriteUtc":  "2026-08-03T05:42:01.8216209Z",
+                                             "Sha256":  "03B5D4D207CE978581DDA563002129D3FF5DED2F47B107C109D43B69BAFB8DAA",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Site Characteristics Database\\LOG.old",
+                                             "SizeBytes":  370,
+                                             "LastWriteUtc":  "2026-08-03T05:40:56.5750535Z",
+                                             "Sha256":  "3E1C0B658C5140506FA13E8E8AE49417E6C395991CDD85F47171BF6F7DF05101",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Site Characteristics Database\\MANIFEST-000001",
+                                             "SizeBytes":  41,
+                                             "LastWriteUtc":  "2026-07-31T08:29:41.7634738Z",
+                                             "Sha256":  "F9D31B278E215EB0D0E9CD709EDFA037E828F36214AB7906F612160FEAD4B2B4",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Sync Data\\LevelDB\\000003.log",
+                                             "SizeBytes":  65,
+                                             "LastWriteUtc":  "2026-07-31T08:29:41.7844749Z",
+                                             "Sha256":  "8FF00D859349A3EA206706CDD3FA2762AE7C8EFE2FDD33A95A72FEE45AAC6BC4",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Sync Data\\LevelDB\\CURRENT",
+                                             "SizeBytes":  16,
+                                             "LastWriteUtc":  "2026-07-31T08:29:41.7674737Z",
+                                             "Sha256":  "0F1BAD70C7BD1E0A69562853EC529355462FCD0423263A3D39D6D0D70B780443",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Sync Data\\LevelDB\\LOCK",
+                                             "SizeBytes":  0,
+                                             "LastWriteUtc":  "2026-07-31T08:29:41.7604735Z",
+                                             "Sha256":  "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Sync Data\\LevelDB\\LOG",
+                                             "SizeBytes":  346,
+                                             "LastWriteUtc":  "2026-08-03T05:42:01.8226208Z",
+                                             "Sha256":  "FBF4BE62C9F884C07DF7763B5BA50461702D796CF0F82EFFF789B6E0E3D3FC51",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Sync Data\\LevelDB\\LOG.old",
+                                             "SizeBytes":  346,
+                                             "LastWriteUtc":  "2026-08-03T05:40:56.5750535Z",
+                                             "Sha256":  "F55E6E4B5A8912D5C0D4439A75ADE239F24323578F194DD9480FD262BF2D3156",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\Sync Data\\LevelDB\\MANIFEST-000001",
+                                             "SizeBytes":  41,
+                                             "LastWriteUtc":  "2026-07-31T08:29:41.7624803Z",
+                                             "Sha256":  "F9D31B278E215EB0D0E9CD709EDFA037E828F36214AB7906F612160FEAD4B2B4",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\WebStorage\\QuotaManager",
+                                             "SizeBytes":  40960,
+                                             "LastWriteUtc":  "2026-08-03T05:42:03.7029653Z",
+                                             "Sha256":  "3D9FD83EC77936E8539DD0A4D83F65B68853BD56D43B1B652B97FCE931C6A3D3",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "Default\\WebStorage\\QuotaManager-journal",
+                                             "SizeBytes":  0,
+                                             "LastWriteUtc":  "2026-08-03T05:42:03.7039506Z",
+                                             "Sha256":  "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "GPUPersistentCache\\DawnGraphiteCache\\WRJTYMYAB73RC6HTXXLKRS2FEZVUG6PP\\cache.db",
+                                             "SizeBytes":  4096,
+                                             "LastWriteUtc":  "2026-07-31T08:29:41.9243083Z",
+                                             "Sha256":  "0AB48B25CBA617ED3A4ACCA0161813B314C095EF63544BB4AF60769EB1012977",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "GPUPersistentCache\\DawnGraphiteCache\\WRJTYMYAB73RC6HTXXLKRS2FEZVUG6PP\\cache.db-wal",
+                                             "SizeBytes":  12392,
+                                             "LastWriteUtc":  "2026-07-31T08:29:41.9283730Z",
+                                             "Sha256":  "D3754176029B8A6753B0ACE3FF2022CD7CFC62AA5ADE7BAE572D21C9501F78FD",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "GPUPersistentCache\\DawnGraphiteCache\\WRJTYMYAB73RC6HTXXLKRS2FEZVUG6PP\\cache.journal",
+                                             "SizeBytes":  0,
+                                             "LastWriteUtc":  "2026-07-31T08:29:41.9252665Z",
+                                             "Sha256":  "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "GrShaderCache\\data_0",
+                                             "SizeBytes":  45056,
+                                             "LastWriteUtc":  "2026-08-03T05:42:01.9530389Z",
+                                             "Sha256":  "BB02BDA98A085C7471A56AA04F6B543328FE73675DBAF1A0AF7CA2F4C29CA516",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "GrShaderCache\\data_1",
+                                             "SizeBytes":  270336,
+                                             "LastWriteUtc":  "2026-08-03T05:42:03.7266025Z",
+                                             "Sha256":  "DCC3B074E232CE194EC065D89EE6B290A6D5BE189BA8BA2D514012FE7F572F1D",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "GrShaderCache\\data_2",
+                                             "SizeBytes":  8192,
+                                             "LastWriteUtc":  "2026-07-31T08:29:41.9252665Z",
+                                             "Sha256":  "EC1702806F4CC7C42A82FC2B38E89835FDE7C64BB32060E0823C9077CA92EFB7",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "GrShaderCache\\data_3",
+                                             "SizeBytes":  4202496,
+                                             "LastWriteUtc":  "2026-07-31T10:33:21.0798523Z",
+                                             "Sha256":  "20BD6184EDA26E610F1775E291B99937285D19E088FEB9C6D10C9E3315B066F5",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "GrShaderCache\\f_000001",
+                                             "SizeBytes":  16476,
+                                             "LastWriteUtc":  "2026-07-31T08:29:42.1229163Z",
+                                             "Sha256":  "FA847DAEF4E4006A2A25027E597EAC01E69241A4BDC6AD60960565769C933B24",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "GrShaderCache\\f_000002",
+                                             "SizeBytes":  16932,
+                                             "LastWriteUtc":  "2026-07-31T08:29:42.2815904Z",
+                                             "Sha256":  "4E0578731F59200E537D3932D60ADA5073811E9CC4113E20F9AB42828CAFFC84",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "GrShaderCache\\f_000003",
+                                             "SizeBytes":  17260,
+                                             "LastWriteUtc":  "2026-07-31T08:29:42.3060179Z",
+                                             "Sha256":  "B48A65A19FF52A8463FA26D49EF48FD8794D1DD7B15D08C78A37965E159C3134",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "GrShaderCache\\index",
+                                             "SizeBytes":  262512,
+                                             "LastWriteUtc":  "2026-07-31T08:29:41.9213087Z",
+                                             "Sha256":  "1055E15F8BD0074564DCC0B0B0A848E1FBFD1E6FC7A826EDD0FD24C685938040",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "ShaderCache\\data_0",
+                                             "SizeBytes":  8192,
+                                             "LastWriteUtc":  "2026-07-31T08:29:41.7196989Z",
+                                             "Sha256":  "D6A5FE39CD672781B256E0E3102F7022635F1D4BB7CFCC90A80FFFE4D0F3877E",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "ShaderCache\\data_1",
+                                             "SizeBytes":  270336,
+                                             "LastWriteUtc":  "2026-08-03T05:42:03.7266025Z",
+                                             "Sha256":  "B1E963D702392FB7224786E7D56D43973E9B9EFD1B89C17814D7C558FFC0CDEC",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "ShaderCache\\data_2",
+                                             "SizeBytes":  8192,
+                                             "LastWriteUtc":  "2026-07-31T08:29:41.7206940Z",
+                                             "Sha256":  "EC1702806F4CC7C42A82FC2B38E89835FDE7C64BB32060E0823C9077CA92EFB7",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "ShaderCache\\data_3",
+                                             "SizeBytes":  8192,
+                                             "LastWriteUtc":  "2026-07-31T08:29:41.7206940Z",
+                                             "Sha256":  "E09F42C398D688DCE168570291F1F92D079987DEDA3099A34ADB9E8C0522B30C",
+                                             "HashError":  null
+                                         },
+                                         {
+                                             "RelativePath":  "ShaderCache\\index",
+                                             "SizeBytes":  262512,
+                                             "LastWriteUtc":  "2026-07-31T08:29:41.7186944Z",
+                                             "Sha256":  "582EDEB369BFEE1DD2666D49DF3A0627AACD922FD6D1C13B9D887BCECA691C15",
+                                             "HashError":  null
+                                         }
+                                     ]
+                       },
+    "ProtectedFiles":  [
+                           {
+                               "Path":  "C:\\Users\\orasta\\Documents\\Projects\\MiroraTrack\\package.json",
+                               "Exists":  true,
+                               "SizeBytes":  1744,
+                               "LastWriteUtc":  "2026-07-31T10:33:54.0809443Z",
+                               "Sha256":  "863BE12B24F1A7AB086C79CAFD0E1E44921608521102818BED900BF6BE2BAFAF"
+                           },
+                           {
+                               "Path":  "C:\\Users\\orasta\\Documents\\Projects\\MiroraTrack\\package-lock.json",
+                               "Exists":  true,
+                               "SizeBytes":  120664,
+                               "LastWriteUtc":  "2026-07-31T10:31:14.2690736Z",
+                               "Sha256":  "50C7258A8456103A5955847E29B665ADEAF449F208F7523AD418F78FEC34ABB9"
+                           },
+                           {
+                               "Path":  "C:\\Users\\orasta\\Documents\\Projects\\MiroraTrack\\src-tauri\\Cargo.toml",
+                               "Exists":  true,
+                               "SizeBytes":  789,
+                               "LastWriteUtc":  "2026-07-31T08:27:24.8416958Z",
+                               "Sha256":  "AF32C75A4603114D85391F06B383C8FC7548EAD5677D2E8A8DFF367A94D91D26"
+                           },
+                           {
+                               "Path":  "C:\\Users\\orasta\\Documents\\Projects\\MiroraTrack\\src-tauri\\Cargo.lock",
+                               "Exists":  true,
+                               "SizeBytes":  111243,
+                               "LastWriteUtc":  "2026-07-31T08:09:48.0724488Z",
+                               "Sha256":  "1B121E655446320FE7FBDF3D1908B317B1BA2A3A37C1B457DDF9268FF0EE12E7"
+                           },
+                           {
+                               "Path":  "C:\\Users\\orasta\\Documents\\Projects\\MiroraTrack\\src-tauri\\tauri.conf.json",
+                               "Exists":  true,
+                               "SizeBytes":  1661,
+                               "LastWriteUtc":  "2026-07-31T07:45:57.1442413Z",
+                               "Sha256":  "C66500792D4050FDB59DFFE4225798CF9ADEE44AB94D643F7505078EEE15C58E"
+                           },
+                           {
+                               "Path":  "C:\\Users\\orasta\\Documents\\Projects\\MiroraTrack\\work\\toolchain\\Invoke-Task13bNative.ps1",
+                               "Exists":  true,
+                               "SizeBytes":  1693,
+                               "LastWriteUtc":  "2026-07-31T08:24:50.9597876Z",
+                               "Sha256":  "92F9591956493A291CCF645E975EE2D90ED1E29A909EABB7147CC62CF771841E"
+                           }
+                       ]
+}

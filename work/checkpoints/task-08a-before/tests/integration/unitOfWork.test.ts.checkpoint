@@ -1,0 +1,341 @@
+import Dexie from "dexie";
+import { afterEach, describe, expect, it } from "vitest";
+
+import {
+  APP_METADATA_KEY,
+  CALCULATION_VERSION,
+  DATABASE_VERSION,
+  MiroraTrackDatabase,
+} from "../../src/database/db";
+import {
+  DexieFinanceUnitOfWork,
+  type UnitOfWorkStage,
+} from "../../src/database/unitOfWork";
+import type {
+  AuditEntry,
+  CacheKey,
+  CalculationCache,
+  Transaction,
+  TransactionId,
+} from "../../src/finance/types";
+
+const initialTime = "2026-07-28T10:00:00.000Z";
+const commitTime = "2026-07-28T11:00:00.000Z";
+const connections = new Set<MiroraTrackDatabase>();
+const names = new Set<string>();
+
+function createDatabase(): MiroraTrackDatabase {
+  const name = `unit-of-work-${crypto.randomUUID()}`;
+  names.add(name);
+  const db = new MiroraTrackDatabase(name, () => initialTime);
+  connections.add(db);
+  return db;
+}
+
+function transaction(id = "tx-1", updatedAt = initialTime): Transaction {
+  return {
+    id: id as TransactionId,
+    type: "income",
+    status: "completed",
+    amount: 250,
+    currency: "USD" as Transaction["currency"],
+    destinationAccountId: "cash" as never,
+    categoryId: "salary" as never,
+    effectiveAt: initialTime,
+    createdAt: initialTime,
+    updatedAt,
+  };
+}
+
+function audit(
+  action: AuditEntry["action"],
+  entityId = "tx-1",
+  id = `audit-${action}`,
+): AuditEntry {
+  return {
+    id: id as AuditEntry["id"],
+    timestamp: initialTime,
+    action,
+    entityType: "transaction",
+    entityId: entityId as TransactionId,
+    description: action,
+  };
+}
+
+function cache(): CalculationCache {
+  return {
+    key: "dashboard" as CacheKey,
+    calculationVersion: CALCULATION_VERSION,
+    sourceRevision: 0,
+    value: { total: 10 },
+    updatedAt: initialTime,
+  };
+}
+
+async function seedLedger(db: MiroraTrackDatabase): Promise<void> {
+  await db.transactions.add(transaction());
+  await db.calculationCaches.add(cache());
+}
+
+async function snapshot(db: MiroraTrackDatabase) {
+  return {
+    transactions: await db.transactions.toArray(),
+    auditEntries: await db.auditEntries.toArray(),
+    metadata: await db.metadata.toArray(),
+    calculationCaches: await db.calculationCaches.toArray(),
+  };
+}
+
+afterEach(async () => {
+  for (const db of connections) db.close();
+  connections.clear();
+  for (const name of names) await Dexie.delete(name);
+  names.clear();
+});
+
+describe("DexieFinanceUnitOfWork commits", () => {
+  it.each([
+    {
+      operation: "create",
+      expectedAction: "transaction.created" as const,
+      arrange: async (db: MiroraTrackDatabase) =>
+        db.calculationCaches.add(cache()),
+      execute: (uow: DexieFinanceUnitOfWork) =>
+        uow.createTransaction(transaction(), audit("transaction.created")),
+      expected: transaction(),
+    },
+    {
+      operation: "replace",
+      expectedAction: "transaction.updated" as const,
+      arrange: seedLedger,
+      execute: (uow: DexieFinanceUnitOfWork) =>
+        uow.replaceTransaction(
+          "tx-1" as TransactionId,
+          transaction("tx-1", "unchanged-by-uow"),
+          audit("transaction.updated"),
+        ),
+      expected: transaction("tx-1", "unchanged-by-uow"),
+    },
+    {
+      operation: "delete",
+      expectedAction: "transaction.deleted" as const,
+      arrange: seedLedger,
+      execute: (uow: DexieFinanceUnitOfWork) =>
+        uow.deleteTransaction(
+          "tx-1" as TransactionId,
+          audit("transaction.deleted"),
+        ),
+      expected: undefined,
+    },
+  ])(
+    "$operation atomically mutates the ledger, audits, revises metadata, and clears cache",
+    async ({ arrange, execute, expected, expectedAction }) => {
+      const db = createDatabase();
+      await db.open();
+      await arrange(db);
+      const before = await db.metadata.get(APP_METADATA_KEY);
+      const uow = new DexieFinanceUnitOfWork(db, { clock: () => commitTime });
+
+      await execute(uow);
+
+      expect(await db.transactions.get("tx-1")).toEqual(expected);
+      expect(await db.auditEntries.toArray()).toEqual([
+        audit(expectedAction),
+      ]);
+      expect(await db.metadata.get(APP_METADATA_KEY)).toEqual({
+        ...before,
+        ledgerRevision: 1,
+        updatedAt: commitTime,
+      });
+      expect(await db.calculationCaches.toArray()).toEqual([]);
+    },
+  );
+
+  it("preserves the caller's audit timestamp and resolves after committed state is visible", async () => {
+    const db = createDatabase();
+    await db.open();
+    const entry = {
+      ...audit("transaction.created"),
+      timestamp: "2001-02-03T04:05:06.000Z",
+    };
+
+    await new DexieFinanceUnitOfWork(db, {
+      clock: () => commitTime,
+    }).createTransaction(transaction(), entry);
+
+    expect(await db.auditEntries.get(entry.id)).toEqual(entry);
+    expect((await db.metadata.get(APP_METADATA_KEY))?.ledgerRevision).toBe(1);
+  });
+});
+
+describe("DexieFinanceUnitOfWork rolls back", () => {
+  it.each([
+    ["create", "afterLedgerMutation"],
+    ["create", "beforeCommit"],
+    ["replace", "afterLedgerMutation"],
+    ["replace", "beforeCommit"],
+    ["delete", "afterLedgerMutation"],
+    ["delete", "beforeCommit"],
+  ] as const)(
+    "%s when the synchronous %s hook throws",
+    async (operation, failingStage) => {
+      const db = createDatabase();
+      await db.open();
+      if (operation === "create") await db.calculationCaches.add(cache());
+      else await seedLedger(db);
+      const before = await snapshot(db);
+      const seen: UnitOfWorkStage[] = [];
+      const uow = new DexieFinanceUnitOfWork(db, {
+        clock: () => commitTime,
+        onStage: (stage) => {
+          seen.push(stage);
+          if (stage === failingStage) throw new Error(`fail:${stage}`);
+        },
+      });
+
+      const result =
+        operation === "create"
+          ? uow.createTransaction(transaction(), audit("transaction.created"))
+          : operation === "replace"
+            ? uow.replaceTransaction(
+                "tx-1" as TransactionId,
+                transaction(),
+                audit("transaction.updated"),
+              )
+            : uow.deleteTransaction(
+                "tx-1" as TransactionId,
+                audit("transaction.deleted"),
+              );
+
+      await expect(result).rejects.toThrow(`fail:${failingStage}`);
+      expect(await snapshot(db)).toEqual(before);
+      expect(seen).toContain(failingStage);
+    },
+  );
+
+  it.each([
+    {
+      name: "a duplicate transaction create",
+      arrange: seedLedger,
+      execute: (uow: DexieFinanceUnitOfWork) =>
+        uow.createTransaction(
+          transaction(),
+          audit("transaction.created", "tx-1", "audit-duplicate"),
+        ),
+    },
+    {
+      name: "a missing transaction replace",
+      arrange: async () => undefined,
+      execute: (uow: DexieFinanceUnitOfWork) =>
+        uow.replaceTransaction(
+          "missing" as TransactionId,
+          transaction("missing"),
+          audit("transaction.updated", "missing"),
+        ),
+    },
+    {
+      name: "a missing transaction delete",
+      arrange: async () => undefined,
+      execute: (uow: DexieFinanceUnitOfWork) =>
+        uow.deleteTransaction(
+          "missing" as TransactionId,
+          audit("transaction.deleted", "missing"),
+        ),
+    },
+    {
+      name: "a replacement identity mismatch",
+      arrange: seedLedger,
+      execute: (uow: DexieFinanceUnitOfWork) =>
+        uow.replaceTransaction(
+          "tx-1" as TransactionId,
+          transaction("tx-2"),
+          audit("transaction.updated"),
+        ),
+    },
+    {
+      name: "an audit action mismatch",
+      arrange: async () => undefined,
+      execute: (uow: DexieFinanceUnitOfWork) =>
+        uow.createTransaction(transaction(), audit("transaction.deleted")),
+    },
+    {
+      name: "an audit entity type mismatch",
+      arrange: async () => undefined,
+      execute: (uow: DexieFinanceUnitOfWork) =>
+        uow.createTransaction(transaction(), {
+          ...audit("transaction.created"),
+          entityType: "account" as never,
+        }),
+    },
+    {
+      name: "an audit entity id mismatch",
+      arrange: async () => undefined,
+      execute: (uow: DexieFinanceUnitOfWork) =>
+        uow.createTransaction(
+          transaction(),
+          audit("transaction.created", "tx-2"),
+        ),
+    },
+    {
+      name: "an audit id that is not independent",
+      arrange: async () => undefined,
+      execute: (uow: DexieFinanceUnitOfWork) =>
+        uow.createTransaction(
+          transaction(),
+          audit("transaction.created", "tx-1", "tx-1"),
+        ),
+    },
+    {
+      name: "an audit id collision",
+      arrange: async (db: MiroraTrackDatabase) => {
+        await db.auditEntries.add(
+          audit("transaction.deleted", "old", "audit-collision"),
+        );
+      },
+      execute: (uow: DexieFinanceUnitOfWork) =>
+        uow.createTransaction(
+          transaction(),
+          audit("transaction.created", "tx-1", "audit-collision"),
+        ),
+    },
+  ])("leaves all four stores unchanged for $name", async ({ arrange, execute }) => {
+    const db = createDatabase();
+    await db.open();
+    await arrange(db);
+    const before = await snapshot(db);
+
+    await expect(
+      execute(new DexieFinanceUnitOfWork(db, { clock: () => commitTime })),
+    ).rejects.toThrow();
+
+    expect(await snapshot(db)).toEqual(before);
+  });
+
+  it.each([
+    ["missing", undefined],
+    ["wrong schema", { schemaVersion: DATABASE_VERSION + 1 }],
+    ["wrong calculation", { calculationVersion: CALCULATION_VERSION + 1 }],
+    ["negative revision", { ledgerRevision: -1 }],
+    ["noninteger revision", { ledgerRevision: 1.5 }],
+    ["unsafe revision", { ledgerRevision: Number.MAX_SAFE_INTEGER + 1 }],
+    ["overflowing revision", { ledgerRevision: Number.MAX_SAFE_INTEGER }],
+  ])("leaves all four stores unchanged for %s metadata", async (_name, change) => {
+    const db = createDatabase();
+    await db.open();
+    if (change === undefined) {
+      await db.metadata.delete(APP_METADATA_KEY);
+    } else {
+      const current = await db.metadata.get(APP_METADATA_KEY);
+      await db.metadata.put({ ...current, ...change } as never);
+    }
+    const before = await snapshot(db);
+
+    await expect(
+      new DexieFinanceUnitOfWork(db, {
+        clock: () => commitTime,
+      }).createTransaction(transaction(), audit("transaction.created")),
+    ).rejects.toThrow();
+
+    expect(await snapshot(db)).toEqual(before);
+  });
+});

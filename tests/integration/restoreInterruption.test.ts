@@ -1,0 +1,239 @@
+import Dexie from "dexie";
+import { afterEach, describe, expect, it, vi } from "vitest";
+
+import type { BackupPort } from "../../src/application/ports";
+import {
+  migrateBackupEnvelope,
+  type BackupEnvelope,
+  type BackupEnvelopeV1,
+} from "../../src/backup/schema";
+import { RestoreService } from "../../src/backup/restoreService";
+import { DexieBackupRepository } from "../../src/database/backupRepository";
+import { MiroraTrackDatabase } from "../../src/database/db";
+
+const names = new Set<string>();
+const iso = "2026-07-28T10:00:00.000Z";
+
+function legacyEnvelope(accountId = "new-account"): BackupEnvelopeV1 {
+  return {
+    app: "MiroraTrack",
+    schemaVersion: 1,
+    exportedAt: iso,
+    data: {
+      metadata: [{ key: "app", schemaVersion: 2, calculationVersion: 1, ledgerRevision: 7, createdAt: iso, updatedAt: iso }],
+      settings: [{ key: "primary", baseCurrency: "USD" as never, locale: "en-US", dateFormat: "yyyy-MM-dd", automaticBackupsEnabled: true }],
+      accounts: [{ id: accountId as never, name: accountId, type: "checking", status: "active", currency: "USD" as never, openingBalance: 100 as never, createdAt: iso, updatedAt: iso }],
+      transactions: [],
+      budgets: [],
+      auditEntries: [],
+      backupMetadata: [],
+      calculationCaches: [{ key: "stale" as never, calculationVersion: 1, sourceRevision: 7, value: {}, updatedAt: iso }],
+    },
+  };
+}
+
+function envelope(accountId = "new-account"): BackupEnvelope {
+  return migrateBackupEnvelope(legacyEnvelope(accountId));
+}
+
+async function setup() {
+  const name = `restore-${crypto.randomUUID()}`;
+  names.add(name);
+  const db = new MiroraTrackDatabase(name, () => iso);
+  await db.open();
+  await db.settings.put(envelope("old-account").data.settings[0]!);
+  await db.accounts.put(envelope("old-account").data.accounts[0]!);
+  await db.calculationCaches.put({
+    key: "stale" as never, calculationVersion: 1, sourceRevision: 0,
+    value: {}, updatedAt: iso,
+  });
+  return { db, repository: new DexieBackupRepository(db) };
+}
+
+function backupPort(result = { success: true as const }) {
+  const createSafetyBackup = vi.fn(async () => result);
+  const port: BackupPort = {
+    createAutomaticBackup: vi.fn(),
+    createSafetyBackup,
+    chooseBackupFolder: vi.fn(),
+    exportJson: vi.fn(),
+    exportCsv: vi.fn(),
+    importJson: vi.fn(),
+  };
+  return { port, createSafetyBackup };
+}
+
+afterEach(async () => {
+  for (const name of names) await Dexie.delete(name);
+  names.clear();
+});
+
+describe("restore safety and atomic replacement", () => {
+  it("snapshots a canonical envelope before replacing all stores and clears imported caches", async () => {
+    const { db, repository } = await setup();
+    const { port, createSafetyBackup } = backupPort();
+
+    const summary = await new RestoreService(repository, port, () => iso)
+      .restore(legacyEnvelope());
+
+    expect(createSafetyBackup).toHaveBeenCalledWith({
+      ...envelope("old-account"),
+      data: {
+        ...envelope("old-account").data,
+        metadata: [expect.objectContaining({ ledgerRevision: 0 })],
+        transactions: [],
+        auditEntries: [],
+        calculationCaches: [expect.objectContaining({ key: "stale" })],
+      },
+    });
+    expect(await db.accounts.toArray()).toEqual(envelope().data.accounts);
+    expect(await db.calculationCaches.count()).toBe(0);
+    expect(summary).toEqual({
+      metadata: 1, settings: 1, accounts: 1, transactions: 1,
+      budgets: 0, auditEntries: 1, backupMetadata: 0, calculationCaches: 0,
+    });
+    db.close();
+  });
+
+  it("aborts before parsing or mutation when the durable safety backup fails", async () => {
+    const { db, repository } = await setup();
+    const { port } = backupPort({ success: false as const, errorCode: "DENIED" });
+    const invalid = { app: "wrong" };
+
+    await expect(new RestoreService(repository, port, () => iso).restore(invalid)).rejects.toThrow("Safety backup failed");
+    expect((await db.accounts.toArray()).map(({ id }) => id)).toEqual(["old-account"]);
+    db.close();
+  });
+
+  it("leaves the old database intact when imported input is invalid after safety promotion", async () => {
+    const { db, repository } = await setup();
+    const { port, createSafetyBackup } = backupPort();
+
+    await expect(new RestoreService(repository, port, () => iso).restore({ app: "wrong" })).rejects.toThrow();
+    expect(createSafetyBackup).toHaveBeenCalledOnce();
+    expect((await db.accounts.toArray()).map(({ id }) => id)).toEqual(["old-account"]);
+    db.close();
+  });
+
+  it("rejects mismatched audit entities after safety promotion without mutation", async () => {
+    const { db, repository } = await setup();
+    const { port, createSafetyBackup } = backupPort();
+    const invalid = structuredClone(envelope());
+    invalid.data.auditEntries[0] = {
+      ...invalid.data.auditEntries[0]!,
+      action: "account.updated",
+      entityType: "transaction",
+    } as never;
+    await expect(new RestoreService(repository, port, () => iso).restore(invalid))
+      .rejects.toThrow();
+    expect(createSafetyBackup).toHaveBeenCalledOnce();
+    expect((await db.accounts.toArray()).map(({ id }) => id))
+      .toEqual(["old-account"]);
+    db.close();
+  });
+
+  it("rejects a stale current calculation version before database replacement", async () => {
+    const { db, repository } = await setup();
+    const { port, createSafetyBackup } = backupPort();
+    const stale = structuredClone(envelope());
+    stale.data.metadata[0] = {
+      ...stale.data.metadata[0]!,
+      calculationVersion: 1,
+    };
+
+    await expect(
+      new RestoreService(repository, port, () => iso).restore(stale),
+    ).rejects.toThrow();
+
+    expect(createSafetyBackup).toHaveBeenCalledOnce();
+    expect((await db.accounts.toArray()).map(({ id }) => id))
+      .toEqual(["old-account"]);
+    db.close();
+  });
+
+  it("rejects unsafe current backup settings before mutating IndexedDB", async () => {
+    const { db, repository } = await setup();
+    const { port, createSafetyBackup } = backupPort();
+    const invalid = structuredClone(envelope());
+    invalid.data.settings[0] = {
+      ...invalid.data.settings[0]!,
+      backupFolderPath: "D:\\Safe\u0001Hidden",
+    };
+
+    await expect(new RestoreService(repository, port, () => iso).restore(invalid))
+      .rejects.toThrow();
+
+    expect(createSafetyBackup).toHaveBeenCalledOnce();
+    expect((await db.accounts.toArray()).map(({ id }) => id))
+      .toEqual(["old-account"]);
+    db.close();
+  });
+
+  for (const stage of ["beforeSafety", "afterSafetyBeforeDb"] as const) {
+    it(`preserves the old database when interrupted at ${stage}`, async () => {
+      const { db, repository } = await setup();
+      const { port } = backupPort();
+      const service = new RestoreService(repository, port, () => iso, {
+        [stage]: () => { throw new Error(`interrupted:${stage}`); },
+      });
+
+      await expect(service.restore(envelope())).rejects.toThrow(`interrupted:${stage}`);
+      if (stage === "afterSafetyBeforeDb") {
+        expect(port.createSafetyBackup).toHaveBeenCalledOnce();
+      }
+      expect((await db.accounts.toArray()).map(({ id }) => id)).toEqual(["old-account"]);
+      db.close();
+    });
+  }
+
+  for (const stage of ["afterClears", "beforeCommit"] as const) {
+    it(`rolls back every store when interrupted at ${stage}`, async () => {
+      const { db } = await setup();
+      const repository = new DexieBackupRepository(db, {
+        [stage]: () => { throw new Error(`interrupted:${stage}`); },
+      });
+
+      await expect(repository.replaceAllAtomic(envelope())).rejects.toThrow(`interrupted:${stage}`);
+      expect((await db.accounts.toArray()).map(({ id }) => id)).toEqual(["old-account"]);
+      db.close();
+    });
+  }
+
+  it("rolls back every cleared store when a bulk insert collides", async () => {
+    const { db, repository } = await setup();
+    const { port } = backupPort();
+    const duplicate = envelope();
+    const unsafe = {
+      ...duplicate,
+      data: { ...duplicate.data, accounts: [...duplicate.data.accounts, duplicate.data.accounts[0]!] },
+    } as unknown as BackupEnvelope;
+
+    await expect(repository.replaceAllAtomic(unsafe)).rejects.toThrow();
+    expect((await db.accounts.toArray()).map(({ id }) => id)).toEqual(["old-account"]);
+    db.close();
+  });
+
+  it("rolls back every cleared store when IndexedDB rejects an invalid record", async () => {
+    const { db, repository } = await setup();
+    const invalid = envelope();
+    const unsafe = {
+      ...invalid,
+      data: {
+        ...invalid.data,
+        accounts: [{ ...invalid.data.accounts[0]!, id: undefined }],
+      },
+    } as unknown as BackupEnvelope;
+
+    await expect(repository.replaceAllAtomic(unsafe)).rejects.toThrow();
+    expect((await db.accounts.toArray()).map(({ id }) => id)).toEqual(["old-account"]);
+    db.close();
+  });
+
+  it("refuses to snapshot a database without its required metadata singleton", async () => {
+    const { db, repository } = await setup();
+    await db.metadata.clear();
+
+    await expect(repository.snapshotAll(iso)).rejects.toThrow();
+    db.close();
+  });
+});

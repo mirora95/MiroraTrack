@@ -1,0 +1,68 @@
+[
+    {
+        "Path":  "scripts/Build-Task15Installers.ps1",
+        "Length":  15679,
+        "SHA256":  "095B2A22F73471D7906CC1FA3FF36C6E3C484886409F290408EDA8F153F0C6B8",
+        "Backup":  "scripts__Build-Task15Installers.ps1"
+    },
+    {
+        "Path":  "scripts/verify-installer.ps1",
+        "Length":  2237,
+        "SHA256":  "5E8B3B763D1C721C381FC7FBB6776A2BBACD85DEB2C96D8DA487F22EE376DA3C",
+        "Backup":  "scripts__verify-installer.ps1"
+    },
+    {
+        "Path":  "docs/BUILDING-WINDOWS.md",
+        "Length":  5385,
+        "SHA256":  "033053EE74FB13CF3E13399BCB4A423DCA84CF8C44BC50347F2EEF4DB273916F",
+        "Backup":  "docs__BUILDING-WINDOWS.md"
+    },
+    {
+        "Path":  "docs/INSTALLER-VERIFICATION.md",
+        "Length":  3093,
+        "SHA256":  "E967D6110ACF68C7EC142A7C60B5BEF67E78F448BA2C3BBDD93654BD1602CC6E",
+        "Backup":  "docs__INSTALLER-VERIFICATION.md"
+    },
+    {
+        "Path":  "docs/checkpoints/task-15a.md",
+        "Length":  8073,
+        "SHA256":  "4E332D7031F1346AB655D5EDCBF37D264826A15FBC028C94C2252F0B1FBD4D00",
+        "Backup":  "docs__checkpoints__task-15a.md"
+    },
+    {
+        "Path":  "README.md",
+        "Length":  1160,
+        "SHA256":  "E761D99951F9D864EA417CA59EB10FF596018F4232F5C50E991CEF6F5F12B25F",
+        "Backup":  "README.md"
+    },
+    {
+        "Path":  "package.json",
+        "Length":  1744,
+        "SHA256":  "863BE12B24F1A7AB086C79CAFD0E1E44921608521102818BED900BF6BE2BAFAF",
+        "Backup":  "package.json"
+    },
+    {
+        "Path":  "package-lock.json",
+        "Length":  120664,
+        "SHA256":  "50C7258A8456103A5955847E29B665ADEAF449F208F7523AD418F78FEC34ABB9",
+        "Backup":  "package-lock.json"
+    },
+    {
+        "Path":  "src-tauri/Cargo.toml",
+        "Length":  789,
+        "SHA256":  "AF32C75A4603114D85391F06B383C8FC7548EAD5677D2E8A8DFF367A94D91D26",
+        "Backup":  "src-tauri__Cargo.toml"
+    },
+    {
+        "Path":  "src-tauri/Cargo.lock",
+        "Length":  111243,
+        "SHA256":  "1B121E655446320FE7FBDF3D1908B317B1BA2A3A37C1B457DDF9268FF0EE12E7",
+        "Backup":  "src-tauri__Cargo.lock"
+    },
+    {
+        "Path":  "src-tauri/tauri.conf.json",
+        "Length":  1661,
+        "SHA256":  "C66500792D4050FDB59DFFE4225798CF9ADEE44AB94D643F7505078EEE15C58E",
+        "Backup":  "src-tauri__tauri.conf.json"
+    }
+]

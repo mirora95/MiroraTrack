@@ -1,0 +1,23 @@
+{
+    "SchemaVersion":  1,
+    "Architecture":  "x64",
+    "GeneratedAt":  "2026-08-03T20:23:37.8285258+05:00",
+    "Installers":  [
+                       {
+                           "Role":  "Previous",
+                           "Version":  "0.0.9",
+                           "Name":  "MiroraTrack_0.0.9_x64-setup.exe",
+                           "Size":  214689663,
+                           "Sha256":  "113A55C9E7AAB9AA75CF0D70CC1BD0A1B7671C84FC11CA5693AAD4C2133F8627",
+                           "Authenticode":  "NotSigned"
+                       },
+                       {
+                           "Role":  "Current",
+                           "Version":  "0.1.0",
+                           "Name":  "MiroraTrack_0.1.0_x64-setup.exe",
+                           "Size":  214686152,
+                           "Sha256":  "7D170C46751C5BC1D8993E7A2898DFA289ED57752E4DC551D0797870F6C7A05B",
+                           "Authenticode":  "NotSigned"
+                       }
+                   ]
+}

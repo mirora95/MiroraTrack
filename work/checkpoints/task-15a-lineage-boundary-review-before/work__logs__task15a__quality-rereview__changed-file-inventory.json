@@ -1,0 +1,121 @@
+﻿{
+    "Status":  "PASS",
+    "GeneratedAt":  "2026-08-03T19:36:40.5455466+05:00",
+    "Count":  19,
+    "Files":  [
+                  {
+                      "Disposition":  "Modified",
+                      "Path":  "scripts/Build-Task15Installers.ps1",
+                      "Length":  31224,
+                      "Sha256":  "323FF6AB393F1A553068B81EE400DDF5AE317D221051AFF38334302D3F509BF4"
+                  },
+                  {
+                      "Disposition":  "Modified",
+                      "Path":  "scripts/verify-installer.ps1",
+                      "Length":  1747,
+                      "Sha256":  "98741317862815D61F5DE6B7BD84A3C28136FCDF057B7C4A1FC012BA1919EB84"
+                  },
+                  {
+                      "Disposition":  "Modified",
+                      "Path":  "scripts/task15/Acquire-WebViewOfflineInstaller.ps1",
+                      "Length":  11961,
+                      "Sha256":  "3130336C97E33F90BFB8954C10D3EAE92162CA0F7514816A773F69E2CF433568"
+                  },
+                  {
+                      "Disposition":  "Modified",
+                      "Path":  "scripts/task15/TauriBundlerMirror.psm1",
+                      "Length":  9931,
+                      "Sha256":  "7A0EE4C8F5A339DA46409D08BD2A51EB04062C35F8783D14753142CECDC7AFBC"
+                  },
+                  {
+                      "Disposition":  "Modified",
+                      "Path":  "scripts/task15/WebViewAcquisition.psm1",
+                      "Length":  10520,
+                      "Sha256":  "EA28EADB58316885F468C82152E8AFF1CB8341AC2C4C4530691CE2C2999814EF"
+                  },
+                  {
+                      "Disposition":  "Modified",
+                      "Path":  "scripts/task15/Test-TauriBundlerMirror.ps1",
+                      "Length":  12001,
+                      "Sha256":  "FA362A0BBE0DE2C606DBCAC5BC706B2CF63302939AEE82BD46FD3A1DA1153124"
+                  },
+                  {
+                      "Disposition":  "Modified",
+                      "Path":  "scripts/task15/Test-Task15BuildIntegration.ps1",
+                      "Length":  3538,
+                      "Sha256":  "2863C3048644F17BFDB97DB906DAF946A34E079F2029F5E012F6569214C7E668"
+                  },
+                  {
+                      "Disposition":  "Modified",
+                      "Path":  "scripts/task15/Test-WebViewAcquisition.ps1",
+                      "Length":  11694,
+                      "Sha256":  "23872D8EA1CBE9C5B05DC80CB223B59EA3BD4E6560859983A738B9C41533E552"
+                  },
+                  {
+                      "Disposition":  "Modified",
+                      "Path":  "README.md",
+                      "Length":  2164,
+                      "Sha256":  "25845F7226DFA0A275B8C5841585D949C48D406F293E16C764A69554A22C808C"
+                  },
+                  {
+                      "Disposition":  "Modified",
+                      "Path":  "docs/BUILDING-WINDOWS.md",
+                      "Length":  7605,
+                      "Sha256":  "EC9B36D298AEF93639983550096D135E1DA58DF9C9E3168461DA3BE372F0C22A"
+                  },
+                  {
+                      "Disposition":  "Modified",
+                      "Path":  "docs/INSTALLER-VERIFICATION.md",
+                      "Length":  4518,
+                      "Sha256":  "99B55B97A877F6FB6E99FF33DEAA0D76DE156B0288943549CEFDC762D9F4CCF4"
+                  },
+                  {
+                      "Disposition":  "Modified",
+                      "Path":  "docs/checkpoints/task-15a.md",
+                      "Length":  37646,
+                      "Sha256":  "8C0537312F6BE2C9F4A412D77E753A3754F4906625B712E27DC92CDC4EAC0F14"
+                  },
+                  {
+                      "Disposition":  "Created",
+                      "Path":  "scripts/task15/Task15BuildSafety.psm1",
+                      "Length":  9849,
+                      "Sha256":  "AE7EDAD30E94A376C606123827444A743B0E7CED44F038AB84A4F097718F2C9F"
+                  },
+                  {
+                      "Disposition":  "Created",
+                      "Path":  "scripts/task15/Task15InstallerPreflight.psm1",
+                      "Length":  3089,
+                      "Sha256":  "2BCEA6BCCEB439778518B5818CE8F66534D4C9C772A9222B157395198AC72AA4"
+                  },
+                  {
+                      "Disposition":  "Created",
+                      "Path":  "scripts/task15/Invoke-Task15FinalIntegrityAudit.ps1",
+                      "Length":  14940,
+                      "Sha256":  "7E0CD6AA0F0253820867E867C40443326059DFA397A6DC2D45F5FA4A07FE35B9"
+                  },
+                  {
+                      "Disposition":  "Created",
+                      "Path":  "scripts/task15/Test-Task15BuildSafety.ps1",
+                      "Length":  6844,
+                      "Sha256":  "867BA16CF562995C8FEB48E2E67E40B6952D02CB5EF3437E75592185FDCF3A15"
+                  },
+                  {
+                      "Disposition":  "Created",
+                      "Path":  "scripts/task15/Test-InstallerPreflight.ps1",
+                      "Length":  3655,
+                      "Sha256":  "FB74A23B603BA638687C82589B2D084FEB7C5EFB323D045A623493A49324D5D3"
+                  },
+                  {
+                      "Disposition":  "Created",
+                      "Path":  "scripts/task15/Task15ProcessLineage.psm1",
+                      "Length":  9597,
+                      "Sha256":  "A89315057EF3D87E6D3CA3BC1009F4EF3CB9581E9EEA67755F5689C26603BD66"
+                  },
+                  {
+                      "Disposition":  "Created",
+                      "Path":  "scripts/task15/Test-Task15ProcessLineage.ps1",
+                      "Length":  6632,
+                      "Sha256":  "78A35C7AC523BFACBE5E7F303DF80FAB97068566CBA0278BB0D4F76DC81A8C88"
+                  }
+              ]
+}

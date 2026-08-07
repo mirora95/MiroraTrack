@@ -1,0 +1,112 @@
+﻿[
+    {
+        "Path":  ".gitignore",
+        "Sha256":  "0B71E720E741F69CC5B98BDAB1C4A63440892615BFE12A727F0F830AE856808A",
+        "Length":  160
+    },
+    {
+        "Path":  "docs\\BUILDING-WINDOWS.md",
+        "Sha256":  "EC9B36D298AEF93639983550096D135E1DA58DF9C9E3168461DA3BE372F0C22A",
+        "Length":  7605
+    },
+    {
+        "Path":  "docs\\INSTALLER-VERIFICATION.md",
+        "Sha256":  "99B55B97A877F6FB6E99FF33DEAA0D76DE156B0288943549CEFDC762D9F4CCF4",
+        "Length":  4518
+    },
+    {
+        "Path":  "docs\\checkpoints\\task-15a.md",
+        "Sha256":  "8C0537312F6BE2C9F4A412D77E753A3754F4906625B712E27DC92CDC4EAC0F14",
+        "Length":  37646
+    },
+    {
+        "Path":  "scripts\\Build-Task15Installers.ps1",
+        "Sha256":  "38BB9B602043E5F2267E7FEB6607E40B3A8D0A7E1D0D46623AD7310080061D00",
+        "Length":  34143
+    },
+    {
+        "Path":  "scripts\\task15\\Acquire-TauriBundlerTools.ps1",
+        "Sha256":  "333E88F7FB6843BB129E18A7963D1E17315B40C97C29FC81AE513DB82B5A7190",
+        "Length":  4228
+    },
+    {
+        "Path":  "scripts\\task15\\Acquire-WebViewOfflineInstaller.ps1",
+        "Sha256":  "3130336C97E33F90BFB8954C10D3EAE92162CA0F7514816A773F69E2CF433568",
+        "Length":  11961
+    },
+    {
+        "Path":  "scripts\\task15\\Invoke-Task15FinalIntegrityAudit.ps1",
+        "Sha256":  "F99443D0688BB017D69E486C7DB333676EA75E45373DDC3E86723661C51C991D",
+        "Length":  20354
+    },
+    {
+        "Path":  "scripts\\task15\\Start-TauriBundlerMirror.ps1",
+        "Sha256":  "19E2E1B8C2D097A4E3D82E10135985A05F7D13E2A5BEF5B2430AA11E6D7731FA",
+        "Length":  4005
+    },
+    {
+        "Path":  "scripts\\task15\\Task15BuildSafety.psm1",
+        "Sha256":  "AE7EDAD30E94A376C606123827444A743B0E7CED44F038AB84A4F097718F2C9F",
+        "Length":  9849
+    },
+    {
+        "Path":  "scripts\\task15\\Task15InstallerPreflight.psm1",
+        "Sha256":  "2BCEA6BCCEB439778518B5818CE8F66534D4C9C772A9222B157395198AC72AA4",
+        "Length":  3089
+    },
+    {
+        "Path":  "scripts\\task15\\Task15LineageManifest.psm1",
+        "Sha256":  "B93492378643E031E159C8C71FC8D2D5899DFB198C16EE827FAD828075147B81",
+        "Length":  10423
+    },
+    {
+        "Path":  "scripts\\task15\\Task15ProcessLineage.psm1",
+        "Sha256":  "3220DC40F39FA0830FDE907784A63E0E7B9F60A69D1DA0C37126A14C10908650",
+        "Length":  21119
+    },
+    {
+        "Path":  "scripts\\task15\\TauriBundlerMirror.psm1",
+        "Sha256":  "7A0EE4C8F5A339DA46409D08BD2A51EB04062C35F8783D14753142CECDC7AFBC",
+        "Length":  9931
+    },
+    {
+        "Path":  "scripts\\task15\\Test-InstallerPreflight.ps1",
+        "Sha256":  "FB74A23B603BA638687C82589B2D084FEB7C5EFB323D045A623493A49324D5D3",
+        "Length":  3655
+    },
+    {
+        "Path":  "scripts\\task15\\Test-Task15BuildIntegration.ps1",
+        "Sha256":  "B6A73CB73CC0BB65F56D03A43FACCD07981FC129AF88B8FB44FE13EC0CAF3543",
+        "Length":  4500
+    },
+    {
+        "Path":  "scripts\\task15\\Test-Task15BuildSafety.ps1",
+        "Sha256":  "867BA16CF562995C8FEB48E2E67E40B6952D02CB5EF3437E75592185FDCF3A15",
+        "Length":  6844
+    },
+    {
+        "Path":  "scripts\\task15\\Test-Task15ProcessLineage.ps1",
+        "Sha256":  "0E80D5AB8D7FE3B6BE20721E029D51585DEE52B2FC3663ECE9ACF8490370EC28",
+        "Length":  19396
+    },
+    {
+        "Path":  "scripts\\task15\\Test-TauriBundlerMirror.ps1",
+        "Sha256":  "FA362A0BBE0DE2C606DBCAC5BC706B2CF63302939AEE82BD46FD3A1DA1153124",
+        "Length":  12001
+    },
+    {
+        "Path":  "scripts\\task15\\Test-WebViewAcquisition.ps1",
+        "Sha256":  "23872D8EA1CBE9C5B05DC80CB223B59EA3BD4E6560859983A738B9C41533E552",
+        "Length":  11694
+    },
+    {
+        "Path":  "scripts\\task15\\Test-WebViewBuildIntegration.ps1",
+        "Sha256":  "188EC6E64688D7A312AFC78E6087C39547B46F89C3585CFC542BF689A13B0D57",
+        "Length":  2788
+    },
+    {
+        "Path":  "scripts\\task15\\WebViewAcquisition.psm1",
+        "Sha256":  "EA28EADB58316885F468C82152E8AFF1CB8341AC2C4C4530691CE2C2999814EF",
+        "Length":  10520
+    }
+]

@@ -1,0 +1,454 @@
+import { describe, expect, it, vi } from "vitest";
+import { DashboardService, type DashboardPayload } from "./dashboardService";
+import type { DashboardReadPort } from "./ports";
+import type {
+  Account,
+  AppMetadata,
+  Budget,
+  CalculationCache,
+  CurrencyCode,
+  Transaction,
+} from "../finance/types";
+
+const USD = "USD" as CurrencyCode;
+const EUR = "EUR" as CurrencyCode;
+const range = {
+  start: "2026-07-01T00:00:00.000Z",
+  end: "2026-07-31T23:59:59.000Z",
+};
+const metadata: AppMetadata = {
+  key: "app",
+  schemaVersion: 3,
+  calculationVersion: 4,
+  ledgerRevision: 9,
+  createdAt: "2026-01-01T00:00:00Z",
+  updatedAt: "2026-07-01T00:00:00Z",
+};
+
+function account(
+  id: string,
+  currency = USD,
+  overrides: Partial<Account> = {},
+): Account {
+  return {
+    id: id as Account["id"],
+    name: id,
+    type: "checking",
+    status: "active",
+    currency,
+    color: "blue",
+    icon: "landmark",
+    createdAt: "2026-01-01T00:00:00Z",
+    updatedAt: "2026-01-01T00:00:00Z",
+    ...overrides,
+  };
+}
+
+function transaction(
+  id: string,
+  type: "income" | "expense" | "transfer",
+  amount: number,
+  effectiveAt: string,
+  overrides: Record<string, unknown> = {},
+): Transaction {
+  const shared = {
+    id: id as Transaction["id"],
+    type,
+    status: "completed" as const,
+    purpose: "standard" as const,
+    amount: amount as Transaction["amount"],
+    currency: USD,
+    effectiveAt,
+    createdAt: effectiveAt,
+    updatedAt: effectiveAt,
+  };
+  if (type === "income") {
+    return {
+      ...shared,
+      type,
+      destinationAccountId: "cash" as Account["id"],
+      categoryId: "salary" as Extract<Transaction, { type: "income" }>["categoryId"],
+      ...overrides,
+    } as Transaction;
+  }
+  if (type === "expense") {
+    return {
+      ...shared,
+      type,
+      sourceAccountId: "cash" as Account["id"],
+      categoryId: "food" as Extract<Transaction, { type: "expense" }>["categoryId"],
+      ...overrides,
+    } as Transaction;
+  }
+  return {
+    ...shared,
+    type,
+    sourceAccountId: "cash" as Account["id"],
+    destinationAccountId: "savings" as Account["id"],
+    ...overrides,
+  } as Transaction;
+}
+
+function port(overrides: Partial<DashboardReadPort> = {}): DashboardReadPort {
+  return {
+    getSettings: vi.fn(async () => ({
+      key: "primary" as const,
+      baseCurrency: USD,
+      locale: "en-US",
+      dateFormat: "yyyy-MM-dd",
+      automaticBackupsEnabled: true,
+      automaticBackupIntervalHours: 24 as const,
+    })),
+    listAccounts: vi.fn(async () => []),
+    listTransactions: vi.fn(async () => []),
+    listBudgets: vi.fn(async () => []),
+    getMetadata: vi.fn(async () => metadata),
+    getCalculationCache: vi.fn(async () => undefined),
+    putCalculationCache: vi.fn(async () => undefined),
+    ...overrides,
+  };
+}
+
+describe("DashboardService", () => {
+  it("uses opening balances for account totals but excludes them from all flow metrics", async () => {
+    const opening = transaction(
+      "opening", "income", 1_000, "2026-07-02T00:00:00Z",
+      { purpose: "opening-balance", categoryId: "system:opening-balance" },
+    );
+    const reads = port({
+      listAccounts: vi.fn(async () => [account("cash")]),
+      listTransactions: vi.fn(async () => [opening]),
+    });
+    const result = await new DashboardService(reads).load({
+      currency: USD, range,
+    });
+    expect(result.netWorth).toBe(1_000);
+    expect(result).toMatchObject({
+      income: 0, expenses: 0, netCashFlow: 0, savingsRatePercent: null,
+      cashFlow: [],
+    });
+  });
+  it("returns an exhaustive valid cache hit without rebuilding or writing", async () => {
+    const cached: DashboardPayload = {
+      currency: USD,
+      availableCurrencies: [USD],
+      range,
+      netWorth: 0 as DashboardPayload["netWorth"],
+      income: 0 as DashboardPayload["income"],
+      expenses: 0 as DashboardPayload["expenses"],
+      netCashFlow: 0 as DashboardPayload["netCashFlow"],
+      savingsRatePercent: null,
+      accountBalances: [],
+      cashFlow: [],
+      budgetUsage: [],
+      categoryBreakdown: [],
+      recentTransactions: [],
+    };
+    const reads = port({
+      getCalculationCache: vi.fn(async () => ({
+        key: "dashboard:v4:USD:2026-07-01T00:00:00.000Z:2026-07-31T23:59:59.000Z:5",
+        calculationVersion: 4,
+        sourceRevision: 9,
+        value: cached,
+        updatedAt: "2026-07-01T00:00:00Z",
+      } as CalculationCache)),
+    });
+
+    await expect(
+      new DashboardService(reads).load({ currency: USD, range }),
+    ).resolves.toEqual(cached);
+    expect(reads.listAccounts).not.toHaveBeenCalled();
+    expect(reads.putCalculationCache).not.toHaveBeenCalled();
+  });
+
+  it("accepts cached recent transactions with purpose without rebuilding", async () => {
+    const recent = transaction(
+      "recent", "income", 10, "2026-07-02T00:00:00.000Z",
+    );
+    const cached: DashboardPayload = {
+      currency: USD, availableCurrencies: [USD], range,
+      netWorth: 10 as never, income: 10 as never,
+      expenses: 0 as never, netCashFlow: 10 as never,
+      savingsRatePercent: 100, accountBalances: [{
+        accountId: "cash" as Account["id"],
+        name: "cash",
+        type: "checking",
+        status: "active",
+        balance: 10 as never,
+      }],
+      cashFlow: [{
+        date: "2026-07-02", income: 10 as never, expenses: 0 as never,
+        netCashFlow: 10 as never, transactionIds: [recent.id],
+      }],
+      budgetUsage: [], categoryBreakdown: [], recentTransactions: [recent],
+    };
+    const reads = port({
+      getCalculationCache: vi.fn(async () => ({
+        key: "dashboard:v4:USD:2026-07-01T00:00:00.000Z:2026-07-31T23:59:59.000Z:5" as never,
+        calculationVersion: metadata.calculationVersion,
+        sourceRevision: metadata.ledgerRevision,
+        value: cached,
+        updatedAt: "2026-07-02T00:00:00Z",
+      })),
+    });
+    expect(await new DashboardService(reads).load({
+      currency: USD, range,
+    })).toBe(cached);
+    expect(reads.listAccounts).not.toHaveBeenCalled();
+    expect(reads.listTransactions).not.toHaveBeenCalled();
+    expect(reads.putCalculationCache).not.toHaveBeenCalled();
+  });
+
+  it("rebuilds an otherwise valid cache stored under the wrong key", async () => {
+    const value = {
+      currency: USD,
+      range,
+      netWorth: 0,
+      income: 0,
+      expenses: 0,
+      netCashFlow: 0,
+      savingsRatePercent: null,
+      accountBalances: [],
+      cashFlow: [],
+      budgetUsage: [],
+      recentTransactions: [],
+    };
+    const reads = port({
+      getCalculationCache: vi.fn(async () => ({
+        key: "dashboard:wrong" as CalculationCache["key"],
+        calculationVersion: 4,
+        sourceRevision: 9,
+        value,
+        updatedAt: "2026-07-01T00:00:00Z",
+      })),
+    });
+
+    await new DashboardService(reads).load({ currency: USD, range });
+
+    expect(reads.listAccounts).toHaveBeenCalledOnce();
+    expect(reads.putCalculationCache).toHaveBeenCalledOnce();
+  });
+
+  it.each([
+    ["an impossible cash-flow date", {
+      cashFlow: [{ date: "2026-02-30", income: 0, expenses: 0, netCashFlow: 0 }],
+    }],
+    ["cash-flow rows out of order", {
+      cashFlow: [
+        { date: "2026-07-03", income: 0, expenses: 0, netCashFlow: 0 },
+        { date: "2026-07-02", income: 0, expenses: 0, netCashFlow: 0 },
+      ],
+    }],
+    ["a nonintersecting budget month", {
+      budgetUsage: [{
+        budgetId: "budget", name: "Food", month: "2026-08",
+        budgeted: 100, spent: 10, remaining: 90, percentUsed: 10,
+      }],
+    }],
+    ["inconsistent global arithmetic with no budgets", {
+      netWorth: 10,
+      income: 100,
+      expenses: 20,
+      netCashFlow: 90,
+      savingsRatePercent: 91,
+      cashFlow: [{
+        date: "2026-07-02", income: 100, expenses: 20, netCashFlow: 80,
+      }],
+      budgetUsage: [],
+    }],
+  ])("rebuilds a cache containing %s", async (_name, payloadOverride) => {
+    const value = {
+      currency: USD,
+      range,
+      netWorth: 0,
+      income: 0,
+      expenses: 0,
+      netCashFlow: 0,
+      savingsRatePercent: null,
+      accountBalances: [],
+      cashFlow: [],
+      budgetUsage: [],
+      recentTransactions: [],
+      ...payloadOverride,
+    };
+    const reads = port({
+      getCalculationCache: vi.fn(async () => ({
+        key: "dashboard:USD:2026-07-01T00:00:00Z:2026-07-31T23:59:59Z:5",
+        calculationVersion: 4,
+        sourceRevision: 9,
+        value,
+        updatedAt: "2026-07-01T00:00:00Z",
+      } as CalculationCache)),
+    });
+
+    await new DashboardService(reads).load({ currency: USD, range });
+
+    expect(reads.listAccounts).toHaveBeenCalledOnce();
+    expect(reads.putCalculationCache).toHaveBeenCalledOnce();
+  });
+
+  it.each([
+    ["stale calculation version", { calculationVersion: 3 }],
+    ["stale source revision", { sourceRevision: 8 }],
+    ["corrupt nested payload", { value: { currency: "USD" } }],
+    ["query-mismatched payload", { value: {
+      currency: EUR, range, netWorth: 0, income: 0, expenses: 0,
+      netCashFlow: 0, savingsRatePercent: null, accountBalances: [],
+      cashFlow: [], budgetUsage: [], recentTransactions: [],
+    } }],
+  ])("rebuilds a %s", async (_name, cacheOverride) => {
+    const reads = port({
+      getCalculationCache: vi.fn(async () => ({
+        key: "x",
+        calculationVersion: 4,
+        sourceRevision: 9,
+        value: {},
+        updatedAt: "2026-01-01T00:00:00Z",
+        ...cacheOverride,
+      } as CalculationCache)),
+    });
+    await new DashboardService(reads).load({ currency: USD, range });
+    expect(reads.listAccounts).toHaveBeenCalledOnce();
+    expect(reads.putCalculationCache).toHaveBeenCalledOnce();
+  });
+
+  it("rebuilds isolated currency, balances, UTC cash flow, budgets, and recent activity", async () => {
+    const accounts = [
+      account("cash", USD),
+      account("savings", USD, { type: "savings" }),
+      account("card", USD, { type: "credit", status: "archived" }),
+      account("euro", EUR),
+    ];
+    const transactions = [
+      transaction("opening-cash", "income", 1_000, "2026-01-01T00:00:00Z", {
+        purpose: "opening-balance", categoryId: "system:opening-balance",
+      }),
+      transaction("opening-savings", "income", 500, "2026-01-01T00:00:00Z", {
+        purpose: "opening-balance", categoryId: "system:opening-balance",
+        destinationAccountId: "savings",
+      }),
+      transaction("opening-card", "income", 200, "2026-01-01T00:00:00Z", {
+        purpose: "opening-balance", categoryId: "system:opening-balance",
+        destinationAccountId: "card",
+      }),
+      transaction("opening-euro", "income", 99_999, "2026-01-01T00:00:00Z", {
+        purpose: "opening-balance", categoryId: "system:opening-balance",
+        destinationAccountId: "euro", currency: EUR,
+      }),
+      transaction("income", "income", 1_000, "2026-07-01T01:00:00+01:00"),
+      transaction("expense", "expense", 250, "2026-07-01T23:30:00-02:00"),
+      transaction("transfer", "transfer", 300, "2026-07-03T00:00:00Z"),
+      transaction("planned", "expense", 900, "2026-07-04T00:00:00Z", { status: "planned" }),
+      transaction("cancelled", "income", 800, "2026-07-05T00:00:00Z", { status: "cancelled" }),
+      transaction("eur", "income", 70, "2026-07-06T00:00:00Z", {
+        currency: EUR, destinationAccountId: "euro",
+      }),
+      transaction("older-created", "expense", 10, "2026-07-07T00:00:00Z", {
+        createdAt: "2026-07-07T01:00:00Z",
+      }),
+      transaction("newer-created", "expense", 20, "2026-07-07T00:00:00Z", {
+        createdAt: "2026-07-07T02:00:00Z",
+      }),
+    ];
+    const budgets: Budget[] = [{
+      id: "food-budget" as Budget["id"],
+      name: "Food",
+      categoryId: "food" as Budget["categoryId"],
+      currency: USD,
+      amount: 200 as Budget["amount"],
+      month: "2026-07",
+      rollover: false,
+      status: "active",
+      createdAt: "2026-01-01T00:00:00Z",
+      updatedAt: "2026-01-01T00:00:00Z",
+    }];
+    const reads = port({
+      listAccounts: vi.fn(async () => accounts),
+      listTransactions: vi.fn(async () => transactions),
+      listBudgets: vi.fn(async () => budgets),
+    });
+
+    const result = await new DashboardService(reads, () => "2026-07-31T00:00:00Z")
+      .load({ currency: USD, range, recentLimit: 3 });
+
+    expect(result.netWorth).toBe(2_420);
+    expect(result.accountBalances.map(({ accountId, balance }) => [accountId, balance]))
+      .toEqual([["cash", 1_420], ["savings", 800], ["card", 200]]);
+    expect(result).toMatchObject({
+      income: 1_000,
+      expenses: 280,
+      netCashFlow: 720,
+      savingsRatePercent: 72,
+      cashFlow: [
+        { date: "2026-07-01", income: 1_000, expenses: 0, netCashFlow: 1_000 },
+        { date: "2026-07-02", income: 0, expenses: 250, netCashFlow: -250 },
+        { date: "2026-07-07", income: 0, expenses: 30, netCashFlow: -30 },
+      ],
+      budgetUsage: [{
+        budgetId: "food-budget", name: "Food", month: "2026-07",
+        budgeted: 200, spent: 280, remaining: -80, percentUsed: 140,
+      }],
+    });
+    expect(result.recentTransactions.map((item) => item.id))
+      .toEqual(["newer-created", "older-created", "cancelled"]);
+    expect(reads.putCalculationCache).toHaveBeenCalledWith(expect.objectContaining({
+      calculationVersion: 4,
+      sourceRevision: 9,
+      updatedAt: "2026-07-31T00:00:00Z",
+      value: result,
+    }));
+  });
+
+  it("returns a null savings rate when completed income is zero", async () => {
+    const reads = port({
+      listAccounts: vi.fn(async () => [account("cash")]),
+      listTransactions: vi.fn(async () => [
+        transaction("expense", "expense", 10, "2026-07-02T00:00:00Z"),
+      ]),
+    });
+    const result = await new DashboardService(reads).load({ currency: USD, range });
+    expect(result.savingsRatePercent).toBeNull();
+  });
+
+  it.each([
+    [{ currency: USD, range, recentLimit: 0 }, "recentLimit"],
+    [{ currency: USD, range, recentLimit: 51 }, "recentLimit"],
+    [{ currency: "usd" as CurrencyCode, range }, "Currency"],
+    [{ currency: USD, range: { start: range.end, end: range.start } }, "range"],
+  ])("validates query %#", async (query, message) => {
+    const reads = port();
+    await expect(new DashboardService(reads).load(query)).rejects.toThrow(message);
+    expect(reads.getMetadata).not.toHaveBeenCalled();
+  });
+
+  it("rejects missing metadata before rebuilding", async () => {
+    const reads = port({ getMetadata: vi.fn(async () => undefined) });
+    await expect(new DashboardService(reads).load({ currency: USD, range }))
+      .rejects.toThrow("metadata");
+    expect(reads.listAccounts).not.toHaveBeenCalled();
+  });
+
+  it("propagates overflow and cache write failures", async () => {
+    const overflow = port({
+      listAccounts: vi.fn(async () => [
+        account("cash", USD),
+      ]),
+      listTransactions: vi.fn(async () => [
+        transaction("opening", "income", Number.MAX_SAFE_INTEGER, "2026-01-01T00:00:00Z", {
+          purpose: "opening-balance", categoryId: "system:opening-balance",
+        }),
+        transaction("income", "income", 1, "2026-07-02T00:00:00Z"),
+      ]),
+    });
+    await expect(new DashboardService(overflow).load({ currency: USD, range }))
+      .rejects.toThrow("safe integer");
+
+    const failedPut = port({
+      putCalculationCache: vi.fn(async () => {
+        throw new Error("cache unavailable");
+      }),
+    });
+    await expect(new DashboardService(failedPut).load({ currency: USD, range }))
+      .rejects.toThrow("cache unavailable");
+  });
+});

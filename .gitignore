@@ -1,0 +1,29 @@
+.worktrees/
+.vs/
+node_modules/
+dist/
+coverage/
+playwright-report/
+test-results/
+src-tauri/target/
+*.log
+task-01-vite-scaffold/
+
+# Transient brainstorm session state: local ports and absolute machine paths.
+.superpowers/**/state/
+
+# work/ is a local scratch tree of roughly 15 GB: toolchain downloads, cargo
+# build output, per-run sandbox evidence, and 215 MB installer copies staged for
+# each run. None of it is source. Two small parts are kept because they are
+# provenance rather than output: the before-change hash checkpoints, and the
+# installer manifest that README.md and docs/INSTALLER-VERIFICATION.md name as
+# the authoritative record of the Task 15A artifacts.
+work/*
+!work/checkpoints/
+!work/artifacts/
+work/artifacts/*
+!work/artifacts/task15/
+work/artifacts/task15/*
+!work/artifacts/task15/unaccepted/
+work/artifacts/task15/unaccepted/*
+!work/artifacts/task15/unaccepted/manifest.json

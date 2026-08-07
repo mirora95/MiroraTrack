@@ -1,0 +1,9 @@
+# Disable end-of-line normalization repository-wide.
+#
+# The verification checkpoints under docs/checkpoints/ and work/checkpoints/
+# record SHA-256 hashes of specific files as evidence, and the harness scripts
+# re-verify staged inputs against those hashes at run time. If Git rewrote line
+# endings on checkout, the bytes on disk would no longer match the recorded
+# hashes and previously valid evidence would appear to have been tampered with.
+# Storing every file byte-for-byte keeps those hashes meaningful.
+* -text

@@ -1,0 +1,70 @@
+import { cleanup, render, screen, within } from '@testing-library/react'
+import { afterEach, describe, expect, it, vi } from 'vitest'
+import type { BackupMetadata, Settings } from '../../finance/types'
+import { BackupPanel } from './BackupPanel'
+
+afterEach(() => {
+  vi.useRealTimers()
+  cleanup()
+})
+
+const settings: Settings = {
+  key: 'primary',
+  baseCurrency: 'USD' as never,
+  locale: 'en-US',
+  dateFormat: 'yyyy-MM-dd',
+  automaticBackupsEnabled: true,
+  automaticBackupIntervalHours: 24,
+}
+
+function renderPanel(metadata?: BackupMetadata) {
+  render(
+    <BackupPanel
+      settings={settings}
+      metadata={metadata}
+      dataManagement={{
+        getBackupStatus: vi.fn(),
+        chooseBackupFolder: vi.fn(),
+        resetBackupFolder: vi.fn(),
+        exportJson: vi.fn(),
+        exportCsv: vi.fn(),
+        selectImport: vi.fn(),
+        restore: vi.fn(),
+        invalidateRestoreCandidate: vi.fn(),
+      }}
+      onSettingsChanged={vi.fn()}
+      onOpenRestore={vi.fn()}
+    />,
+  )
+  const panel = screen.getByRole('region', { name: 'Backup and export' })
+  return within(panel).getByText('Next attempt').parentElement
+}
+
+describe('BackupPanel next attempt', () => {
+  it('shows due on next activation when no backup has succeeded', () => {
+    vi.useFakeTimers()
+    vi.setSystemTime(new Date('2026-07-30T12:00:00.000Z'))
+    const fact = renderPanel({
+      id: 'automatic' as never,
+      status: 'failed',
+      lastAttemptAt: '2026-07-30T11:00:00.000Z',
+      schemaVersion: 5,
+    })
+
+    expect(fact).toHaveTextContent('Due after the next application start')
+  })
+
+  it('uses the last success and reports overdue despite a recent failed attempt', () => {
+    vi.useFakeTimers()
+    vi.setSystemTime(new Date('2026-07-30T12:00:00.000Z'))
+    const fact = renderPanel({
+      id: 'automatic' as never,
+      status: 'failed',
+      lastAttemptAt: '2026-07-30T11:30:00.000Z',
+      lastSuccessfulAt: '2026-07-28T10:00:00.000Z',
+      schemaVersion: 5,
+    })
+
+    expect(fact).toHaveTextContent('Overdue — will retry after the next application start')
+  })
+})

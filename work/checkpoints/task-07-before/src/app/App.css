@@ -1,0 +1,19 @@
+#root {
+  min-height: 100vh;
+}
+
+.app-shell {
+  display: grid;
+  min-height: 100vh;
+  place-content: center;
+  text-align: center;
+}
+
+.app-shell h1 {
+  margin: 0;
+  font-size: clamp(2.5rem, 8vw, 5rem);
+}
+
+.app-shell p {
+  color: #5c6470;
+}

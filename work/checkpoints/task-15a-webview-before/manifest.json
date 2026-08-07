@@ -1,0 +1,47 @@
+﻿[
+    {
+        "Path":  "scripts\\Build-Task15Installers.ps1",
+        "Sha256":  "9A1B62ED68154F184046C5BBC811F4D6F9EC1D2C5497AAAFADEEFACB48000646",
+        "Length":  22559
+    },
+    {
+        "Path":  "scripts\\task15\\TauriBundlerMirror.psm1",
+        "Sha256":  "23678913D9E97CE914F968F6229585A6E065431B9487F84D23C70C5243933097",
+        "Length":  8059
+    },
+    {
+        "Path":  "scripts\\task15\\Acquire-TauriBundlerTools.ps1",
+        "Sha256":  "333E88F7FB6843BB129E18A7963D1E17315B40C97C29FC81AE513DB82B5A7190",
+        "Length":  4228
+    },
+    {
+        "Path":  "scripts\\task15\\Start-TauriBundlerMirror.ps1",
+        "Sha256":  "19E2E1B8C2D097A4E3D82E10135985A05F7D13E2A5BEF5B2430AA11E6D7731FA",
+        "Length":  4005
+    },
+    {
+        "Path":  "scripts\\task15\\Test-TauriBundlerMirror.ps1",
+        "Sha256":  "A823E99902D0F6AF34EBC9A7045191D4DF10BAAEE8529D039A33DE72E1C28EFF",
+        "Length":  10005
+    },
+    {
+        "Path":  "scripts\\task15\\Test-Task15BuildIntegration.ps1",
+        "Sha256":  "5FA635F5D4E9C7E723059A49BAC985F462D81F2E09EF7370C51BD59A5018B201",
+        "Length":  1322
+    },
+    {
+        "Path":  "docs\\BUILDING-WINDOWS.md",
+        "Sha256":  "D87DA2054C211E63BB0968BE5B9FA996DFF1C352F56C72D02CE04681868F41BA",
+        "Length":  5656
+    },
+    {
+        "Path":  "docs\\INSTALLER-VERIFICATION.md",
+        "Sha256":  "8E92D8B9898F6ED07A3F6737FD8ABA0027132F7B404596D5BA5102E36E7937FF",
+        "Length":  3345
+    },
+    {
+        "Path":  "docs\\checkpoints\\task-15a.md",
+        "Sha256":  "0A383CF99704BB8D6DB8631D9537440C7A67C465FD4374D345C1CE1C41254F36",
+        "Length":  13708
+    }
+]

@@ -1,0 +1,58 @@
+﻿[
+    {
+        "Path":  "package.json",
+        "Exists":  true,
+        "Length":  1744,
+        "SHA256":  "863BE12B24F1A7AB086C79CAFD0E1E44921608521102818BED900BF6BE2BAFAF",
+        "Backup":  "package.json"
+    },
+    {
+        "Path":  "package-lock.json",
+        "Exists":  true,
+        "Length":  120664,
+        "SHA256":  "50C7258A8456103A5955847E29B665ADEAF449F208F7523AD418F78FEC34ABB9",
+        "Backup":  "package-lock.json"
+    },
+    {
+        "Path":  "src-tauri/Cargo.toml",
+        "Exists":  true,
+        "Length":  789,
+        "SHA256":  "AF32C75A4603114D85391F06B383C8FC7548EAD5677D2E8A8DFF367A94D91D26",
+        "Backup":  "src-tauri__Cargo.toml"
+    },
+    {
+        "Path":  "src-tauri/Cargo.lock",
+        "Exists":  true,
+        "Length":  111243,
+        "SHA256":  "1B121E655446320FE7FBDF3D1908B317B1BA2A3A37C1B457DDF9268FF0EE12E7",
+        "Backup":  "src-tauri__Cargo.lock"
+    },
+    {
+        "Path":  "src-tauri/tauri.conf.json",
+        "Exists":  true,
+        "Length":  1661,
+        "SHA256":  "C66500792D4050FDB59DFFE4225798CF9ADEE44AB94D643F7505078EEE15C58E",
+        "Backup":  "src-tauri__tauri.conf.json"
+    },
+    {
+        "Path":  "docs/BUILDING-WINDOWS.md",
+        "Exists":  true,
+        "Length":  3963,
+        "SHA256":  "12E409C15C50765602C05A7DDC6D80493667E181B5A213D040702E23599D165D",
+        "Backup":  "docs__BUILDING-WINDOWS.md"
+    },
+    {
+        "Path":  "README.md",
+        "Exists":  false,
+        "Length":  null,
+        "SHA256":  null,
+        "Backup":  null
+    },
+    {
+        "Path":  "scripts/verify-installer.ps1",
+        "Exists":  false,
+        "Length":  null,
+        "SHA256":  null,
+        "Backup":  null
+    }
+]

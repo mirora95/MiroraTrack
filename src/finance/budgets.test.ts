@@ -1,0 +1,160 @@
+import { describe, expect, it } from "vitest";
+
+import { calculateBudgetUsage } from "./budgets";
+import type {
+  AccountId,
+  Budget,
+  CategoryId,
+  CurrencyCode,
+  Transaction,
+} from "./types";
+
+const USD = "USD" as CurrencyCode;
+const EUR = "EUR" as CurrencyCode;
+const FOOD = "food" as CategoryId;
+const RENT = "rent" as CategoryId;
+
+const budget: Budget = {
+  id: "budget" as Budget["id"],
+  name: "Food",
+  categoryId: FOOD,
+  currency: USD,
+  amount: 100 as Budget["amount"],
+  month: "2026-01",
+  rollover: false,
+  status: "active",
+  createdAt: "2026-01-01T00:00:00Z",
+  updatedAt: "2026-01-01T00:00:00Z",
+};
+
+function expense(
+  amount: number,
+  options: {
+    category?: CategoryId;
+    currency?: CurrencyCode;
+    status?: Transaction["status"];
+    effectiveAt?: string;
+  } = {},
+): Transaction {
+  return {
+    id: `expense-${amount}` as Transaction["id"],
+    type: "expense",
+    status: options.status ?? "completed",
+    purpose: "standard",
+    amount: amount as Transaction["amount"],
+    currency: options.currency ?? USD,
+    effectiveAt: options.effectiveAt ?? "2026-01-15T00:00:00Z",
+    sourceAccountId: "checking" as AccountId,
+    categoryId: options.category ?? FOOD,
+    createdAt: "2026-01-01T00:00:00Z",
+    updatedAt: "2026-01-01T00:00:00Z",
+  };
+}
+
+const january = {
+  start: "2026-01-01T00:00:00Z",
+  end: "2026-01-31T23:59:59.999Z",
+};
+
+describe("calculateBudgetUsage", () => {
+  it("excludes opening-balance expenses", () => {
+    const opening = {
+      ...expense(500),
+      purpose: "opening-balance" as const,
+      categoryId: "system:opening-balance" as never,
+    };
+    expect(calculateBudgetUsage(budget, [opening], january)).toBe(0);
+  });
+  it("counts only completed matching expenses and excludes mismatches and transfers", () => {
+    const transfer = {
+      ...expense(80),
+      type: "transfer",
+      destinationAccountId: "savings" as AccountId,
+      categoryId: undefined,
+    } as unknown as Transaction;
+    expect(
+      calculateBudgetUsage(budget, [
+        expense(25),
+        expense(10, { status: "planned" }),
+        expense(10, { status: "cancelled" }),
+        expense(20, { category: RENT }),
+        expense(30, { currency: EUR }),
+        transfer,
+      ], january),
+    ).toBe(25);
+  });
+
+  it("intersects inclusive range with the budget UTC month", () => {
+    expect(
+      calculateBudgetUsage(
+        budget,
+        [
+          expense(2, { effectiveAt: "2025-12-31T19:00:00-05:00" }),
+          expense(3, { effectiveAt: "2026-01-31T19:00:00-05:00" }),
+          expense(7, { effectiveAt: "2026-02-01T00:00:00.001Z" }),
+        ],
+        {
+          start: "2026-01-01T00:00:00Z",
+          end: "2026-02-01T00:00:00Z",
+        },
+      ),
+    ).toBe(2);
+  });
+
+  it("includes an expense at the exact range end", () => {
+    expect(
+      calculateBudgetUsage(
+        budget,
+        [expense(4, { effectiveAt: january.end })],
+        january,
+      ),
+    ).toBe(4);
+  });
+
+  it("rejects invalid budget amounts, transaction amounts, timestamps, and ranges", () => {
+    expect(() =>
+      calculateBudgetUsage({ ...budget, amount: 0 as Budget["amount"] }, [], january),
+    ).toThrow(RangeError);
+    expect(() =>
+      calculateBudgetUsage(budget, [expense(-1)], january),
+    ).toThrow(RangeError);
+    expect(() =>
+      calculateBudgetUsage(
+        budget,
+        [expense(1, { effectiveAt: "2026-01-01" })],
+        january,
+      ),
+    ).toThrow(RangeError);
+    expect(() =>
+      calculateBudgetUsage(budget, [], {
+        start: january.end,
+        end: january.start,
+      }),
+    ).toThrow(RangeError);
+    expect(() =>
+      calculateBudgetUsage(
+        { ...budget, month: "2026-13" as Budget["month"] },
+        [],
+        january,
+      ),
+    ).toThrow(RangeError);
+    expect(() =>
+      calculateBudgetUsage(
+        { ...budget, month: "0000-01" as Budget["month"] },
+        [],
+        january,
+      ),
+    ).toThrow(RangeError);
+  });
+
+  it("rejects usage overflow and leaves inputs unchanged", () => {
+    const records = Object.freeze([
+      expense(Number.MAX_SAFE_INTEGER),
+      expense(1),
+    ]);
+    expect(() => calculateBudgetUsage(budget, records, january)).toThrow(
+      RangeError,
+    );
+    expect(records).toHaveLength(2);
+  });
+});

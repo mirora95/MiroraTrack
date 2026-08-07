@@ -1,0 +1,110 @@
+[
+    {
+        "Path":  "scripts/Build-Task15Installers.ps1",
+        "Length":  30623,
+        "SHA256":  "F23680D1B703BCE3A5409C7E43AD06C5CAD15B39B99AC43A1BA937EF8EC4EBF7",
+        "Backup":  "scripts__Build-Task15Installers.ps1"
+    },
+    {
+        "Path":  "scripts/verify-installer.ps1",
+        "Length":  2237,
+        "SHA256":  "5E8B3B763D1C721C381FC7FBB6776A2BBACD85DEB2C96D8DA487F22EE376DA3C",
+        "Backup":  "scripts__verify-installer.ps1"
+    },
+    {
+        "Path":  "scripts/task15/TauriBundlerMirror.psm1",
+        "Length":  8059,
+        "SHA256":  "23678913D9E97CE914F968F6229585A6E065431B9487F84D23C70C5243933097",
+        "Backup":  "scripts__task15__TauriBundlerMirror.psm1"
+    },
+    {
+        "Path":  "scripts/task15/Acquire-WebViewOfflineInstaller.ps1",
+        "Length":  11588,
+        "SHA256":  "C4F315BF163A2D8ECFE79AF6624657F7D70CC7395455A6CD9AE4AB2E1CA1BB5E",
+        "Backup":  "scripts__task15__Acquire-WebViewOfflineInstaller.ps1"
+    },
+    {
+        "Path":  "scripts/task15/Start-TauriBundlerMirror.ps1",
+        "Length":  4005,
+        "SHA256":  "19E2E1B8C2D097A4E3D82E10135985A05F7D13E2A5BEF5B2430AA11E6D7731FA",
+        "Backup":  "scripts__task15__Start-TauriBundlerMirror.ps1"
+    },
+    {
+        "Path":  "scripts/task15/Test-TauriBundlerMirror.ps1",
+        "Length":  10005,
+        "SHA256":  "A823E99902D0F6AF34EBC9A7045191D4DF10BAAEE8529D039A33DE72E1C28EFF",
+        "Backup":  "scripts__task15__Test-TauriBundlerMirror.ps1"
+    },
+    {
+        "Path":  "scripts/task15/Test-Task15BuildIntegration.ps1",
+        "Length":  1588,
+        "SHA256":  "CD75B3B75F1C145D71CF38ACD289E1E152A4BA204F46969BBA88A8A430498D00",
+        "Backup":  "scripts__task15__Test-Task15BuildIntegration.ps1"
+    },
+    {
+        "Path":  "scripts/task15/Test-WebViewAcquisition.ps1",
+        "Length":  10858,
+        "SHA256":  "CCBD40340214143E44E48FF5229304C7FB870DA060229CD0D890666DABBB1155",
+        "Backup":  "scripts__task15__Test-WebViewAcquisition.ps1"
+    },
+    {
+        "Path":  "scripts/task15/Test-WebViewBuildIntegration.ps1",
+        "Length":  2788,
+        "SHA256":  "188EC6E64688D7A312AFC78E6087C39547B46F89C3585CFC542BF689A13B0D57",
+        "Backup":  "scripts__task15__Test-WebViewBuildIntegration.ps1"
+    },
+    {
+        "Path":  "docs/checkpoints/task-15a.md",
+        "Length":  27074,
+        "SHA256":  "8B3D33C6C1E9ADFCA1C5866B88884593F6378D1B067297B69C5BC0D50A5946AC",
+        "Backup":  "docs__checkpoints__task-15a.md"
+    },
+    {
+        "Path":  "docs/INSTALLER-VERIFICATION.md",
+        "Length":  4348,
+        "SHA256":  "1E5E145323B17A82D2B6F5D16F868C5FEF9FC5EFB32CEB62D338DCCCEA2A3D53",
+        "Backup":  "docs__INSTALLER-VERIFICATION.md"
+    },
+    {
+        "Path":  "docs/BUILDING-WINDOWS.md",
+        "Length":  6372,
+        "SHA256":  "B8439828CE733DE88BE2B1A2A78B1253D0457F45D604C8EBEBDD3A5F76F81791",
+        "Backup":  "docs__BUILDING-WINDOWS.md"
+    },
+    {
+        "Path":  "README.md",
+        "Length":  1992,
+        "SHA256":  "66100A390EE47D3928D75FED4FF05D98F9C4F9971FA7D04E3D7FF94173F4BE52",
+        "Backup":  "README.md"
+    },
+    {
+        "Path":  "package.json",
+        "Length":  1744,
+        "SHA256":  "863BE12B24F1A7AB086C79CAFD0E1E44921608521102818BED900BF6BE2BAFAF",
+        "Backup":  "package.json"
+    },
+    {
+        "Path":  "package-lock.json",
+        "Length":  120664,
+        "SHA256":  "50C7258A8456103A5955847E29B665ADEAF449F208F7523AD418F78FEC34ABB9",
+        "Backup":  "package-lock.json"
+    },
+    {
+        "Path":  "src-tauri/Cargo.toml",
+        "Length":  789,
+        "SHA256":  "AF32C75A4603114D85391F06B383C8FC7548EAD5677D2E8A8DFF367A94D91D26",
+        "Backup":  "src-tauri__Cargo.toml"
+    },
+    {
+        "Path":  "src-tauri/Cargo.lock",
+        "Length":  111243,
+        "SHA256":  "1B121E655446320FE7FBDF3D1908B317B1BA2A3A37C1B457DDF9268FF0EE12E7",
+        "Backup":  "src-tauri__Cargo.lock"
+    },
+    {
+        "Path":  "src-tauri/tauri.conf.json",
+        "Length":  1661,
+        "SHA256":  "C66500792D4050FDB59DFFE4225798CF9ADEE44AB94D643F7505078EEE15C58E",
+        "Backup":  "src-tauri__tauri.conf.json"
+    }
+]
