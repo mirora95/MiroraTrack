@@ -4,7 +4,7 @@ import { z } from 'zod'
 import { Button } from '../../components/Button'
 import type { AccountDraft } from '../../application/accountRecords'
 import type { UpdateAccountCommand } from '../../application/accountService'
-import { currencyFractionDigits, parseMajor, parseSignedMajor } from '../../finance/money'
+import { currencyFractionDigits, parseMajor, parseSignedMajor, SUPPORTED_CURRENCY_CODES } from '../../finance/money'
 import type { Account, AccountColor, AccountIcon, AccountType } from '../../finance/types'
 
 interface Values {
@@ -22,7 +22,9 @@ const schema = z.object({
   currency: z.string().regex(/^[A-Z]{3}$/, 'Choose a currency.'),
 })
 
-const currencies = ['USD', 'EUR', 'GBP', 'UZS', 'JPY'] as const
+// Sourced from the finance engine so every currency picker in the application
+// offers exactly the set the engine can parse, format, and validate.
+const currencies = SUPPORTED_CURRENCY_CODES
 const types: readonly AccountType[] = ['checking', 'savings', 'cash', 'credit', 'investment', 'other']
 const icons: readonly AccountIcon[] = ['landmark', 'piggy-bank', 'wallet', 'credit-card', 'chart-line', 'banknote']
 const colors: readonly AccountColor[] = ['blue', 'teal', 'gold', 'purple', 'green', 'slate']

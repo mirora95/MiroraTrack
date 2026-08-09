@@ -5,7 +5,7 @@ import { ArrowLeft, ArrowRight, Check, LockKeyhole } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import { Button } from '../../components/Button'
 import { LogoMark } from '../../components/LogoMark'
-import { currencyFractionDigits, parseMajor, parseSignedMajor } from '../../finance/money'
+import { currencyFractionDigits, parseMajor, parseSignedMajor, SUPPORTED_CURRENCY_CODES } from '../../finance/money'
 import type { AccountColor, AccountIcon, AccountType } from '../../finance/types'
 import type { InitializationApplication } from '../../app/runtime'
 import { en } from '../../i18n/en'
@@ -28,7 +28,9 @@ const accountSchema = z.object({
   currency: z.string().regex(/^[A-Z]{3}$/, 'Choose a currency.'),
 })
 
-const currencies = ['USD', 'EUR', 'GBP', 'UZS', 'JPY'] as const
+// Sourced from the finance engine so every currency picker in the application
+// offers exactly the set the engine can parse, format, and validate.
+const currencies = SUPPORTED_CURRENCY_CODES
 const types: readonly AccountType[] = ['checking', 'savings', 'cash', 'credit', 'investment', 'other']
 const icons: readonly AccountIcon[] = ['landmark', 'piggy-bank', 'wallet', 'credit-card', 'chart-line', 'banknote']
 const colors: readonly AccountColor[] = ['blue', 'teal', 'gold', 'purple', 'green', 'slate']

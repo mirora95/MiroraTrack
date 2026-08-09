@@ -139,8 +139,8 @@ describe('SettingsPage', () => {
         .getAllByRole('option')
         .map((option) => (option as HTMLOptionElement).value)
 
-    expect(optionValues('Base currency')).toEqual(['USD', 'EUR', 'GBP', 'UZS', 'JPY'])
-    expect(optionValues('Display currency')).toEqual(['USD', 'EUR', 'GBP', 'UZS', 'JPY'])
+    expect(optionValues('Base currency')).toEqual(['USD', 'EUR', 'GBP', 'UZS', 'TJS', 'JPY'])
+    expect(optionValues('Display currency')).toEqual(['USD', 'EUR', 'GBP', 'UZS', 'TJS', 'JPY'])
   })
 
   it('persists display currency locally without changing base currency', async () => {

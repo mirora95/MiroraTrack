@@ -2,6 +2,7 @@ import { useEffect, useState, type FormEvent } from 'react'
 import type { BudgetDraft } from '../../application/budgetService'
 import type { Budget } from '../../finance/types'
 import { TRANSACTION_CATEGORIES } from '../../application/transactionCategories'
+import { currencyFractionDigits } from '../../finance/money'
 import { Button } from '../../components/Button'
 
 export function BudgetForm({
@@ -25,7 +26,7 @@ export function BudgetForm({
 }) {
   const [categoryId, setCategoryId] = useState(budget?.categoryId ?? '')
   const [amount, setAmount] = useState(
-    budget ? String(budget.amount / (budget.currency === 'JPY' ? 1 : 100)) : '',
+    budget ? String(budget.amount / 10 ** currencyFractionDigits(budget.currency)) : '',
   )
   const [selectedMonth, setSelectedMonth] = useState(budget?.month ?? month)
   const [selectedCurrency, setSelectedCurrency] = useState(budget?.currency ?? currency)
@@ -33,7 +34,7 @@ export function BudgetForm({
 
   useEffect(() => {
     setCategoryId(budget?.categoryId ?? '')
-    setAmount(budget ? String(budget.amount / (budget.currency === 'JPY' ? 1 : 100)) : '')
+    setAmount(budget ? String(budget.amount / 10 ** currencyFractionDigits(budget.currency)) : '')
     setSelectedMonth(budget?.month ?? month)
     setSelectedCurrency(budget?.currency ?? currency)
   }, [budget, currency, month])

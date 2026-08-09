@@ -6,6 +6,7 @@ export const SUPPORTED_CURRENCY_CODES = [
   "EUR",
   "GBP",
   "UZS",
+  "TJS",
   "JPY",
 ] as const;
 

@@ -4,9 +4,28 @@ import {
   currencyCode,
   currencyFractionDigits,
   formatMinor,
+  isSupportedCurrency,
   parseMajor,
   parseSignedMajor,
+  SUPPORTED_CURRENCY_CODES,
 } from "./money";
+
+describe("Tajikistani somoni", () => {
+  it("is a supported currency", () => {
+    expect(isSupportedCurrency("TJS")).toBe(true);
+    expect(SUPPORTED_CURRENCY_CODES).toContain("TJS");
+  });
+
+  it("uses two minor units, because one somoni is one hundred diram", () => {
+    expect(currencyFractionDigits("TJS")).toBe(2);
+  });
+
+  it("parses and formats without floating point drift", () => {
+    expect(parseMajor("1234.56", currencyFractionDigits("TJS"))).toBe(123456);
+    // Intl separates a currency code from the amount with U+00A0, not a space.
+    expect(formatMinor(123456, "TJS", "en-US")).toBe("TJS 1,234.56");
+  });
+});
 
 describe("parseMajor", () => {
   it.each([

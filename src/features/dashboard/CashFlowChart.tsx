@@ -1,7 +1,7 @@
 import { Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
 import type { DashboardCashFlow } from '../../application/dashboardService'
 import type { CurrencyCode } from '../../finance/types'
-import { formatMinor } from '../../finance/money'
+import { currencyFractionDigits, formatMinor } from '../../finance/money'
 import { Link, useNavigate } from 'react-router-dom'
 import { cashFlowDrilldownLink } from './drilldown'
 
@@ -43,5 +43,5 @@ export function CashFlowChart({ rows, currency }: { rows: readonly DashboardCash
 }
 
 function compactCurrency(value: number, currency: string): string {
-  return new Intl.NumberFormat('en-US', { style: 'currency', currency, notation: 'compact', maximumFractionDigits: 1 }).format(value / (currency === 'JPY' ? 1 : 100))
+  return new Intl.NumberFormat('en-US', { style: 'currency', currency, notation: 'compact', maximumFractionDigits: 1 }).format(value / 10 ** currencyFractionDigits(currency))
 }
