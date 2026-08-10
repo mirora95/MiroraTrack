@@ -330,6 +330,12 @@ function Complete-Task15ProcessLineageTracker {
         $afterCleanup = @(Get-Task15TrackedSurvivors -Tracker $Tracker)
         Update-Task15RetainedExitTimes -Tracker $Tracker
         foreach ($record in @($Tracker.Records.Values)) {
+            # A process that had already exited before a handle could be retained
+            # has no timestamp to report and never will. Its absence is already
+            # recorded under ExitedBeforeHandleRetention and is proof of exit, so
+            # requiring an exact ExitTime for it would fail on the same evidence
+            # twice, once at retention and once here.
+            if ([string]$record.ExitTimeSource -eq "ExitedBeforeHandleRetention") { continue }
             if (-not (Test-Task15ExactProcessIdentity -Identity $record) -and -not $record.ExitTime) {
                 $key = Get-Task15ProcessIdentityKey $record
                 $state = $Tracker.RetainedHandles[$key]
