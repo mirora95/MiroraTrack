@@ -35,6 +35,7 @@ $buildRoot = Join-Path $repositoryRoot "work\build\task15-minimal"
 $artifactRoot = Join-Path $repositoryRoot "work\artifacts\task15\unaccepted"
 $logRoot = Join-Path $repositoryRoot "work\logs\task15-minimal"
 $webViewManifest = Join-Path $repositoryRoot "work\toolchain\webview-offline\binding.json"
+$mirrorRoot = Join-Path $repositoryRoot "work\toolchain\tauri-bundler-mirror"
 
 New-Item -ItemType Directory -Force -Path $buildRoot, $artifactRoot, $logRoot | Out-Null
 Import-Module -Name (Join-Path $task15Scripts "WebViewAcquisition.psm1") -Force -DisableNameChecking
@@ -138,7 +139,20 @@ try {
 
     if (-not $SkipFrontendBuild) { Invoke-Step "01-vite-build" "npm.cmd" @("run", "build") @{} 1800 }
 
-    $specifications = @(Get-TauriBundlerToolSpecifications)
+    # The mirror serves each pinned asset from disk and needs LocalPath on every
+    # specification. Rather than re-query GitHub for metadata we already pinned,
+    # the path is derived from MirrorPath and the file is verified against the
+    # specification's own hash, which is the same check the acquisition performs.
+    $specifications = @(Get-TauriBundlerToolSpecifications | ForEach-Object {
+        $relative = ([string] $_.MirrorPath).TrimStart('/').Replace('/', '\')
+        $localPath = Join-Path $mirrorRoot $relative
+        if (-not (Test-Path -LiteralPath $localPath -PathType Leaf)) {
+            throw "BLOCKED: pinned bundler asset is absent at $localPath. Run scripts/task15/Acquire-TauriBundlerTools.ps1 on a networked host first."
+        }
+        Assert-TauriAssetFile -Path $localPath -Specification $_ | Out-Null
+        $_ | Add-Member -NotePropertyName LocalPath -NotePropertyValue $localPath -PassThru
+    })
+    if ($specifications.Count -ne 2) { throw "Expected exactly two pinned bundler assets; found $($specifications.Count)." }
     $mirror = $null
     $built = @()
     try {
