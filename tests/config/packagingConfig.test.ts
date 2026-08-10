@@ -41,11 +41,11 @@ const cargoToml = readFileSync(resolve('src-tauri/Cargo.toml'), 'utf8')
 
 describe('desktop packaging configuration', () => {
   it('keeps the product identity and release version synchronized', () => {
-    expect(packageJson.version).toBe('0.1.0')
-    expect(packageLock.version).toBe('0.1.0')
-    expect(packageLock.packages[''].version).toBe('0.1.0')
-    expect(tauriConfig.version).toBe('0.1.0')
-    expect(cargoToml).toMatch(/^\s*version\s*=\s*"0\.1\.0"\s*$/m)
+    expect(packageJson.version).toBe('0.2.0')
+    expect(packageLock.version).toBe('0.2.0')
+    expect(packageLock.packages[''].version).toBe('0.2.0')
+    expect(tauriConfig.version).toBe('0.2.0')
+    expect(cargoToml).toMatch(/^\s*version\s*=\s*"0\.2\.0"\s*$/m)
     expect(tauriConfig.identifier).toBe('com.miroratrack.desktop')
     expect(tauriConfig.bundle.category).toBe('Finance')
     expect(packageJson.description).toMatch(/local-first personal finance/i)

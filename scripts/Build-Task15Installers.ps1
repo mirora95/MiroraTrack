@@ -318,11 +318,11 @@ function Invoke-HostGate {
 function Write-VersionOverride([string] $Version) {
     $overridePath = Join-Path $buildRoot "$Version\tauri-version-override.json"
     New-Item -ItemType Directory -Force -Path (Split-Path $overridePath) | Out-Null
-    if ($Version -eq "0.0.9") {
-        Write-Utf8NoBom $overridePath '{"version":"0.0.9","bundle":{"useLocalToolsDir":true}}'
+    if ($Version -eq "0.1.9") {
+        Write-Utf8NoBom $overridePath '{"version":"0.1.9","bundle":{"useLocalToolsDir":true}}'
     }
-    elseif ($Version -eq "0.1.0") {
-        Write-Utf8NoBom $overridePath '{"version":"0.1.0","bundle":{"useLocalToolsDir":true}}'
+    elseif ($Version -eq "0.2.0") {
+        Write-Utf8NoBom $overridePath '{"version":"0.2.0","bundle":{"useLocalToolsDir":true}}'
     }
     else { throw "Unsupported Task 15 installer version: $Version" }
     return $overridePath
@@ -525,11 +525,11 @@ function Invoke-InstallerBuilds {
 
     Invoke-WebViewAcquisition "11-acquire-webview-offline" | Out-Null
 
-    $override009 = Write-VersionOverride "0.0.9"
-    $override010 = Write-VersionOverride "0.1.0"
-    $target009 = Join-Path $buildRoot "0.0.9\target"
-    $target010 = Join-Path $buildRoot "0.1.0\target"
-    New-Item -ItemType Directory -Force -Path $target009, $target010 | Out-Null
+    $override019 = Write-VersionOverride "0.1.9"
+    $override020 = Write-VersionOverride "0.2.0"
+    $target019 = Join-Path $buildRoot "0.1.9\target"
+    $target020 = Join-Path $buildRoot "0.2.0\target"
+    New-Item -ItemType Directory -Force -Path $target019, $target020 | Out-Null
 
     $built = $false
     for ($bindingCycle = 1; $bindingCycle -le 2 -and -not $built; $bindingCycle++) {
@@ -540,34 +540,34 @@ function Invoke-InstallerBuilds {
             $mirror = Start-ExactMirror $specifications
             $mirrorTemplate = "http://127.0.0.1:$($mirror.Port)/<owner>/<repo>/releases/download/<version>/<asset>"
 
-            if (-not (Test-CurrentWebViewBinding "12-cycle-$bindingCycle-verify-webview-0.0.9")) { $bindingChanged = $true }
+            if (-not (Test-CurrentWebViewBinding "12-cycle-$bindingCycle-verify-webview-0.1.9")) { $bindingChanged = $true }
             if (-not $bindingChanged) {
-                Remove-ExactLocalToolsDirectory $target009
-                $staged009 = Stage-ExactWebViewPayload "0.0.9" $target009 $record
-                $step009 = "13-cycle-$bindingCycle-tauri-nsis-0.0.9"
-                Invoke-Task15Step $step009 "npx.cmd" @(
-                    "tauri", "build", "--config", $override009, "--bundles", "nsis",
+                Remove-ExactLocalToolsDirectory $target019
+                $staged019 = Stage-ExactWebViewPayload "0.1.9" $target019 $record
+                $step019 = "13-cycle-$bindingCycle-tauri-nsis-0.1.9"
+                Invoke-Task15Step $step019 "npx.cmd" @(
+                    "tauri", "build", "--config", $override019, "--bundles", "nsis",
                     "--target", "x86_64-pc-windows-msvc", "--ci"
                 ) -Environment @{
-                    CARGO_TARGET_DIR = $target009
+                    CARGO_TARGET_DIR = $target019
                     TAURI_BUNDLER_TOOLS_GITHUB_MIRROR_TEMPLATE = $mirrorTemplate
                 } -TimeoutSeconds 7200 -NoProgressSeconds 900 | Out-Null
-                Assert-WebViewBuildUse "0.0.9" $staged009 $record (Join-Path $logRoot "$step009.stderr.log")
+                Assert-WebViewBuildUse "0.1.9" $staged019 $record (Join-Path $logRoot "$step019.stderr.log")
             }
 
-            if (-not $bindingChanged -and -not (Test-CurrentWebViewBinding "14-cycle-$bindingCycle-verify-webview-0.1.0")) { $bindingChanged = $true }
+            if (-not $bindingChanged -and -not (Test-CurrentWebViewBinding "14-cycle-$bindingCycle-verify-webview-0.2.0")) { $bindingChanged = $true }
             if (-not $bindingChanged) {
-                Remove-ExactLocalToolsDirectory $target010
-                $staged010 = Stage-ExactWebViewPayload "0.1.0" $target010 $record
-                $step010 = "15-cycle-$bindingCycle-tauri-nsis-0.1.0"
-                Invoke-Task15Step $step010 "npx.cmd" @(
-                    "tauri", "build", "--config", $override010, "--bundles", "nsis",
+                Remove-ExactLocalToolsDirectory $target020
+                $staged020 = Stage-ExactWebViewPayload "0.2.0" $target020 $record
+                $step020 = "15-cycle-$bindingCycle-tauri-nsis-0.2.0"
+                Invoke-Task15Step $step020 "npx.cmd" @(
+                    "tauri", "build", "--config", $override020, "--bundles", "nsis",
                     "--target", "x86_64-pc-windows-msvc", "--ci"
                 ) -Environment @{
-                    CARGO_TARGET_DIR = $target010
+                    CARGO_TARGET_DIR = $target020
                     TAURI_BUNDLER_TOOLS_GITHUB_MIRROR_TEMPLATE = $mirrorTemplate
                 } -TimeoutSeconds 7200 -NoProgressSeconds 900 | Out-Null
-                Assert-WebViewBuildUse "0.1.0" $staged010 $record (Join-Path $logRoot "$step010.stderr.log")
+                Assert-WebViewBuildUse "0.2.0" $staged020 $record (Join-Path $logRoot "$step020.stderr.log")
                 Assert-MirrorRequests $mirror $specifications
                 $built = $true
             }
@@ -580,27 +580,27 @@ function Invoke-InstallerBuilds {
     }
     if (-not $built) { throw "Both installer versions were not built from one unchanged WebView binding." }
 
-    $source009 = @(Get-ChildItem -LiteralPath (Join-Path $target009 "x86_64-pc-windows-msvc\release\bundle\nsis") -File -Filter "*.exe")
-    $source010 = @(Get-ChildItem -LiteralPath (Join-Path $target010 "x86_64-pc-windows-msvc\release\bundle\nsis") -File -Filter "*.exe")
-    if ($source009.Count -ne 1 -or $source010.Count -ne 1) { throw "Expected one source installer for each version before payload inspection." }
-    Assert-InstallerEmbeddedWebView "0.0.9" $source009[0].FullName $record | Out-Null
-    Assert-InstallerEmbeddedWebView "0.1.0" $source010[0].FullName $record | Out-Null
+    $source019 = @(Get-ChildItem -LiteralPath (Join-Path $target019 "x86_64-pc-windows-msvc\release\bundle\nsis") -File -Filter "*.exe")
+    $source020 = @(Get-ChildItem -LiteralPath (Join-Path $target020 "x86_64-pc-windows-msvc\release\bundle\nsis") -File -Filter "*.exe")
+    if ($source019.Count -ne 1 -or $source020.Count -ne 1) { throw "Expected one source installer for each version before payload inspection." }
+    Assert-InstallerEmbeddedWebView "0.1.9" $source019[0].FullName $record | Out-Null
+    Assert-InstallerEmbeddedWebView "0.2.0" $source020[0].FullName $record | Out-Null
     $candidates = @(
-        (New-ExactInstallerCandidate "0.0.9" $target009),
-        (New-ExactInstallerCandidate "0.1.0" $target010)
+        (New-ExactInstallerCandidate "0.1.9" $target019),
+        (New-ExactInstallerCandidate "0.2.0" $target020)
     )
     Publish-Task15ArtifactSetAtomically -Records $candidates
-    $installer009 = $candidates[0].DestinationPath
-    $installer010 = $candidates[1].DestinationPath
+    $installer019 = $candidates[0].DestinationPath
+    $installer020 = $candidates[1].DestinationPath
 
     $artifactManifest = [ordered]@{ SchemaVersion=1; Architecture="x64"; GeneratedAt=(Get-Date).ToString("o"); Installers=@(
-        [ordered]@{Role="Previous";Version="0.0.9";Name=(Split-Path -Leaf $installer009);Size=(Get-Item $installer009).Length;Sha256=(Get-FileHash $installer009 -Algorithm SHA256).Hash;Authenticode=(Get-AuthenticodeSignature $installer009).Status.ToString()},
-        [ordered]@{Role="Current";Version="0.1.0";Name=(Split-Path -Leaf $installer010);Size=(Get-Item $installer010).Length;Sha256=(Get-FileHash $installer010 -Algorithm SHA256).Hash;Authenticode=(Get-AuthenticodeSignature $installer010).Status.ToString()}
+        [ordered]@{Role="Previous";Version="0.1.9";Name=(Split-Path -Leaf $installer019);Size=(Get-Item $installer019).Length;Sha256=(Get-FileHash $installer019 -Algorithm SHA256).Hash;Authenticode=(Get-AuthenticodeSignature $installer019).Status.ToString()},
+        [ordered]@{Role="Current";Version="0.2.0";Name=(Split-Path -Leaf $installer020);Size=(Get-Item $installer020).Length;Sha256=(Get-FileHash $installer020 -Algorithm SHA256).Hash;Authenticode=(Get-AuthenticodeSignature $installer020).Status.ToString()}
     )}
     Write-Task15FileAtomically -Path (Join-Path $artifactRoot "manifest.json") -Content ($artifactManifest|ConvertTo-Json -Depth 6)
 
     Write-Utf8NoBom (Join-Path $logRoot "13-copied-installers.json") `
-        ([ordered]@{ "0.0.9" = $installer009; "0.1.0" = $installer010 } | ConvertTo-Json)
+        ([ordered]@{ "0.1.9" = $installer019; "0.2.0" = $installer020 } | ConvertTo-Json)
 }
 
 try {
