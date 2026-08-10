@@ -40,6 +40,14 @@ New-Item -ItemType Directory -Force -Path $buildRoot, $artifactRoot, $logRoot | 
 Import-Module -Name (Join-Path $task15Scripts "WebViewAcquisition.psm1") -Force -DisableNameChecking
 Import-Module -Name (Join-Path $task15Scripts "TauriBundlerMirror.psm1") -Force -DisableNameChecking
 
+Add-Type @"
+using System;
+using System.Runtime.InteropServices;
+public static class BuildPairExitApi {
+  [DllImport("kernel32.dll", SetLastError=true)] public static extern bool GetExitCodeProcess(IntPtr process, out uint exitCode);
+}
+"@
+
 function Write-Utf8NoBom([string] $Path, [string] $Text) {
     [IO.File]::WriteAllText($Path, $Text, [Text.UTF8Encoding]::new($false))
 }
@@ -63,14 +71,25 @@ function Invoke-Step {
         Write-Host "==> $Name"
         $process = Start-Process -FilePath $FilePath -ArgumentList $Arguments -WorkingDirectory $repositoryRoot `
             -PassThru -NoNewWindow -RedirectStandardOutput $stdout -RedirectStandardError $stderr
+        # Cache the native handle immediately. Without it the kernel object can be
+        # released once the process exits, leaving ExitCode null and turning a
+        # successful step into a spurious failure. The exit code is then read
+        # through the Win32 API and widened, so an HRESULT-style value survives
+        # instead of overflowing Int32.
+        $handle = $process.Handle
         if (-not $process.WaitForExit($TimeoutSeconds * 1000)) {
             Stop-Process -Id $process.Id -Force -ErrorAction SilentlyContinue
             throw "$Name exceeded $TimeoutSeconds seconds."
         }
-        $process.Refresh()
-        if ($process.ExitCode -ne 0) {
+        $process.WaitForExit()
+        [uint32] $native = 0
+        if (-not [BuildPairExitApi]::GetExitCodeProcess($handle, [ref] $native)) {
+            throw "Could not read the exit code for $Name."
+        }
+        $exitCode = [int64] $native
+        if ($exitCode -ne 0) {
             $tail = if (Test-Path $stderr) { (Get-Content -LiteralPath $stderr -Tail 20 -ErrorAction SilentlyContinue) -join "`n" } else { "" }
-            throw "$Name exited with $($process.ExitCode).`n$tail`nSee $stdout and $stderr"
+            throw ("$Name exited with $exitCode (0x{0:X8}).`n$tail`nSee $stdout and $stderr" -f $native)
         }
     }
     finally {
