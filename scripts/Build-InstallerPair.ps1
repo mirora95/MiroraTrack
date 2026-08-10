@@ -36,6 +36,7 @@ $artifactRoot = Join-Path $repositoryRoot "work\artifacts\task15\unaccepted"
 $logRoot = Join-Path $repositoryRoot "work\logs\task15-minimal"
 $webViewManifest = Join-Path $repositoryRoot "work\toolchain\webview-offline\binding.json"
 $mirrorRoot = Join-Path $repositoryRoot "work\toolchain\tauri-bundler-mirror"
+$nativeWrapper = Join-Path $repositoryRoot "work\toolchain\Invoke-Task13bNative.ps1"
 
 New-Item -ItemType Directory -Force -Path $buildRoot, $artifactRoot, $logRoot | Out-Null
 Import-Module -Name (Join-Path $task15Scripts "WebViewAcquisition.psm1") -Force -DisableNameChecking
@@ -53,14 +54,34 @@ function Write-Utf8NoBom([string] $Path, [string] $Text) {
     [IO.File]::WriteAllText($Path, $Text, [Text.UTF8Encoding]::new($false))
 }
 
+function ConvertTo-SingleQuoted([string] $Value) { "'" + $Value.Replace("'", "''") + "'" }
+
 function Invoke-Step {
     param(
         [Parameter(Mandatory)][string] $Name,
         [Parameter(Mandatory)][string] $FilePath,
         [Parameter(Mandatory)][string[]] $Arguments,
         [hashtable] $Environment = @{},
-        [int] $TimeoutSeconds = 7200
+        [int] $TimeoutSeconds = 7200,
+        [switch] $UseNativeToolchain
     )
+    if ($UseNativeToolchain) {
+        # Cargo links through link.exe, and a Unix-style link from Git Bash or
+        # MSYS earlier in PATH shadows it, producing "link: extra operand".
+        # work/toolchain/Invoke-Task13bNative.ps1 puts the MSVC toolchain first
+        # and sets INCLUDE and LIB. Arguments are passed through an encoded
+        # command so tokens beginning with a dash bind to the wrapper's
+        # CommandArguments array instead of being read as parameter names.
+        if (-not (Test-Path -LiteralPath $nativeWrapper -PathType Leaf)) {
+            throw "BLOCKED: the native toolchain wrapper is absent at $nativeWrapper."
+        }
+        $argumentList = ($Arguments | ForEach-Object { ConvertTo-SingleQuoted $_ }) -join ', '
+        $code = "& $(ConvertTo-SingleQuoted $nativeWrapper) -Executable $(ConvertTo-SingleQuoted $FilePath) -CommandArguments @($argumentList); exit `$LASTEXITCODE"
+        $encoded = [Convert]::ToBase64String([Text.Encoding]::Unicode.GetBytes($code))
+        Write-Utf8NoBom (Join-Path $logRoot "$Name.invocation.txt") $code
+        $FilePath = "powershell.exe"
+        $Arguments = @("-NoLogo", "-NoProfile", "-NonInteractive", "-OutputFormat", "Text", "-EncodedCommand", $encoded)
+    }
     $stdout = Join-Path $logRoot "$Name.stdout.log"
     $stderr = Join-Path $logRoot "$Name.stderr.log"
     $restore = @{}
@@ -90,7 +111,11 @@ function Invoke-Step {
         $exitCode = [int64] $native
         if ($exitCode -ne 0) {
             $tail = if (Test-Path $stderr) { (Get-Content -LiteralPath $stderr -Tail 20 -ErrorAction SilentlyContinue) -join "`n" } else { "" }
-            throw ("$Name exited with $exitCode (0x{0:X8}).`n$tail`nSee $stdout and $stderr" -f $native)
+            # The hex form is produced separately: applying -f to a message that
+            # embeds captured stderr fails whenever that output contains braces,
+            # which would destroy the diagnostic for the real failure.
+            $hex = "0x" + $native.ToString("X8")
+            throw "$Name exited with $exitCode ($hex).`n$tail`nSee $stdout and $stderr"
         }
     }
     finally {
@@ -176,7 +201,7 @@ try {
             ) @{
                 CARGO_TARGET_DIR = $target
                 TAURI_BUNDLER_TOOLS_GITHUB_MIRROR_TEMPLATE = $mirrorTemplate
-            } 7200
+            } 7200 -UseNativeToolchain
 
             $produced = @(Get-ChildItem -LiteralPath (Join-Path $target "x86_64-pc-windows-msvc\release\bundle\nsis") -File -Filter "*.exe")
             if ($produced.Count -ne 1) { throw "Expected exactly one NSIS installer for $version; found $($produced.Count)." }
