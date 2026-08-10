@@ -29,6 +29,7 @@ Import-Module -Name (Join-Path $task15Scripts "WebViewAcquisition.psm1") -Force 
 Import-Module -Name (Join-Path $task15Scripts "Task15BuildSafety.psm1") -Force -DisableNameChecking
 Import-Module -Name (Join-Path $task15Scripts "Task15JobController.psm1") -Force -DisableNameChecking
 Import-Module -Name (Join-Path $task15Scripts "Task15ControllerManifest.psm1") -Force -DisableNameChecking
+Import-Module -Name (Join-Path $task15Scripts "Task15ProcessLineage.psm1") -Force -DisableNameChecking
 $controllerIdentity = Initialize-Task15JobController -RepositoryRoot $repositoryRoot
 $jobController = $controllerIdentity.BinaryPath
 
@@ -605,24 +606,24 @@ function Invoke-InstallerBuilds {
 
 try {
     if ($Phase -in @("Gate", "All")) {
-        $activeLineagePhase = "Gate"
-        $activeLineagePhaseStartedAt = Get-Date
-        Write-Task15PhaseStatusRecord -LineagePhase Gate -Status RUNNING -StartedAt $activeLineagePhaseStartedAt
+        $activeControllerPhase = "Gate"
+        $activeControllerPhaseStartedAt = Get-Date
+        Write-Task15PhaseStatusRecord -ControllerPhase Gate -Status RUNNING -StartedAt $activeControllerPhaseStartedAt
         Invoke-HostGate
-        Complete-Task15PhaseLineageManifest -LineagePhase Gate -StartedAt $activeLineagePhaseStartedAt | Out-Null
+        Complete-Task15PhaseControllerManifest -ControllerPhase Gate -StartedAt $activeControllerPhaseStartedAt | Out-Null
     }
     if ($Phase -in @("Build", "All")) {
-        $activeLineagePhase = "Build"
-        $activeLineagePhaseStartedAt = Get-Date
-        Write-Task15PhaseStatusRecord -LineagePhase Build -Status RUNNING -StartedAt $activeLineagePhaseStartedAt
+        $activeControllerPhase = "Build"
+        $activeControllerPhaseStartedAt = Get-Date
+        Write-Task15PhaseStatusRecord -ControllerPhase Build -Status RUNNING -StartedAt $activeControllerPhaseStartedAt
         Invoke-InstallerBuilds
-        Complete-Task15PhaseLineageManifest -LineagePhase Build -StartedAt $activeLineagePhaseStartedAt | Out-Null
+        Complete-Task15PhaseControllerManifest -ControllerPhase Build -StartedAt $activeControllerPhaseStartedAt | Out-Null
     }
     if ($Phase -eq "All") {
-        $activeLineagePhase = "All"
-        $activeLineagePhaseStartedAt = $runStartedAt
-        Write-Task15PhaseStatusRecord -LineagePhase All -Status RUNNING -StartedAt $activeLineagePhaseStartedAt
-        Complete-Task15PhaseLineageManifest -LineagePhase All -StartedAt $activeLineagePhaseStartedAt | Out-Null
+        $activeControllerPhase = "All"
+        $activeControllerPhaseStartedAt = $runStartedAt
+        Write-Task15PhaseStatusRecord -ControllerPhase All -Status RUNNING -StartedAt $activeControllerPhaseStartedAt
+        Complete-Task15PhaseControllerManifest -ControllerPhase All -StartedAt $activeControllerPhaseStartedAt | Out-Null
     }
     Assert-ProtectedHashes "at finalization"
     Write-Utf8NoBom (Join-Path $logRoot "99-protected-hashes-after.json") `
@@ -631,10 +632,10 @@ try {
         ([ordered]@{ SchemaVersion = 1; Status = "PASS"; Phase = $Phase; RunId = $runId; LineageManifests = @($lineageManifestPaths.Keys | Where-Object { $_ -eq $Phase -or $Phase -eq "All" } | ForEach-Object { $lineageManifestPaths[$_] }); CompletedAt = (Get-Date).ToString("o") } | ConvertTo-Json)
 }
 catch {
-    if ($activeLineagePhase) {
-        Write-Task15PhaseStatusRecord -LineagePhase $activeLineagePhase -Status FAIL -StartedAt $activeLineagePhaseStartedAt -Message $_.Exception.Message
+    if ($activeControllerPhase) {
+        Write-Task15PhaseStatusRecord -ControllerPhase $activeControllerPhase -Status FAIL -StartedAt $activeControllerPhaseStartedAt -Message $_.Exception.Message
     }
     Write-Utf8NoBom (Join-Path $logRoot "99-status.json") `
-        ([ordered]@{ SchemaVersion = 1; Status = "FAIL"; Phase = $Phase; RunId = $runId; ActiveLineagePhase = $activeLineagePhase; Message = $_.Exception.Message; Detail = ($_ | Out-String); FailedAt = (Get-Date).ToString("o") } | ConvertTo-Json)
+        ([ordered]@{ SchemaVersion = 1; Status = "FAIL"; Phase = $Phase; RunId = $runId; ActiveLineagePhase = $activeControllerPhase; Message = $_.Exception.Message; Detail = ($_ | Out-String); FailedAt = (Get-Date).ToString("o") } | ConvertTo-Json)
     exit 1
 }
