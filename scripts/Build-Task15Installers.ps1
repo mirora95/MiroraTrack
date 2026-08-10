@@ -30,6 +30,18 @@ Import-Module -Name (Join-Path $task15Scripts "Task15BuildSafety.psm1") -Force -
 Import-Module -Name (Join-Path $task15Scripts "Task15JobController.psm1") -Force -DisableNameChecking
 Import-Module -Name (Join-Path $task15Scripts "Task15ControllerManifest.psm1") -Force -DisableNameChecking
 Import-Module -Name (Join-Path $task15Scripts "Task15ProcessLineage.psm1") -Force -DisableNameChecking
+
+# Invoke-Task15Step reads each step's exit code through the Win32 API rather than
+# the .NET ExitCode property, so an HRESULT-style code is captured exactly instead
+# of being truncated. The Get-JobPreamble here-string defines a separate type for
+# the child process; this one is for the controller itself.
+Add-Type @"
+using System;
+using System.Runtime.InteropServices;
+public static class Task15ExitApi {
+  [DllImport("kernel32.dll", SetLastError=true)] public static extern bool GetExitCodeProcess(IntPtr process, out uint exitCode);
+}
+"@
 $controllerIdentity = Initialize-Task15JobController -RepositoryRoot $repositoryRoot
 $jobController = $controllerIdentity.BinaryPath
 
