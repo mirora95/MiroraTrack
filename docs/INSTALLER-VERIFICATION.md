@@ -20,8 +20,14 @@ The exact Task 15B inputs are:
 
 | Version | Relative path | Size | SHA-256 | Installer signature |
 | --- | --- | ---: | --- | --- |
-| `0.0.9` | `work/artifacts/task15/unaccepted/0.0.9/MiroraTrack_0.0.9_x64-setup.exe` | `214,689,663` | `113A55C9E7AAB9AA75CF0D70CC1BD0A1B7671C84FC11CA5693AAD4C2133F8627` | `NotSigned` |
-| `0.1.0` | `work/artifacts/task15/unaccepted/0.1.0/MiroraTrack_0.1.0_x64-setup.exe` | `214,686,152` | `7D170C46751C5BC1D8993E7A2898DFA289ED57752E4DC551D0797870F6C7A05B` | `NotSigned` |
+| `0.1.9` | `work/artifacts/task15/unaccepted/0.1.9/MiroraTrack_0.1.9_x64-setup.exe` | `214,722,224` | `739E63252FF59DF1F2CC0A7893AFA29B8A5C9246CF8E6E05AEDA7840EB41ED1F` | `NotSigned` |
+| `0.2.0` | `work/artifacts/task15/unaccepted/0.2.0/MiroraTrack_0.2.0_x64-setup.exe` | `214,723,086` | `77C6CD06459AB222D14E045D175536EE07878E48FD42B4187E43A8C04A58FC4A` | `NotSigned` |
+
+These supersede the `0.0.9` and `0.1.0` pair. Those artifacts remain on disk but
+are no longer described by `manifest.json`, so the Task 15B harness will not
+accept them, and their earlier verification evidence does not transfer to the
+build above. The new pair was produced by `scripts/Build-InstallerPair.ps1`
+rather than the Task 15 orchestrator; see `docs/checkpoints/task-15c.md`.
 
 Fresh extraction of both copied installers found exactly one embedded
 `MicrosoftEdgeWebView2RuntimeInstaller.exe` in each. Each payload is

@@ -30,8 +30,13 @@ not accepted releases:
 
 | Version | Size | SHA-256 |
 | --- | ---: | --- |
-| `0.0.9` | `214,689,663` bytes | `113A55C9E7AAB9AA75CF0D70CC1BD0A1B7671C84FC11CA5693AAD4C2133F8627` |
-| `0.1.0` | `214,686,152` bytes | `7D170C46751C5BC1D8993E7A2898DFA289ED57752E4DC551D0797870F6C7A05B` |
+| `0.1.9` | `214,722,224` bytes | `739E63252FF59DF1F2CC0A7893AFA29B8A5C9246CF8E6E05AEDA7840EB41ED1F` |
+| `0.2.0` | `214,723,086` bytes | `77C6CD06459AB222D14E045D175536EE07878E48FD42B4187E43A8C04A58FC4A` |
+
+`0.2.0` is the current build and the one to install; `0.1.9` exists only to
+exercise the upgrade path. The superseded `0.0.9` and `0.1.0` directories are
+retained for reference but are no longer described by the manifest and must not
+be released.
 
 Both are unsigned and remain **UNACCEPTED** under
 `work/artifacts/task15/unaccepted/`. Independent extraction found the exact
