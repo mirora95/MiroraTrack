@@ -92,6 +92,30 @@ function Add-Task15RetainedProcessHandle {
         }
         $Tracker.RetainedHandleCount = [int]$Tracker.RetainedHandleCount + 1
     }
+    catch [System.ArgumentException] {
+        # GetProcessById throws ArgumentException only when no process currently
+        # holds that PID. Short-lived children, such as the chrome-headless-shell
+        # and ffmpeg processes Playwright spawns, routinely exit between the CIM
+        # sample that discovers them and this attempt to retain a handle.
+        #
+        # That is proof of exit, not a failure to prove it, so it is recorded
+        # separately rather than counted against the assurance gate. PID reuse
+        # cannot mask a live process here: if some other process had taken the
+        # PID, GetProcessById would have succeeded and the start-time delta check
+        # above would have rejected the identity mismatch.
+        if ($process) { $process.Dispose() }
+        $Identity.ExitTimeSource = "ExitedBeforeHandleRetention"
+        $key = Get-Task15ProcessIdentityKey $Identity
+        if (@($Tracker.ExitedBeforeHandleRetention | Where-Object { [string]$_.IdentityKey -ceq $key }).Count -eq 0) {
+            $Tracker.ExitedBeforeHandleRetention.Add([pscustomobject][ordered]@{
+                IdentityKey = $key
+                ProcessId = [int]$Identity.ProcessId
+                CreationDate = [string]$Identity.CreationDate
+                Name = [string]$Identity.Name
+                Reason = $_.Exception.Message
+            })
+        }
+    }
     catch {
         if ($process) { $process.Dispose() }
         $Identity.ExitTimeSource = "Unavailable"
@@ -184,6 +208,7 @@ function New-Task15ProcessLineageTracker {
         Records = @{}
         RetainedHandles = @{}
         ExitTimeAssuranceFailures = [Collections.Generic.List[object]]::new()
+        ExitedBeforeHandleRetention = [Collections.Generic.List[object]]::new()
         RetainedHandleCount = 0
         DisposedHandleCount = 0
         HandlesDisposed = $false
@@ -334,6 +359,8 @@ function Complete-Task15ProcessLineageTracker {
             SurvivorsAfterCleanup = $afterCleanup
             ExitTimeAssuranceFailures = $assuranceFailures
             ExitTimeAssuranceFailureCount = $assuranceFailures.Count
+            ExitedBeforeHandleRetention = @($Tracker.ExitedBeforeHandleRetention)
+            ExitedBeforeHandleRetentionCount = @($Tracker.ExitedBeforeHandleRetention).Count
             RetainedHandleCount = [int]$Tracker.RetainedHandleCount
             DisposedHandleCount = [int]$Tracker.DisposedHandleCount
             HandlesDisposed = [bool]$Tracker.HandlesDisposed
