@@ -23,7 +23,14 @@ file. The build itself reaches no external host.
 param(
     [string] $PreviousVersion = "0.2.0",
     [string] $CurrentVersion = "0.3.0",
-    [switch] $SkipFrontendBuild
+    [switch] $SkipFrontendBuild,
+    # Both versions are otherwise built from the current working tree, changing
+    # only the version override, so the "previous" installer carries today's
+    # code under an older version number. That is fine for exercising NSIS
+    # upgrade mechanics but proves nothing about a real data migration. Set this
+    # to keep the already-published previous installer, which was built from
+    # that version's actual source, and rebuild only the current version.
+    [switch] $ReusePreviousInstaller
 )
 
 $ErrorActionPreference = "Stop"
@@ -178,13 +185,44 @@ try {
         $_ | Add-Member -NotePropertyName LocalPath -NotePropertyValue $localPath -PassThru
     })
     if ($specifications.Count -ne 2) { throw "Expected exactly two pinned bundler assets; found $($specifications.Count)." }
+
+    # Resolve the reused previous installer before starting a long build, and
+    # confirm it is byte-for-byte the artifact the current manifest describes.
+    # Without that check a stale or replaced file could silently become the
+    # upgrade baseline, which is the very thing reuse exists to guarantee.
+    $reused = $null
+    if ($ReusePreviousInstaller) {
+        $previousDirectory = Join-Path $artifactRoot $PreviousVersion
+        $candidates = @(Get-ChildItem -LiteralPath $previousDirectory -File -Filter "*.exe" -ErrorAction SilentlyContinue)
+        if ($candidates.Count -ne 1) {
+            throw "BLOCKED: -ReusePreviousInstaller expects exactly one installer in $previousDirectory; found $($candidates.Count)."
+        }
+        $existingManifestPath = Join-Path $artifactRoot "manifest.json"
+        if (-not (Test-Path -LiteralPath $existingManifestPath -PathType Leaf)) {
+            throw "BLOCKED: -ReusePreviousInstaller needs $existingManifestPath to verify the reused artifact."
+        }
+        $recorded = (Get-Content -LiteralPath $existingManifestPath -Raw | ConvertFrom-Json).Installers |
+            Where-Object { $_.Version -eq $PreviousVersion }
+        if (-not $recorded) {
+            throw "BLOCKED: the existing manifest does not describe version $PreviousVersion."
+        }
+        $actualHash = (Get-FileHash -LiteralPath $candidates[0].FullName -Algorithm SHA256).Hash
+        if ($actualHash -ne [string] $recorded.Sha256) {
+            throw "BLOCKED: $($candidates[0].Name) hashes $actualHash but the manifest records $($recorded.Sha256)."
+        }
+        $reused = $candidates[0].FullName
+        Write-Host "==> reusing verified previous installer $($candidates[0].Name)"
+    }
+
+    $versionsToBuild = if ($ReusePreviousInstaller) { @($CurrentVersion) } else { @($PreviousVersion, $CurrentVersion) }
     $mirror = $null
     $built = @()
+    if ($reused) { $built += [pscustomobject]@{ Version = $PreviousVersion; SourcePath = $reused; AlreadyPublished = $true } }
     try {
         $mirror = Start-AssetMirror $specifications
         $mirrorTemplate = "http://127.0.0.1:$($mirror.Port)/<owner>/<repo>/releases/download/<version>/<asset>"
 
-        foreach ($version in @($PreviousVersion, $CurrentVersion)) {
+        foreach ($version in $versionsToBuild) {
             $target = Join-Path $buildRoot "$version\target"
             New-Item -ItemType Directory -Force -Path $target | Out-Null
             $override = Join-Path $buildRoot "$version\tauri-version-override.json"
@@ -205,7 +243,7 @@ try {
 
             $produced = @(Get-ChildItem -LiteralPath (Join-Path $target "x86_64-pc-windows-msvc\release\bundle\nsis") -File -Filter "*.exe")
             if ($produced.Count -ne 1) { throw "Expected exactly one NSIS installer for $version; found $($produced.Count)." }
-            $built += [pscustomobject]@{ Version = $version; SourcePath = $produced[0].FullName }
+            $built += [pscustomobject]@{ Version = $version; SourcePath = $produced[0].FullName; AlreadyPublished = $false }
         }
     }
     finally { Stop-AssetMirror $mirror }
@@ -218,7 +256,12 @@ try {
         $destinationDirectory = Join-Path $artifactRoot $item.Version
         New-Item -ItemType Directory -Force -Path $destinationDirectory | Out-Null
         $destination = Join-Path $destinationDirectory (Split-Path -Leaf $item.SourcePath)
-        Copy-Item -LiteralPath $item.SourcePath -Destination $destination -Force
+        # A reused installer already sits at its published path; copying it onto
+        # itself would fail. Its hash is still recomputed below, so the manifest
+        # continues to describe the bytes actually present on disk.
+        if (-not $item.AlreadyPublished) {
+            Copy-Item -LiteralPath $item.SourcePath -Destination $destination -Force
+        }
         $records += [ordered]@{
             Role = if ($index -eq 0) { "Previous" } else { "Current" }
             Version = $item.Version
