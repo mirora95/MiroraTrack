@@ -21,8 +21,8 @@ file. The build itself reaches no external host.
 #>
 [CmdletBinding()]
 param(
-    [string] $PreviousVersion = "0.1.9",
-    [string] $CurrentVersion = "0.2.0",
+    [string] $PreviousVersion = "0.2.0",
+    [string] $CurrentVersion = "0.3.0",
     [switch] $SkipFrontendBuild
 )
 
