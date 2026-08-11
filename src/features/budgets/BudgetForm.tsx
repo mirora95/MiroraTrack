@@ -1,15 +1,22 @@
 import { useEffect, useState, type FormEvent } from 'react'
 import type { BudgetDraft } from '../../application/budgetService'
 import type { Budget } from '../../finance/types'
-import { TRANSACTION_CATEGORIES } from '../../application/transactionCategories'
+import {
+  MAX_CUSTOM_CATEGORY_LENGTH,
+  categoryOptions,
+  customCategoryId,
+} from '../../application/transactionCategories'
 import { currencyFractionDigits } from '../../finance/money'
 import { Button } from '../../components/Button'
+
+const NEW_CATEGORY = '__new__'
 
 export function BudgetForm({
   budget,
   month,
   currency,
   currencies,
+  knownCategoryIds = [],
   pending,
   error,
   onSubmit,
@@ -19,12 +26,14 @@ export function BudgetForm({
   month: string
   currency: string
   currencies: readonly string[]
+  knownCategoryIds?: readonly string[]
   pending: boolean
   error: string
   onSubmit: (draft: BudgetDraft) => void
   onCancel: () => void
 }) {
   const [categoryId, setCategoryId] = useState(budget?.categoryId ?? '')
+  const [newCategory, setNewCategory] = useState('')
   const [amount, setAmount] = useState(
     budget ? String(budget.amount / 10 ** currencyFractionDigits(budget.currency)) : '',
   )
@@ -34,19 +43,36 @@ export function BudgetForm({
 
   useEffect(() => {
     setCategoryId(budget?.categoryId ?? '')
+    setNewCategory('')
     setAmount(budget ? String(budget.amount / 10 ** currencyFractionDigits(budget.currency)) : '')
     setSelectedMonth(budget?.month ?? month)
     setSelectedCurrency(budget?.currency ?? currency)
   }, [budget, currency, month])
 
+  const options = categoryOptions('expense', [
+    ...knownCategoryIds,
+    ...(budget ? [budget.categoryId] : []),
+  ])
+  const creating = categoryId === NEW_CATEGORY
+  const createdId = creating ? customCategoryId(newCategory, 'expense') : undefined
+
   const submit = (event: FormEvent) => {
     event.preventDefault()
-    if (!categoryId || !/^(?!0000)\d{4}-(?:0[1-9]|1[0-2])$/.test(selectedMonth) || !/^(?:0|[1-9]\d*)(?:\.\d+)?$/.test(amount) || Number(amount) <= 0) {
+    const resolved = creating ? createdId : categoryId
+    if (creating && !resolved) {
+      setValidation(`Name the new category using up to ${MAX_CUSTOM_CATEGORY_LENGTH} characters, without a colon.`)
+      return
+    }
+    if (creating && options.some((item) => item.id === resolved)) {
+      setValidation('That category already exists. Choose it from the list instead.')
+      return
+    }
+    if (!resolved || !/^(?!0000)\d{4}-(?:0[1-9]|1[0-2])$/.test(selectedMonth) || !/^(?:0|[1-9]\d*)(?:\.\d+)?$/.test(amount) || Number(amount) <= 0) {
       setValidation('Choose a category, month, and a positive amount.')
       return
     }
     setValidation('')
-    onSubmit({ categoryId, amount, month: selectedMonth, currency: selectedCurrency })
+    onSubmit({ categoryId: resolved, amount, month: selectedMonth, currency: selectedCurrency })
   }
 
   return (
@@ -56,11 +82,27 @@ export function BudgetForm({
           <label htmlFor="budget-category">Category</label>
           <select id="budget-category" value={categoryId} disabled={pending} onChange={(event) => setCategoryId(event.target.value)}>
             <option value="">Choose an expense category</option>
-            {TRANSACTION_CATEGORIES.filter(({ type }) => type === 'expense').map((category) => (
+            {options.map((category) => (
               <option key={category.id} value={category.id}>{category.label}</option>
             ))}
+            <option value={NEW_CATEGORY}>Create a new category</option>
           </select>
         </div>
+        {creating ? (
+          <div className="field field--wide">
+            <label htmlFor="budget-new-category">New category name</label>
+            <input
+              id="budget-new-category"
+              value={newCategory}
+              disabled={pending}
+              maxLength={MAX_CUSTOM_CATEGORY_LENGTH}
+              autoFocus
+              onChange={(event) => setNewCategory(event.target.value)}
+              placeholder="Pet care"
+            />
+            <p className="field__hint">File transactions under this same name so the budget can measure them.</p>
+          </div>
+        ) : null}
         <div className="field">
           <label htmlFor="budget-month">Month</label>
           <input id="budget-month" type="month" value={selectedMonth} disabled={pending} onChange={(event) => setSelectedMonth(event.target.value)} />

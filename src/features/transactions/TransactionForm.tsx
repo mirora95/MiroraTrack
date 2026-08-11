@@ -4,12 +4,18 @@ import type {
   AccountsApplication,
   TransactionsApplication,
 } from '../../app/runtime'
-import { TRANSACTION_CATEGORIES } from '../../application/transactionCategories'
+import {
+  MAX_CUSTOM_CATEGORY_LENGTH,
+  categoryOptions,
+  customCategoryId,
+} from '../../application/transactionCategories'
 import type { TransactionDraft } from '../../application/financeService'
 import { ValidationError } from '../../application/validation'
 import { currencyFractionDigits } from '../../finance/money'
 import type { Account, Transaction } from '../../finance/types'
 import { Button } from '../../components/Button'
+
+const NEW_CATEGORY = '__new__'
 
 interface Values {
   type: Transaction['type']
@@ -40,6 +46,7 @@ export function TransactionForm({
   onConflict?(): void
 }) {
   const [accounts, setAccounts] = useState<readonly Account[]>([])
+  const [newCategory, setNewCategory] = useState('')
   const [loadingAccounts, setLoadingAccounts] = useState(true)
   const [failure, setFailure] = useState('')
   const [conflict, setConflict] = useState(false)
@@ -83,6 +90,7 @@ export function TransactionForm({
     if (previousTypeRef.current === type) return
     previousTypeRef.current = type
     setValue('categoryId', '')
+    setNewCategory('')
     if (type === 'expense') setValue('destinationAccountId', '')
     if (type === 'income') setValue('sourceAccountId', '')
   }, [setValue, type])
@@ -102,7 +110,9 @@ export function TransactionForm({
       setValue('destinationAccountId', '')
     }
   }, [destinationId, destinations, setValue, type])
-  const categories = TRANSACTION_CATEGORIES.filter((item) => item.type === type)
+  const categories = type === 'transfer'
+    ? []
+    : categoryOptions(type, transaction && transaction.type !== 'transfer' ? [transaction.categoryId] : [])
   const legacyCategory = transaction &&
     transaction.type !== 'transfer' &&
     transaction.categoryId &&
@@ -110,10 +120,23 @@ export function TransactionForm({
       ? transaction.categoryId
       : undefined
 
-  const submit = handleSubmit(async (values) => {
+  const submit = handleSubmit(async (rawValues) => {
     if (pendingRef.current) return
     setFailure('')
     setConflict(false)
+    let values = rawValues
+    if (rawValues.categoryId === NEW_CATEGORY && type !== 'transfer') {
+      const created = customCategoryId(newCategory, type)
+      if (!created) {
+        setError('categoryId', { message: `Name the new category using up to ${MAX_CUSTOM_CATEGORY_LENGTH} characters, without a colon.` })
+        return
+      }
+      if (categories.some((item) => item.id === created)) {
+        setError('categoryId', { message: 'That category already exists. Choose it from the list instead.' })
+        return
+      }
+      values = { ...rawValues, categoryId: created }
+    }
     const draft = toDraft(values)
     if (!draft) {
       if (!values.amount.trim()) setError('amount', { message: 'Enter an amount.' })
@@ -208,7 +231,19 @@ export function TransactionForm({
               <option value="">Choose category</option>
               {legacyCategory ? <option value={legacyCategory}>Other (legacy)</option> : null}
               {categories.map((item) => <option key={item.id} value={item.id}>{item.label}</option>)}
+              <option value={NEW_CATEGORY}>Create a new category</option>
             </select>
+          </FormField>
+        ) : null}
+        {type !== 'transfer' && watch('categoryId') === NEW_CATEGORY ? (
+          <FormField label="New category name" hint={`Up to ${MAX_CUSTOM_CATEGORY_LENGTH} characters. Reuse this name on budgets so they measure these transactions.`} wide>
+            <input
+              id="transaction-new-category"
+              value={newCategory}
+              maxLength={MAX_CUSTOM_CATEGORY_LENGTH}
+              onChange={(event) => setNewCategory(event.target.value)}
+              placeholder="Pet care"
+            />
           </FormField>
         ) : null}
         <FormField label="Status">
