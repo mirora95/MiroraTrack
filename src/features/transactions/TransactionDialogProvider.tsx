@@ -2,6 +2,7 @@ import {
   createContext,
   useCallback,
   useContext,
+  useEffect,
   useMemo,
   useRef,
   useState,
@@ -9,6 +10,7 @@ import {
 } from 'react'
 import type {
   AccountsApplication,
+  BudgetsApplication,
   TransactionsApplication,
 } from '../../app/runtime'
 import type { Transaction } from '../../finance/types'
@@ -27,16 +29,43 @@ const TransactionDialogContext =
 export function TransactionDialogProvider({
   transactions,
   accounts,
+  budgets,
   children,
 }: {
   transactions: TransactionsApplication
   accounts: AccountsApplication
+  budgets?: BudgetsApplication
   children: ReactNode
 }) {
   const [target, setTarget] = useState<Transaction | 'create' | null>(null)
   const [busy, setBusy] = useState(false)
   const [revision, setRevision] = useState(0)
+  const [knownCategoryIds, setKnownCategoryIds] = useState<readonly string[]>([])
   const triggerRef = useRef<HTMLElement | null>(null)
+
+  useEffect(() => {
+    if (!target) return
+    let active = true
+    void Promise.all([
+      transactions.list({ page: 1, pageSize: 25, sort: 'newest' }),
+      budgets?.listCategoryIds?.() ?? Promise.resolve([]),
+    ]).then(
+      ([page, persistedCategoryIds]) => {
+        if (!active) return
+        setKnownCategoryIds([
+          ...new Set([
+            ...page.facets.categories.map((category) => category.value),
+            ...persistedCategoryIds,
+          ]),
+        ])
+      },
+      () => {
+        if (!active) return
+        setKnownCategoryIds([])
+      },
+    )
+    return () => { active = false }
+  }, [budgets, target, transactions])
 
   const close = useCallback(() => {
     if (!busy) setTarget(null)
@@ -67,6 +96,7 @@ export function TransactionDialogProvider({
         {target ? (
           <TransactionForm
             transaction={target === 'create' ? undefined : target}
+            knownCategoryIds={knownCategoryIds}
             accounts={accounts}
             service={transactions}
             onBusyChange={setBusy}

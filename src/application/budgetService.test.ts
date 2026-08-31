@@ -107,6 +107,26 @@ function service(
 }
 
 describe("BudgetService commands", () => {
+  it("discovers custom categories from budgets and transactions", async () => {
+    const { service: subject } = service({
+      reads: reads({
+        listBudgets: vi.fn(async () => [budget("pet-budget", {
+          categoryId: "custom:expense:pet care" as Budget["categoryId"],
+        })]),
+        listTransactions: vi.fn(async () => [expense("side-job", 100, {
+          categoryId: "custom:expense:pet care" as Budget["categoryId"],
+        }), expense("medical", 200, {
+          categoryId: "custom:expense:medical" as Budget["categoryId"],
+        })]),
+      }),
+    });
+
+    await expect(subject.listCategoryIds()).resolves.toEqual([
+      "custom:expense:medical",
+      "custom:expense:pet care",
+    ]);
+  });
+
   it("creates a catalog-derived monthly budget in exact minor units", async () => {
     const { service: subject, writes } = service();
 

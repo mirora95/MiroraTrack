@@ -1,4 +1,4 @@
-import { cleanup, render, screen, waitFor } from '@testing-library/react'
+import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { MemoryRouter } from 'react-router-dom'
@@ -66,6 +66,27 @@ describe('DashboardPage', () => {
 
     await user.selectOptions(screen.getByLabelText('Dashboard range'), 'last-month')
     await waitFor(() => expect(app.load).toHaveBeenLastCalledWith(expect.objectContaining({ range: 'last-month' })))
+  })
+
+  it('loads this and next month and keeps invalid custom drafts out of the service', async () => {
+    const app = service()
+    const user = userEvent.setup()
+    render(<MemoryRouter><DashboardPage service={app} /></MemoryRouter>)
+    await screen.findByText('70%')
+
+    await user.selectOptions(screen.getByLabelText('Dashboard range'), 'this-and-next-month')
+    await waitFor(() => expect(app.load).toHaveBeenLastCalledWith(expect.objectContaining({ range: 'this-and-next-month' })))
+
+    await user.selectOptions(screen.getByLabelText('Dashboard range'), 'custom')
+    const callsBeforeInvalidDraft = vi.mocked(app.load).mock.calls.length
+    fireEvent.change(screen.getByLabelText('From'), { target: { value: '2027-01-01' } })
+    expect(await screen.findByRole('alert')).toHaveTextContent('From date must be before')
+    expect(app.load).toHaveBeenCalledTimes(callsBeforeInvalidDraft)
+
+    fireEvent.change(screen.getByLabelText('To'), { target: { value: '2027-12-31' } })
+    await waitFor(() => expect(app.load).toHaveBeenLastCalledWith(expect.objectContaining({
+      range: { kind: 'custom', start: '2027-01-01', end: '2027-12-31' },
+    })))
   })
 
   it('maps pointer chart drilldowns to the same exact encoded transaction filters', () => {

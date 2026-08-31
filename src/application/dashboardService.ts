@@ -25,6 +25,7 @@ import type {
 
 export type DashboardRangePreset =
   | "this-month"
+  | "this-and-next-month"
   | "last-month"
   | "last-3-months"
   | "year-to-date";
@@ -197,6 +198,7 @@ function validateStaticInput(query: DashboardQuery): void {
   if (typeof query.range === "string") {
     if (![
       "this-month",
+      "this-and-next-month",
       "last-month",
       "last-3-months",
       "year-to-date",
@@ -312,6 +314,12 @@ function normalizeRange(
     const year = now.getUTCFullYear();
     const month = now.getUTCMonth();
     if (input === "this-month") return utcMonthRange(year, month);
+    if (input === "this-and-next-month") {
+      return {
+        start: utcMonthRange(year, month).start,
+        end: utcMonthRange(year, month + 1).end,
+      };
+    }
     if (input === "last-month") return utcMonthRange(year, month - 1);
     if (input === "last-3-months") {
       return {

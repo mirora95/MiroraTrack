@@ -31,9 +31,12 @@ export function DashboardPage({ service }: { service: DashboardApplication }) {
   const requestRef = useRef(0)
   const appliedControlsRef = useRef<DashboardControls | null>(null)
   const suppressNextLoadRef = useRef(false)
+  const customRangeError = range === 'custom'
+    ? validateCustomRange(customStart, customEnd)
+    : ''
 
   const load = useCallback(async () => {
-    if (range === 'custom' && (!customStart || !customEnd)) return
+    if (range === 'custom' && customRangeError) return
     const request = ++requestRef.current
     setState((current) => current === 'ready' ? current : 'loading')
     try {
@@ -70,7 +73,7 @@ export function DashboardPage({ service }: { service: DashboardApplication }) {
       }
       setState('error')
     }
-  }, [currency, customEnd, customStart, range, service])
+  }, [currency, customEnd, customRangeError, customStart, range, service])
 
   useEffect(() => {
     if (suppressNextLoadRef.current) {
@@ -88,13 +91,20 @@ export function DashboardPage({ service }: { service: DashboardApplication }) {
         <div><p className="eyebrow">Your financial command center</p><h1 id="page-title">Dashboard</h1><p className="page-hero__description">Ledger-derived clarity across what you own, earn, spend, and save.</p></div>
         <div className="dashboard-controls">
           <select aria-label="Dashboard currency" value={currency} onChange={(event) => setCurrency(event.target.value)}>{payload?.availableCurrencies.map((item) => <option key={item}>{item}</option>)}</select>
-          <select aria-label="Dashboard range" value={range} onChange={(event) => setRange(event.target.value as RangeChoice)}>
-            <option value="this-month">This month</option><option value="last-month">Last month</option><option value="last-3-months">Last 3 months</option><option value="year-to-date">Year to date</option><option value="custom">Custom</option>
+          <select aria-label="Dashboard range" value={range} onChange={(event) => {
+            const next = event.target.value as RangeChoice
+            if (next === 'custom' && (!customStart || !customEnd)) {
+              setCustomStart(payload?.range.start.slice(0, 10) ?? '')
+              setCustomEnd(payload?.range.end.slice(0, 10) ?? '')
+            }
+            setRange(next)
+          }}>
+            <option value="this-month">This month</option><option value="this-and-next-month">This + next month</option><option value="last-month">Last month</option><option value="last-3-months">Last 3 months</option><option value="year-to-date">Year to date</option><option value="custom">Custom</option>
           </select>
           <Button variant="ghost" aria-label="Refresh dashboard" icon={<RefreshCw size={16} aria-hidden="true" />} onClick={() => void load()}>Refresh</Button>
         </div>
       </section>
-      {range === 'custom' ? <Card className="custom-range"><label>From<input type="date" value={customStart} onChange={(event) => setCustomStart(event.target.value)} /></label><label>To<input type="date" value={customEnd} onChange={(event) => setCustomEnd(event.target.value)} /></label></Card> : null}
+      {range === 'custom' ? <Card className="custom-range"><label>From<input type="date" value={customStart} onChange={(event) => setCustomStart(event.target.value)} /></label><label>To<input type="date" value={customEnd} onChange={(event) => setCustomEnd(event.target.value)} /></label>{customRangeError ? <p className="form-error form-error--banner" role="alert">{customRangeError}</p> : null}</Card> : null}
       {state === 'loading' ? <div className="workspace-state" role="status"><span className="workspace-state__spinner" /><p>Building your dashboard from the ledger</p></div> : null}
       {state === 'error' ? <div className="workspace-state" role="alert"><h2>Dashboard could not be refreshed</h2><p>{payload ? 'The last successful results remain visible below.' : 'Your local finance records have not been changed.'}</p><Button onClick={() => void load()}>Try again</Button></div> : null}
       {payload ? (
@@ -119,6 +129,16 @@ export function DashboardPage({ service }: { service: DashboardApplication }) {
       ) : null}
     </div>
   )
+}
+
+function validateCustomRange(start: string, end: string): string {
+  if (!start || !end) return 'Choose both From and To dates.'
+  const startTime = Date.parse(`${start}T00:00:00.000Z`)
+  const endTime = Date.parse(`${end}T00:00:00.000Z`)
+  if (!Number.isFinite(startTime) || !Number.isFinite(endTime)) return 'Choose valid From and To dates.'
+  if (startTime > endTime) return 'The From date must be before or the same as the To date.'
+  if (endTime - startTime >= 366 * 86_400_000) return 'Custom ranges can include up to 366 days.'
+  return ''
 }
 
 function Kpi({ label, value, icon, tone }: { label: string; value: string; icon: React.ReactNode; tone: string }) {

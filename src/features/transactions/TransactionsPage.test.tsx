@@ -221,6 +221,42 @@ describe('TransactionsPage', () => {
     await waitFor(() => expect(screen.queryByRole('dialog')).not.toBeInTheDocument())
     await waitFor(() => expect(trigger).toHaveFocus())
   })
+
+  it('shows a newly created custom category the next time quick add opens', async () => {
+    const { transactions, accounts } = services()
+    const user = userEvent.setup()
+    vi.mocked(transactions.list)
+      .mockResolvedValueOnce(emptyPage())
+      .mockResolvedValueOnce({
+        ...emptyPage(),
+        facets: {
+          ...emptyPage().facets,
+          categories: [
+            { value: 'custom:expense:pet care', label: 'Pet care', count: 1 },
+          ],
+        },
+      })
+
+    render(
+      <MemoryRouter>
+        <TransactionDialogProvider transactions={transactions} accounts={accounts}>
+          <QuickAddHarness />
+        </TransactionDialogProvider>
+      </MemoryRouter>,
+    )
+
+    await user.click(screen.getByRole('button', { name: 'Open quick add' }))
+    await screen.findByRole('option', { name: 'Everyday · USD' })
+    await user.type(screen.getByLabelText('Amount'), '25')
+    await user.selectOptions(screen.getByLabelText('Account'), account.id)
+    await user.selectOptions(screen.getByLabelText('Category'), 'Create a new category')
+    await user.type(screen.getByLabelText('New category name'), 'Pet care')
+    await user.click(screen.getByRole('button', { name: 'Add transaction' }))
+    await waitFor(() => expect(screen.queryByRole('dialog')).not.toBeInTheDocument())
+
+    await user.click(screen.getByRole('button', { name: 'Open quick add' }))
+    await waitFor(() => expect(screen.getByRole('option', { name: 'Pet care' })).toBeVisible())
+  })
 })
 
 function QuickAddHarness() {

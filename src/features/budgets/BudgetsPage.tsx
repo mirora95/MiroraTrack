@@ -24,6 +24,7 @@ export function BudgetsPage({
   const [month, setMonth] = useState(initialMonth)
   const [currency, setCurrency] = useState('')
   const [currencies, setCurrencies] = useState<readonly string[]>([])
+  const [knownCategoryIds, setKnownCategoryIds] = useState<readonly string[]>([])
   const [includeArchived, setIncludeArchived] = useState(false)
   const [result, setResult] = useState<BudgetListResult | null>(null)
   const [state, setState] = useState<'loading' | 'ready' | 'error'>('loading')
@@ -56,6 +57,16 @@ export function BudgetsPage({
   }, [currencies, currency, includeArchived, month, service])
 
   useEffect(() => { void load() }, [load])
+
+  useEffect(() => {
+    if (!editor || !service.listCategoryIds) return
+    let active = true
+    void service.listCategoryIds().then(
+      (ids) => { if (active) setKnownCategoryIds(ids) },
+      () => undefined,
+    )
+    return () => { active = false }
+  }, [editor, service])
 
   const save = async (draft: Parameters<BudgetsApplication['create']>[0]) => {
     if (mutationPending.current || !editor) return
@@ -128,7 +139,7 @@ export function BudgetsPage({
         </>
       ) : null}
       <Dialog open={editor !== null} title={editor === 'new' ? 'Create budget' : 'Edit budget'} description="Budget usage is always rebuilt from your transaction ledger." dismissible={!saving} onClose={() => { if (!saving) setEditor(null) }}>
-        {editor ? <BudgetForm {...(editor === 'new' ? {} : { budget: editor })} month={month} currency={currency || 'USD'} currencies={currencies.length ? currencies : [currency || 'USD']} knownCategoryIds={(result?.rows ?? []).map((row) => row.budget.categoryId)} pending={saving} error={formError} onSubmit={(draft) => void save(draft)} onCancel={() => setEditor(null)} /> : null}
+        {editor ? <BudgetForm {...(editor === 'new' ? {} : { budget: editor })} month={month} currency={currency || 'USD'} currencies={currencies.length ? currencies : [currency || 'USD']} knownCategoryIds={[...knownCategoryIds, ...(result?.rows ?? []).map((row) => row.budget.categoryId)]} pending={saving} error={formError} onSubmit={(draft) => void save(draft)} onCancel={() => setEditor(null)} /> : null}
       </Dialog>
       <Dialog open={action !== null} title={`${actionLabel(action?.kind)} budget?`} description={action?.kind === 'delete' ? 'Only archived budgets can be permanently deleted.' : 'This changes the budget lifecycle without changing transactions.'} dismissible={!acting} onClose={() => { if (!acting) { setAction(null); setActionError('') } }}>
         <div className="confirmation"><p>{action?.budget.name}</p>{actionError ? <p className="form-error form-error--banner" role="alert">{actionError}</p> : null}<div className="form-actions form-actions--end"><Button variant="ghost" disabled={acting} onClick={() => { setAction(null); setActionError('') }}>Cancel</Button><Button variant={action?.kind === 'delete' ? 'danger' : 'secondary'} loading={acting} loadingLabel={`${actionLabel(action?.kind)} budget`} onClick={() => void confirmAction()}>{actionLabel(action?.kind)} budget</Button></div></div>

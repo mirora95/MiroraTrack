@@ -1,5 +1,5 @@
 import type { BudgetReadPort, BudgetUnitOfWork } from "./ports";
-import { categoryFor } from "./transactionCategories";
+import { categoryFor, isCustomCategoryId } from "./transactionCategories";
 import { ValidationError, requiredId } from "./validation";
 import {
   currencyFractionDigits,
@@ -175,6 +175,25 @@ export class BudgetService {
         remaining: checked(BigInt(budgeted) - BigInt(spent)),
       },
     };
+  }
+
+  async listCategoryIds(): Promise<readonly string[]> {
+    const [budgets, transactions] = await Promise.all([
+      this.dependencies.reads.listBudgets(),
+      this.dependencies.reads.listTransactions(),
+    ]);
+    const ids = new Set<string>();
+    for (const budget of budgets) {
+      if (isCustomCategoryId(budget.categoryId)) ids.add(budget.categoryId);
+    }
+    for (const transaction of transactions) {
+      if (
+        transaction.purpose === "standard" &&
+        "categoryId" in transaction &&
+        isCustomCategoryId(transaction.categoryId)
+      ) ids.add(transaction.categoryId);
+    }
+    return [...ids].sort((left, right) => left.localeCompare(right));
   }
 
   async availableCurrencies(): Promise<readonly CurrencyCode[]> {

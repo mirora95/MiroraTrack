@@ -181,6 +181,9 @@ export function decorateRuntimeWithAutomaticBackups(
     activity: runtime.activity,
     budgets: {
       list: (query) => runtime.budgets.list(query),
+      ...(runtime.budgets.listCategoryIds
+        ? { listCategoryIds: () => runtime.budgets.listCategoryIds!() }
+        : {}),
       availableCurrencies: () => runtime.budgets.availableCurrencies(),
       create: (draft) => changed(() => runtime.budgets.create(draft)),
       update: (id, draft) =>

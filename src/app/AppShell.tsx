@@ -21,7 +21,7 @@ export function AppShell() {
   useThemePreference()
 
   return (
-    <TransactionDialogProvider transactions={runtime.transactions} accounts={runtime.accounts}>
+    <TransactionDialogProvider transactions={runtime.transactions} accounts={runtime.accounts} budgets={runtime.budgets}>
     <div className={`desktop-shell${collapsed ? ' desktop-shell--collapsed' : ''}`}>
       <a
         className="skip-link"

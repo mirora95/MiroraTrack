@@ -24,6 +24,7 @@ const budget: Budget = {
 function service(rows: Budget[] = [budget]): BudgetsApplication {
   return {
     availableCurrencies: vi.fn().mockResolvedValue([currencyCode('USD')]),
+    listCategoryIds: vi.fn().mockResolvedValue([]),
     list: vi.fn().mockResolvedValue({
       month: '2026-07',
       currency: currencyCode('USD'),
@@ -48,6 +49,17 @@ function service(rows: Budget[] = [budget]): BudgetsApplication {
 }
 
 describe('BudgetsPage', () => {
+  it('offers custom categories previously created outside the selected budget view', async () => {
+    const app = service([])
+    vi.mocked(app.listCategoryIds!).mockResolvedValueOnce(['custom:expense:pet care'])
+    const user = userEvent.setup()
+    render(<BudgetsPage service={app} initialMonth="2026-07" />)
+
+    expect(await screen.findByText('A calmer month starts here')).toBeVisible()
+    await user.click(screen.getAllByRole('button', { name: 'Create budget' })[0]!)
+    expect(await screen.findByRole('option', { name: 'Pet care' })).toBeVisible()
+  })
+
   it('shows numeric progress with text health and keeps a failed form intact', async () => {
     const app = service([])
     vi.mocked(app.create).mockRejectedValueOnce(new Error('disk busy'))

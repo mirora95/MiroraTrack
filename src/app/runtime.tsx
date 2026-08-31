@@ -69,6 +69,7 @@ export interface ActivityApplication {
 
 export interface BudgetsApplication {
   list(query: BudgetListQuery): Promise<BudgetListResult>
+  listCategoryIds?(): Promise<readonly string[]>
   availableCurrencies(): Promise<readonly Budget['currency'][]>
   create(draft: BudgetDraft): Promise<Budget>
   update(id: string, draft: BudgetDraft): Promise<Budget>

@@ -30,6 +30,7 @@ interface Values {
 
 export function TransactionForm({
   transaction,
+  knownCategoryIds = [],
   accounts: accountService,
   service,
   onCancel,
@@ -38,6 +39,7 @@ export function TransactionForm({
   onConflict,
 }: {
   transaction?: Transaction | undefined
+  knownCategoryIds?: readonly string[]
   accounts: AccountsApplication
   service: TransactionsApplication
   onCancel(): void
@@ -112,7 +114,10 @@ export function TransactionForm({
   }, [destinationId, destinations, setValue, type])
   const categories = type === 'transfer'
     ? []
-    : categoryOptions(type, transaction && transaction.type !== 'transfer' ? [transaction.categoryId] : [])
+    : categoryOptions(type, [
+      ...knownCategoryIds,
+      ...(transaction && transaction.type !== 'transfer' ? [transaction.categoryId] : []),
+    ])
   const legacyCategory = transaction &&
     transaction.type !== 'transfer' &&
     transaction.categoryId &&
