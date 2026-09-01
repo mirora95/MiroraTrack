@@ -41,31 +41,29 @@ export function TransactionDialogProvider({
   const [busy, setBusy] = useState(false)
   const [revision, setRevision] = useState(0)
   const [knownCategoryIds, setKnownCategoryIds] = useState<readonly string[]>([])
+  const [categoriesLoading, setCategoriesLoading] = useState(true)
   const triggerRef = useRef<HTMLElement | null>(null)
 
-  useEffect(() => {
-    if (!target) return
-    let active = true
-    void Promise.all([
+  const refreshCategories = useCallback(async () => {
+    setCategoriesLoading(true)
+    const [transactionResult, budgetResult] = await Promise.allSettled([
       transactions.list({ page: 1, pageSize: 25, sort: 'newest' }),
       budgets?.listCategoryIds?.() ?? Promise.resolve([]),
-    ]).then(
-      ([page, persistedCategoryIds]) => {
-        if (!active) return
-        setKnownCategoryIds([
-          ...new Set([
-            ...page.facets.categories.map((category) => category.value),
-            ...persistedCategoryIds,
-          ]),
-        ])
-      },
-      () => {
-        if (!active) return
-        setKnownCategoryIds([])
-      },
-    )
-    return () => { active = false }
-  }, [budgets, target, transactions])
+    ])
+    const discovered: string[] = []
+    if (transactionResult.status === 'fulfilled') {
+      discovered.push(...transactionResult.value.facets.categories.map((category) => category.value))
+    }
+    if (budgetResult.status === 'fulfilled') discovered.push(...budgetResult.value)
+    if (transactionResult.status === 'fulfilled' || budgetResult.status === 'fulfilled') {
+      setKnownCategoryIds((current) => [...new Set([...current, ...discovered])])
+    }
+    setCategoriesLoading(false)
+  }, [budgets, transactions])
+
+  useEffect(() => {
+    void refreshCategories()
+  }, [refreshCategories, revision])
 
   const close = useCallback(() => {
     if (!busy) setTarget(null)
@@ -97,12 +95,19 @@ export function TransactionDialogProvider({
           <TransactionForm
             transaction={target === 'create' ? undefined : target}
             knownCategoryIds={knownCategoryIds}
+            categoriesLoading={categoriesLoading}
             accounts={accounts}
             service={transactions}
             onBusyChange={setBusy}
             onConflict={() => setRevision((value) => value + 1)}
             onCancel={close}
-            onSaved={() => {
+            onSaved={(saved) => {
+              const savedCategoryId = 'categoryId' in saved ? saved.categoryId : undefined
+              if (savedCategoryId) {
+                setKnownCategoryIds((current) => current.includes(savedCategoryId)
+                  ? current
+                  : [...current, savedCategoryId])
+              }
               setTarget(null)
               setRevision((value) => value + 1)
               window.requestAnimationFrame(() => triggerRef.current?.focus())

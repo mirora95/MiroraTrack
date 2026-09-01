@@ -3,6 +3,7 @@ import userEvent from '@testing-library/user-event'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import type { AccountsApplication, TransactionsApplication } from '../../app/runtime'
 import type { AccountListItem } from '../../application/accountService'
+import type { TransactionPage } from '../../application/transactionService'
 import { currencyCode } from '../../finance/money'
 import { minorAmount, type Account, type AccountId, type TransactionId } from '../../finance/types'
 import { TransactionDialogProvider, useTransactionDialog } from './TransactionDialogProvider'
@@ -73,7 +74,42 @@ function services() {
   return { transactions, accounts }
 }
 
+function deferred<T>() {
+  let resolve!: (value: T) => void
+  const promise = new Promise<T>((accept) => { resolve = accept })
+  return { promise, resolve }
+}
+
 describe('TransactionsPage', () => {
+  it('does not expose the category picker until persisted custom categories are loaded', async () => {
+    const { transactions, accounts } = services()
+    const categories = deferred<TransactionPage>()
+    vi.mocked(transactions.list).mockReturnValueOnce(categories.promise)
+    const user = userEvent.setup()
+
+    render(
+      <MemoryRouter>
+        <TransactionDialogProvider transactions={transactions} accounts={accounts}>
+          <QuickAddHarness />
+        </TransactionDialogProvider>
+      </MemoryRouter>,
+    )
+
+    await user.click(screen.getByRole('button', { name: 'Open quick add' }))
+    expect(screen.getByLabelText('Category')).toBeDisabled()
+    expect(screen.getByRole('option', { name: 'Loading categories…' })).toBeVisible()
+
+    categories.resolve({
+      ...emptyPage(),
+      facets: {
+        ...emptyPage().facets,
+        categories: [{ value: 'custom:expense:kindergarten', label: 'Kindergarten', count: 1 }],
+      },
+    })
+    expect(await screen.findByRole('option', { name: 'Kindergarten' })).toBeVisible()
+    expect(screen.getByLabelText('Category')).toBeEnabled()
+  })
+
   it('initializes from valid dashboard drill-down parameters and ignores invalid values', async () => {
     const { transactions, accounts } = services()
     render(
@@ -121,9 +157,9 @@ describe('TransactionsPage', () => {
         </TransactionDialogProvider>
       </MemoryRouter>,
     )
-    await waitFor(() => expect(transactions.list).toHaveBeenLastCalledWith(expect.objectContaining({ type: 'expense', currency: 'USD' })))
+    await waitFor(() => expect(transactions.list).toHaveBeenCalledWith(expect.objectContaining({ type: 'expense', currency: 'USD' })))
     await user.click(screen.getByRole('button', { name: 'Go back' }))
-    await waitFor(() => expect(transactions.list).toHaveBeenLastCalledWith(expect.objectContaining({ type: 'income' })))
+    await waitFor(() => expect(transactions.list).toHaveBeenCalledWith(expect.objectContaining({ type: 'income' })))
     expect(screen.getByRole('combobox', { name: 'Transaction type' })).toHaveValue('income')
 
     await user.selectOptions(screen.getByRole('combobox', { name: 'Transaction status' }), 'completed')

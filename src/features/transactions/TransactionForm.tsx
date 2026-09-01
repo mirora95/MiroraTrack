@@ -31,6 +31,7 @@ interface Values {
 export function TransactionForm({
   transaction,
   knownCategoryIds = [],
+  categoriesLoading = false,
   accounts: accountService,
   service,
   onCancel,
@@ -40,6 +41,7 @@ export function TransactionForm({
 }: {
   transaction?: Transaction | undefined
   knownCategoryIds?: readonly string[]
+  categoriesLoading?: boolean
   accounts: AccountsApplication
   service: TransactionsApplication
   onCancel(): void
@@ -232,8 +234,8 @@ export function TransactionForm({
         ) : null}
         {type !== 'transfer' ? (
           <FormField label="Category" error={errors.categoryId?.message}>
-            <select id="transaction-category" {...register('categoryId')}>
-              <option value="">Choose category</option>
+            <select id="transaction-category" disabled={pending || categoriesLoading} {...register('categoryId')}>
+              <option value="">{categoriesLoading ? 'Loading categories…' : 'Choose category'}</option>
               {legacyCategory ? <option value={legacyCategory}>Other (legacy)</option> : null}
               {categories.map((item) => <option key={item.id} value={item.id}>{item.label}</option>)}
               <option value={NEW_CATEGORY}>Create a new category</option>
