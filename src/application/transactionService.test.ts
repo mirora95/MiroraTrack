@@ -164,6 +164,77 @@ describe("TransactionService", () => {
     });
   });
 
+  it.each(["newest", "oldest"] as const)(
+    "orders offset timestamps chronologically for %s lists and CSV exports",
+    async (sort) => {
+      const records = [
+        transaction("earliest", { effectiveAt: "2026-07-16T00:15:00+05:00" }),
+        transaction("middle", { effectiveAt: "2026-07-15T20:00:00-04:00" }),
+        transaction("latest", { effectiveAt: "2026-07-16T00:30:00.000Z" }),
+      ];
+      const { service, backups } = setup(records);
+      const filters = { page: 1, pageSize: 25, sort } as const;
+      const expected = sort === "newest"
+        ? ["latest", "middle", "earliest"]
+        : ["earliest", "middle", "latest"];
+
+      const result = await service.list(filters);
+      expect(result.items.map(({ transaction: item }) => item.id)).toEqual(expected);
+
+      await service.exportFiltered(filters);
+      const csv = vi.mocked(backups.exportCsv).mock.calls[0]![0];
+      expect(csv.trimEnd().split("\r\n").slice(1).map((row) => row.split(",")[0]))
+        .toEqual(expected);
+      expect(records.map((item) => item.id)).toEqual(["earliest", "middle", "latest"]);
+    },
+  );
+
+  it.each(["newest", "oldest"] as const)(
+    "orders timestamps with optional milliseconds chronologically for %s",
+    async (sort) => {
+      const { service } = setup([
+        transaction("earlier", { effectiveAt: "2026-07-15T12:00:00Z" }),
+        transaction("later", { effectiveAt: "2026-07-15T12:00:00.100Z" }),
+      ]);
+
+      const result = await service.list({ page: 1, pageSize: 25, sort });
+      expect(result.items.map(({ transaction: item }) => item.id)).toEqual(
+        sort === "newest" ? ["later", "earlier"] : ["earlier", "later"],
+      );
+    },
+  );
+
+  it.each(["newest", "oldest"] as const)(
+    "uses the id tie-breaker for equal instants with different timestamp text for %s",
+    async (sort) => {
+      const { service } = setup([
+        transaction("c", { effectiveAt: "2026-07-15T17:00:00+05:00" }),
+        transaction("b", { effectiveAt: "2026-07-15T12:00:00Z" }),
+        transaction("a", { effectiveAt: "2026-07-15T12:00:00.000Z" }),
+      ]);
+
+      const result = await service.list({ page: 1, pageSize: 25, sort });
+      expect(result.items.map(({ transaction: item }) => item.id)).toEqual(["a", "b", "c"]);
+    },
+  );
+
+  it("keeps equal instants in id order across a page boundary", async () => {
+    const { service } = setup([
+      transaction("z", { effectiveAt: "2026-07-15T17:00:00+05:00" }),
+      ...Array.from({ length: 24 }, (_, index) => transaction(`recent-${index}`, {
+        effectiveAt: "2026-07-16T12:00:00.000Z",
+      })),
+      transaction("a", { effectiveAt: "2026-07-15T12:00:00.000Z" }),
+    ]);
+
+    const first = await service.list({ page: 1, pageSize: 25 });
+    const second = await service.list({ page: 2, pageSize: 25 });
+    expect(first.items.at(-1)?.transaction.id).toBe("a");
+    expect(second.items.map(({ transaction: item }) => item.id)).toEqual(["z"]);
+    expect(second.total).toBe(26);
+    expect(second.pageCount).toBe(2);
+  });
+
   it("uses safe labels for opening balances and missing accounts", async () => {
     const { service } = setup([
       transaction("opening", {

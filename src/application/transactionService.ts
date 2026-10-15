@@ -268,7 +268,7 @@ function accountIds(record: Transaction): string[] {
 function sorter(sort: TransactionSort) {
   return (left: Transaction, right: Transaction): number => {
     const amountOrder = left.amount - right.amount;
-    const dateOrder = left.effectiveAt.localeCompare(right.effectiveAt);
+    const dateOrder = Date.parse(left.effectiveAt) - Date.parse(right.effectiveAt);
     const primary = sort === "newest"
       ? -dateOrder
       : sort === "oldest"
