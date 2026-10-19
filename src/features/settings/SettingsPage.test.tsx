@@ -108,6 +108,37 @@ describe('SettingsPage', () => {
     })
   })
 
+  it('preserves edits made while an earlier preferences save is pending', async () => {
+    const user = userEvent.setup()
+    const service = services()
+    let resolveSave!: (value: Settings) => void
+    service.settings.update.mockReturnValueOnce(
+      new Promise<Settings>((resolve) => { resolveSave = resolve }),
+    )
+    render(<SettingsPage {...service} onRestoreComplete={vi.fn()} />)
+    await screen.findByRole('heading', { name: 'Settings' })
+
+    await user.selectOptions(screen.getByLabelText('Locale'), 'en-GB')
+    await user.click(screen.getByRole('button', { name: 'Save preferences' }))
+    expect(service.settings.update).toHaveBeenCalledOnce()
+    expect(screen.getByRole('button', { name: 'Saving preferences' })).toBeDisabled()
+
+    await user.selectOptions(screen.getByLabelText('Date format'), 'dd/MM/yyyy')
+    await act(async () => { resolveSave({ ...settings, locale: 'en-GB' }) })
+
+    expect(screen.getByLabelText('Locale')).toHaveValue('en-GB')
+    expect(screen.getByLabelText('Date format')).toHaveValue('dd/MM/yyyy')
+    expect(screen.getByRole('button', { name: 'Save preferences' })).toBeEnabled()
+
+    await user.click(screen.getByRole('button', { name: 'Save preferences' }))
+
+    expect(service.settings.update).toHaveBeenLastCalledWith(
+      expect.objectContaining({ locale: 'en-GB', dateFormat: 'dd/MM/yyyy' }),
+      { acknowledgeNoConversion: false },
+    )
+    expect(service.settings.update).toHaveBeenCalledTimes(2)
+  })
+
   it('requires explicit no-conversion acknowledgement for base currency', async () => {
     const user = userEvent.setup()
     const service = services()

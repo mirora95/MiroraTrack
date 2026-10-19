@@ -135,7 +135,7 @@ export function SettingsPage({
         acknowledgeNoConversion: currencyChanged && acknowledged,
       })
       setSettings(updated)
-      setDraft(updated)
+      setDraft((current) => current === draft ? updated : current)
       setAcknowledged(false)
       setNotice('Preferences saved.')
     } catch {
