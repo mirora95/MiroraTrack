@@ -90,7 +90,7 @@ export class DataManagementService {
     return safeFileOperation(async () => {
       const rows = [...await this.dependencies.transactions.listTransactions()]
         .sort((left, right) =>
-          right.effectiveAt.localeCompare(left.effectiveAt) ||
+          Date.parse(right.effectiveAt) - Date.parse(left.effectiveAt) ||
           (left.id as string).localeCompare(right.id as string));
       return this.dependencies.backups.exportCsv(
         serializeTransactionsCsv(rows),

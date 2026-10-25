@@ -134,6 +134,33 @@ describe("DataManagementService", () => {
     expect(csv.indexOf("b,income")).toBeLessThan(csv.indexOf("a,income"));
   });
 
+  it.each([
+    ["positive UTC offset", "2026-07-29T11:00:00+02:00", "2026-07-29T10:00:00Z", ["a", "b"]],
+    ["negative UTC offset", "2026-07-29T08:00:00-03:00", "2026-07-29T10:00:00Z", ["b", "a"]],
+    ["optional milliseconds", "2026-07-29T10:00:00Z", "2026-07-29T10:00:00.001Z", ["a", "b"]],
+    ["equal instants with optional milliseconds", "2026-07-29T10:00:00Z", "2026-07-29T10:00:00.000Z", ["a", "b"]],
+    ["equal instants with different offsets", "2026-07-29T12:00:00+02:00", "2026-07-29T10:00:00Z", ["a", "b"]],
+  ] as const)("exports newest first for %s, using IDs to break ties", async (_name, first, second, expected) => {
+    const deps = dependencies();
+    const records = Object.freeze([first, second].map((effectiveAt, index) => ({
+      id: index === 0 ? "b" : "a",
+      type: "income", status: "completed", purpose: "standard",
+      amount: 100, currency: "USD", effectiveAt,
+      destinationAccountId: "cash", categoryId: "salary",
+      createdAt: "2026-07-29T10:00:00.000Z",
+      updatedAt: "2026-07-29T10:00:00.000Z",
+    })));
+    deps.transactions.listTransactions.mockResolvedValue(records);
+
+    await new DataManagementService(deps).exportCsv();
+
+    const csv = deps.backups.exportCsv.mock.calls[0]?.[0] as string;
+    const exportedIds = csv.trimEnd().split("\r\n").slice(1)
+      .map((row) => row.split(",")[0]);
+    expect(exportedIds).toEqual(expected);
+    expect(records.map(({ id }) => id)).toEqual(["b", "a"]);
+  });
+
   it("keeps folder settings unchanged when selection is cancelled", async () => {
     const deps = dependencies();
     await expect(new DataManagementService(deps).chooseBackupFolder())
