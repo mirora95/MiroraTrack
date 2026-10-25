@@ -43,6 +43,44 @@ function service(items: readonly AccountListItem[] = []): AccountsApplication {
 }
 
 describe('accounts workspace', () => {
+  it('opens an imported four-decimal credit limit without losing its scale', async () => {
+    const original = account('imported', 'Imported card', 'CLF', 0)
+    const item: AccountListItem = {
+      ...original,
+      account: { ...original.account, type: 'credit', creditLimit: minorAmount(12345) },
+    }
+    const user = userEvent.setup()
+    render(<AccountsPage service={service([item])} locale="en-US" />)
+
+    await user.click(await screen.findByRole('button', { name: 'Edit Imported card' }))
+    expect(screen.getByLabelText('Credit limit')).toHaveValue('1.2345')
+  })
+
+  it.each([
+    ['USD', Number.MAX_SAFE_INTEGER],
+    ['JPY', Number.MAX_SAFE_INTEGER],
+    ['USD', 1029],
+  ] as const)('preserves an unchanged %s credit limit of %s when renaming an account', async (currency, creditLimit) => {
+    const original = account('credit', 'Rewards card', currency, 0)
+    const item: AccountListItem = {
+      ...original,
+      account: { ...original.account, type: 'credit', creditLimit: minorAmount(creditLimit) },
+    }
+    const accounts = service([item])
+    vi.mocked(accounts.update).mockResolvedValue(item.account)
+    const user = userEvent.setup()
+    render(<AccountsPage service={accounts} locale="en-US" />)
+
+    await user.click(await screen.findByRole('button', { name: 'Edit Rewards card' }))
+    await user.clear(screen.getByLabelText('Account name'))
+    await user.type(screen.getByLabelText('Account name'), 'Renamed card')
+    await user.click(screen.getByRole('button', { name: 'Save changes' }))
+
+    await waitFor(() => expect(accounts.update).toHaveBeenCalledWith(expect.objectContaining({
+      id: 'credit', name: 'Renamed card', creditLimit,
+    })))
+  })
+
   it('shows loading, retryable errors, and a premium empty state', async () => {
     const accounts = service()
     vi.mocked(accounts.list)

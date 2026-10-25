@@ -2,6 +2,7 @@ import { cloneElement, useState, type ReactElement } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { Button } from '../../components/Button'
+import { amountToDecimalString } from '../../export/csv'
 import type { AccountDraft } from '../../application/accountRecords'
 import type { UpdateAccountCommand } from '../../application/accountService'
 import { currencyFractionDigits, parseMajor, parseSignedMajor, SUPPORTED_CURRENCY_CODES } from '../../finance/money'
@@ -58,7 +59,7 @@ export function AccountForm({
       openingBalance: '0',
       creditLimit: account?.creditLimit === undefined
         ? ''
-        : String(account.creditLimit / 10 ** currencyFractionDigits(account.currency)),
+        : amountToDecimalString(account.creditLimit, account.currency),
     },
   })
   const type = watch('type')
