@@ -2,7 +2,7 @@ import { cleanup, render, screen, waitFor, within } from '@testing-library/react
 import userEvent from '@testing-library/user-event'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import type { BudgetsApplication } from '../../app/runtime'
-import { currencyCode } from '../../finance/money'
+import { currencyCode, currencyFractionDigits, parseMajor } from '../../finance/money'
 import { minorAmount, type Budget, type BudgetId, type BudgetMonth, type CategoryId } from '../../finance/types'
 import { BudgetsPage } from './BudgetsPage'
 
@@ -49,6 +49,28 @@ function service(rows: Budget[] = [budget]): BudgetsApplication {
 }
 
 describe('BudgetsPage', () => {
+  it.each([
+    ['USD', Number.MAX_SAFE_INTEGER],
+    ['JPY', Number.MAX_SAFE_INTEGER],
+    ['USD', 1029],
+  ] as const)('preserves an unchanged %s amount of %s when changing a budget category', async (currency, amount) => {
+    const item = { ...budget, currency: currencyCode(currency), amount: minorAmount(amount) }
+    const app = service([item])
+    vi.mocked(app.availableCurrencies).mockResolvedValue([currencyCode(currency)])
+    const user = userEvent.setup()
+    render(<BudgetsPage service={app} initialMonth="2026-07" />)
+
+    await user.click(await screen.findByRole('button', { name: 'Edit' }))
+    await user.selectOptions(screen.getByLabelText('Category'), 'transport')
+    await user.click(screen.getByRole('button', { name: 'Save budget' }))
+
+    await waitFor(() => expect(app.update).toHaveBeenCalledTimes(1))
+    const [id, draft] = vi.mocked(app.update).mock.calls[0]!
+    expect(id).toBe(item.id)
+    expect(draft.categoryId).toBe('transport')
+    expect(parseMajor(draft.amount, currencyFractionDigits(currency))).toBe(amount)
+  })
+
   it('offers custom categories previously created outside the selected budget view', async () => {
     const app = service([])
     vi.mocked(app.listCategoryIds!).mockResolvedValueOnce(['custom:expense:pet care'])

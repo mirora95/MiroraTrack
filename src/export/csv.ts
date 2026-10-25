@@ -1,3 +1,4 @@
+import { currencyFractionDigits } from "../finance/money";
 import type { Transaction } from "../finance/types";
 
 export const TRANSACTION_CSV_HEADERS = [
@@ -7,9 +8,7 @@ export const TRANSACTION_CSV_HEADERS = [
 
 export function amountToDecimalString(amount: number, currency: string): string {
   if (!Number.isSafeInteger(amount)) throw new RangeError("Amount must be a safe integer");
-  if (!/^[A-Z]{3}$/.test(currency)) throw new RangeError("Currency must be a three-letter uppercase code");
-  const scale = new Intl.NumberFormat("en", { style: "currency", currency }).resolvedOptions().maximumFractionDigits ?? 2;
-  if (scale < 0 || scale > 3) throw new RangeError("Unsupported currency scale");
+  const scale = currencyFractionDigits(currency);
   const negative = amount < 0;
   const digits = BigInt(amount < 0 ? -amount : amount).toString().padStart(scale + 1, "0");
   const decimal = scale === 0 ? digits : `${digits.slice(0, -scale)}.${digits.slice(-scale)}`;
