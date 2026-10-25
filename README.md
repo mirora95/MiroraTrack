@@ -11,6 +11,25 @@ an alternative local folder selected by the user.
 
 ## Build and test
 
+### Web checks
+
+Use Node.js 24 and npm. From the repository root, run the same checks as the
+[Web checks workflow](.github/workflows/web-checks.yml), in order:
+
+```sh
+npm ci
+npm run typecheck
+npm test -- --maxWorkers=2
+npm run build
+```
+
+These commands need no Rust toolchain or Visual Studio C++ build tools. They
+check TypeScript, run the Vitest suite (excluding Playwright E2E tests), and
+write the frontend build to `dist/`. They do not package the desktop app or
+replace the native and installer acceptance checks below.
+
+### Windows desktop checks
+
 Windows prerequisites, verification commands, and x64/ARM64 build guidance are
 documented in [docs/BUILDING-WINDOWS.md](docs/BUILDING-WINDOWS.md).
 
