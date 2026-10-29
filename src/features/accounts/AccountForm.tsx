@@ -23,8 +23,7 @@ const schema = z.object({
   currency: z.string().regex(/^[A-Z]{3}$/, 'Choose a currency.'),
 })
 
-// Sourced from the finance engine so every currency picker in the application
-// offers exactly the set the engine can parse, format, and validate.
+// Default choices for new accounts; existing accounts retain their currency below.
 const currencies = SUPPORTED_CURRENCY_CODES
 const types: readonly AccountType[] = ['checking', 'savings', 'cash', 'credit', 'investment', 'other']
 const icons: readonly AccountIcon[] = ['landmark', 'piggy-bank', 'wallet', 'credit-card', 'chart-line', 'banknote']
@@ -138,6 +137,8 @@ export function AccountForm({
         </FormField>
         <FormField label="Account currency" error={errors.currency?.message}>
           <select id="account-currency" {...register('currency')}>
+            {account && !currencies.some((currency) => currency === account.currency)
+              ? <option value={account.currency}>{account.currency}</option> : null}
             {currencies.map((currency) => <option key={currency}>{currency}</option>)}
           </select>
         </FormField>
