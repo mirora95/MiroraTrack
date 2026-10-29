@@ -43,7 +43,7 @@ function service(items: readonly AccountListItem[] = []): AccountsApplication {
 }
 
 describe('accounts workspace', () => {
-  it('opens an imported four-decimal credit limit without losing its scale', async () => {
+  it('opens an imported account with its currency and four-decimal credit limit', async () => {
     const original = account('imported', 'Imported card', 'CLF', 0)
     const item: AccountListItem = {
       ...original,
@@ -53,6 +53,7 @@ describe('accounts workspace', () => {
     render(<AccountsPage service={service([item])} locale="en-US" />)
 
     await user.click(await screen.findByRole('button', { name: 'Edit Imported card' }))
+    expect(screen.getByLabelText('Account currency')).toHaveValue('CLF')
     expect(screen.getByLabelText('Credit limit')).toHaveValue('1.2345')
   })
 
@@ -60,6 +61,7 @@ describe('accounts workspace', () => {
     ['USD', Number.MAX_SAFE_INTEGER],
     ['JPY', Number.MAX_SAFE_INTEGER],
     ['USD', 1029],
+    ['CLF', 12345],
   ] as const)('preserves an unchanged %s credit limit of %s when renaming an account', async (currency, creditLimit) => {
     const original = account('credit', 'Rewards card', currency, 0)
     const item: AccountListItem = {
@@ -77,7 +79,7 @@ describe('accounts workspace', () => {
     await user.click(screen.getByRole('button', { name: 'Save changes' }))
 
     await waitFor(() => expect(accounts.update).toHaveBeenCalledWith(expect.objectContaining({
-      id: 'credit', name: 'Renamed card', creditLimit,
+      id: 'credit', name: 'Renamed card', currency, creditLimit,
     })))
   })
 
